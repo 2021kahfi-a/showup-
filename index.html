@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#ffffff" />
+<title>Show Up — Say It & Show It: Building Skills, Shaping Your Identity</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* Palet Warna "The Confident Professional" */
+  --navy: #0F172A;
+  --navy-dark: #020617;
+  --orange: #FF6B35;
+  --orange-hover: #E85A28;
+  --white: #FFFFFF;
+  --gray-bg: #F8FAFC;
+  --gray-text: #64748B;
+  --border: #E2E8F0;
+  --shadow: 0 12px 35px rgba(15, 23, 42, 0.08);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--white); color: var(--navy); font-family: 'DM Sans', sans-serif; }
+h1, h2, h3, p { margin-top: 0; }
+h1, h2, h3 { font-family: Manrope, sans-serif; letter-spacing: -0.03em; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; }
+
+/* Container & Global */
+.wrap { width: min(1160px, calc(100% - 40px)); margin: auto; }
+.section { padding: 90px 0; }
+.section-head { margin-bottom: 45px; text-align: center; }
+.section-head h2 { font-size: clamp(32px, 4vw, 46px); line-height: 1.1; margin-bottom: 15px; }
+.section-head p { color: var(--gray-text); line-height: 1.7; max-width: 600px; margin: 0 auto; }
+
+/* Tombol (CTA) */
+.btn { border: 0; border-radius: 999px; padding: 14px 24px; font-weight: 700; font-size: 15px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: 0.2s; }
+.btn-orange { background: var(--orange); color: var(--white); }
+.btn-orange:hover { background: var(--orange-hover); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3); }
+.btn-navy { background: var(--navy); color: var(--white); }
+.btn-navy:hover { background: #1e293b; transform: translateY(-2px); }
+.btn-outline { background: transparent; border: 1px solid var(--white); color: var(--white); }
+.btn-outline:hover { background: rgba(255,255,255,0.1); transform: translateY(-2px); }
+
+/* Header / Navigasi */
+.nav-wrapper { background: var(--white); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border); }
+.nav { height: 80px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.brand { display: flex; align-items: center; gap: 10px; font-family: Manrope; font-weight: 800; font-size: 22px; color: var(--navy); }
+.brand span.accent { color: var(--orange); }
+.navlinks { display: flex; gap: 28px; align-items: center; font-weight: 500; font-size: 15px; color: var(--navy); }
+.navlinks a:hover { color: var(--orange); }
+.nav-right { display: flex; align-items: center; gap: 20px; }
+.ig-icon { font-weight: bold; font-size: 18px; color: var(--navy); transition: 0.2s; }
+.ig-icon:hover { color: var(--orange); transform: scale(1.1); }
+
+/* 1. Hero Section */
+.hero { background: var(--navy); color: var(--white); padding: 80px 0 100px; text-align: center; }
+.hero h1 { font-size: clamp(42px, 6vw, 72px); line-height: 1.05; max-width: 900px; margin: 0 auto 24px; }
+.hero p { font-size: 18px; line-height: 1.7; color: #cbd5e1; max-width: 700px; margin: 0 auto 35px; }
+.hero-actions { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+
+/* Fitur Highlight */
+.highlights { margin-top: -50px; position: relative; z-index: 10; padding-bottom: 60px; }
+.highlights-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.highlight-card { background: var(--white); border-radius: 16px; padding: 30px; box-shadow: var(--shadow); text-align: center; border: 1px solid var(--border); }
+.hc-icon { width: 56px; height: 56px; background: rgba(255, 107, 53, 0.1); color: var(--orange); border-radius: 50%; display: grid; place-items: center; font-size: 24px; margin: 0 auto 20px; }
+.highlight-card h3 { font-size: 20px; color: var(--navy); margin-bottom: 12px; }
+.highlight-card p { font-size: 14px; color: var(--gray-text); line-height: 1.6; margin: 0; }
+
+/* 2. Tentang Kami */
+.about { background: var(--gray-bg); text-align: center; }
+.about-intro { max-width: 750px; margin: 0 auto 50px; }
+.about-intro h2 { font-size: clamp(28px, 4vw, 38px); margin-bottom: 20px; }
+.about-intro p { font-size: 16px; color: var(--gray-text); line-height: 1.8; }
+.philosophy { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; }
+.phil-box { background: var(--white); border: 1px solid var(--border); border-radius: 20px; padding: 40px; max-width: 450px; flex: 1; min-width: 300px; text-align: left; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+.phil-box h3.say-it { color: var(--orange); font-size: 32px; margin-bottom: 15px; }
+.phil-box h3.show-it { color: var(--navy); font-size: 32px; margin-bottom: 15px; }
+
+/* --- FITUR TAMBAHAN CSS --- */
+/* Form Assessment & Upload */
+.form-group { margin-bottom: 15px; text-align: left; }
+.form-group label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 14px; }
+.form-control { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-family: inherit; }
+.result-box { display: none; margin-top: 20px; padding: 15px; background: rgba(255, 107, 53, 0.1); border-left: 4px solid var(--orange); border-radius: 8px; font-weight: bold; }
+
+/* Gamification / Level Up */
+.gamification-board { background: var(--navy); color: var(--white); padding: 40px; border-radius: 20px; margin-top: 40px; }
+.level-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px;}
+.badge { background: var(--orange); padding: 5px 15px; border-radius: 20px; font-size: 14px; font-weight: bold; }
+.progress-container { width: 100%; background: rgba(255,255,255,0.2); border-radius: 10px; height: 10px; margin-bottom: 20px; }
+.progress-bar { width: 40%; background: var(--orange); height: 100%; border-radius: 10px; }
+.task-list { list-style: none; padding: 0; margin: 0; text-align: left; }
+.task-list li { background: rgba(255,255,255,0.05); padding: 15px; margin-bottom: 10px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;}
+
+/* 3. Show It Session */
+.show-it-session { background: var(--white); }
+.show-it-header { background: var(--navy); color: var(--white); padding: 60px 0; border-radius: 24px; text-align: center; margin-bottom: -40px; position: relative; z-index: 1; }
+.show-it-header h2 { font-size: clamp(32px, 4vw, 42px); margin: 0; }
+.session-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; position: relative; z-index: 2; margin-top: 60px; }
+.session-card { background: var(--white); border: 1px solid var(--border); border-radius: 20px; padding: 35px 25px; text-align: center; box-shadow: var(--shadow); display: flex; flex-direction: column; transition: 0.3s; }
+.session-card:hover { transform: translateY(-8px); }
+.session-card h3 { font-size: 22px; margin-bottom: 15px; }
+.session-card p { font-size: 14px; color: var(--gray-text); line-height: 1.7; margin-bottom: 25px; flex-grow: 1; }
+.session-card .btn { width: 100%; margin-top: auto;}
+
+/* 4. Pusat Edukasi & Blog */
+.education { background: var(--gray-bg); }
+.edu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
+.edu-category h3 { font-size: 24px; border-bottom: 2px solid var(--border); padding-bottom: 15px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; }
+.edu-category h3 span { font-size: 12px; background: var(--orange); color: var(--white); padding: 4px 10px; border-radius: 20px; font-weight: 700; }
+.article-item { display: block; background: var(--white); padding: 20px; border-radius: 16px; margin-bottom: 15px; border: 1px solid var(--border); transition: 0.2s; }
+.article-item:hover { border-color: var(--navy); box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+.article-item h4 { font-size: 17px; margin: 0 0 8px 0; color: var(--navy); }
+.article-tags { font-size: 12px; color: var(--orange); font-weight: 600; }
+
+/* 5. Galeri Komunitas */
+.community { background: var(--white); text-align: center; }
+.hall-of-fame { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 40px; }
+.hof-item { aspect-ratio: 1; background: var(--gray-bg); border-radius: 16px; display: grid; place-items: center; font-weight: bold; color: var(--gray-text); border: 1px dashed #cbd5e1; }
+.hof-item:nth-child(1) { background: #f1f5f9 url('https://placehold.co/300x300/e2e8f0/64748b?text=Testimoni+1') center/cover; border:none; }
+.hof-item:nth-child(2) { background: #f1f5f9 url('https://placehold.co/300x300/e2e8f0/64748b?text=Testimoni+2') center/cover; border:none; }
+.hof-item:nth-child(3) { background: #f1f5f9 url('https://placehold.co/300x300/e2e8f0/64748b?text=UGC+Video') center/cover; border:none; }
+.hof-item:nth-child(4) { background: #f1f5f9 url('https://placehold.co/300x300/e2e8f0/64748b?text=Success+Story') center/cover; border:none; }
+
+/* Footer */
+.footer { background: var(--navy-dark); color: var(--white); padding: 60px 0 30px; }
+.footer-top { display: flex; justify-content: space-between; gap: 40px; align-items: start; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 30px; flex-wrap: wrap; }
+.footer .brand { color: var(--white); }
+.footer-desc { max-width: 350px; color: #94a3b8; font-size: 14px; line-height: 1.7; margin-top: 15px; }
+.footer-links { display: flex; gap: 40px; }
+.link-col h4 { margin: 0 0 15px 0; font-size: 16px; color: var(--white); }
+.link-col a { display: block; color: #94a3b8; margin-bottom: 10px; font-size: 14px; transition: 0.2s; }
+.link-col a:hover { color: var(--orange); }
+.social-links { display: flex; gap: 15px; margin-top: 15px; }
+.social-links a { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.1); display: grid; place-items: center; font-weight: bold; transition: 0.2s; }
+.social-links a:hover { background: var(--orange); color: var(--white); }
+.footer-bottom { display: flex; justify-content: space-between; color: #64748b; font-size: 13px; }
+
+@media(max-width: 900px) {
+  .navlinks { display: none; }
+  .highlights-grid, .session-grid, .edu-grid, .philosophy { grid-template-columns: 1fr; }
+  .hall-of-fame { grid-template-columns: repeat(2, 1fr); }
+  .footer-top { flex-direction: column; }
+  .footer-links { flex-wrap: wrap; }
+}
+@media(max-width: 540px) {
+  .hero h1 { font-size: 32px; }
+  .nav-right .ig-icon { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Header Navigasi -->
+<div class="nav-wrapper">
+  <header class="wrap nav">
+    <a class="brand" href="#home">
+      Show<span class="accent">Up</span>
+    </a>
+    <nav class="navlinks">
+      <a href="#home">Beranda</a>
+      <a href="#about">Tentang Kami</a>
+      <a href="rasyad.html">Cek Kelas</a>
+      <a href="#show-it">Show It Session</a>
+      <a href="#edukasi">Artikel & Edukasi</a>
+    </nav>
+    <div class="nav-right">
+      <a href="https://instagram.com/ShowUp" target="_blank" class="ig-icon" aria-label="Instagram">IG</a>
+      <a class="btn btn-orange" style="padding: 10px 18px;" href="#show-it">Mulai "Show Up"</a>
+    </div>
+  </header>
+</div>
+
+<!-- 1. Halaman Beranda (Homepage) - Hero Section -->
+<section class="hero" id="home">
+  <div class="wrap">
+    <h1>Say It & Show It: Building Skills, Shaping Your Identity.</h1>
+    <p>Platform suportif yang menemani kamu membangun skill komunikasi, meningkatkan kepercayaan diri, dan berani menunjukkan value dirimu ke dunia profesional.</p>
+    <div class="hero-actions">
+      <a class="btn btn-orange" href="#assessment">Cek Kelasku Sekarang</a>
+      <a class="btn btn-outline" href="#about">Pelajari Lebih Lanjut</a>
+    </div>
+  </div>
+</section>
+
+<!-- Highlight Section -->
+<section class="highlights wrap">
+  <div class="highlights-grid">
+    <div class="highlight-card">
+      <div class="hc-icon">🎯</div>
+      <h3>Practice (Show It Session)</h3>
+      <p>Wadah berlatih dan dapatkan peer-feedback langsung untuk kembangkan potensimu.</p>
+    </div>
+    <div class="highlight-card">
+      <div class="hc-icon">📚</div>
+      <h3>Learn (Edukasi)</h3>
+      <p>Insight sehari-hari & panduan masa depan untuk atasi rasa insecure-mu.</p>
+    </div>
+    <div class="highlight-card">
+      <div class="hc-icon">🤝</div>
+      <h3>Connect (Komunitas)</h3>
+      <p>Ruang aman untuk bertumbuh bersama dan memperluas networking-mu.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 2. Halaman Tentang Kami -->
+<section class="section about" id="about">
+  <div class="wrap">
+    <div class="about-intro">
+      <h2>Sering overthinking sebelum bicara?<br>Atau bingung nulis apa di CV padahal pengalamanmu banyak? You're not alone. We Are Here For You.</h2>
+      <p>Kami paham tantangan terbesar mahasiswa dan fresh graduate. Punya potensi dan semangat besar, tapi sering kali terhalang rasa kurang percaya diri saat harus menunjukkannya ke dunia profesional.</p>
+    </div>
+    
+    <div class="philosophy">
+      <div class="phil-box">
+        <h3 class="say-it">SAY IT.</h3>
+        <p><strong>Keberanianmu untuk bersuara.</strong><br>Mulai dari public speaking, presentasi di depan kelas, hingga kemampuan menyampaikan gagasan secara jelas dan terstruktur.</p>
+      </div>
+      <div class="phil-box">
+        <h3 class="show-it">SHOW IT.</h3>
+        <p><strong>Keberanianmu untuk tampil.</strong><br>Menunjukkan kompetensi lewat personal branding, membangun portofolio, dan merancang CV yang standout.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FITUR TAMBAHAN 1: Assessment / Interview Kelas -->
+<section class="section" id="assessment" style="background: var(--white);">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Cek Kelas Apa yang Cocok Buatmu!</h2>
+      <p>Jawab pertanyaan ini dan kami akan mengklasifikasikan kelemahanmu untuk masuk ke kelas pelatihan yang tepat.</p>
+    </div>
+    <div style="max-width: 500px; margin: auto; background: var(--gray-bg); padding: 30px; border-radius: 16px; border: 1px solid var(--border);">
+      <div class="form-group">
+        <label>Apa kendala terbesarmu saat ini?</label>
+        <select id="kendala" class="form-control">
+          <option value="nervous">Sering grogi dan nge-blank saat bicara</option>
+          <option value="struktur">Bicara sudah berani, tapi tidak terstruktur</option>
+          <option value="cv">Bingung cara menulis CV dan Personal Branding</option>
+          <option value="bingung">kgk bisa ngomong, gblk lu</option>
+        </select>
+      </div>
+      <button class="btn btn-navy" style="width: 100%;" onclick="cekKelas()">Temukan Kelasku</button>
+     <div id="hasil-kelas" class="result-box"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. Halaman Show It Session & FITUR TAMBAHAN 2: Upload -->
+<section class="section show-it-session" id="show-it" style="background: var(--gray-bg);">
+  <div class="wrap">
+    <div class="show-it-header">
+      <h2>Waktunya Unjuk Gigi. Learn It, Practice It, Show It!</h2>
+    </div>
+    
+    <div class="session-grid">
+      <!-- Modifikasi Upload CV -->
+      <div class="session-card">
+        <h3>📄 Rate My CV</h3>
+        <p>Upload draf CV-mu dalam format PDF dan dapatkan feedback konstruktif langsung dari mentor & sesama member.</p>
+        <div class="form-group">
+          <input type="file" class="form-control" accept="application/pdf">
+        </div>
+        <button class="btn btn-orange" onclick="alert('CV berhasil dikirim untuk direview!')">Kirim CV</button>
+      </div>
+      
+      <!-- Modifikasi Upload Video IG -->
+      <div class="session-card">
+  <h3>🎥 Video Challenge</h3>
+  <p>Submit link video Reels/IG public speaking-mu di sini. Latih keberanianmu dan kumpulkan poin.</p>
+  <button class="btn btn-orange" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSflfkjYVq03S7OMnZ5iHoRMjKcHVMk1eaPVcupOQeZwMlofiA/viewform?usp=header', '_blank')">Submit Video</button>
+</div>
+      
+      <div class="session-card">
+        <h3>💼 Mock Interview Board</h3>
+        <p>Jawab pertanyaan interview simulasi bulan ini dan pelajari cara menjawab dari peserta lain.</p>
+        <div style="flex-grow: 1;"></div>
+        <button class="btn btn-orange" onclick="alert('Masuk ke Mock Interview Board')">Coba Simulasi</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FITUR TAMBAHAN 3: Gamification Board -->
+<section class="section" style="background: var(--gray-bg); padding-top: 0;">
+  <div class="wrap">
+    <div class="gamification-board">
+      <div class="level-header">
+        <div>
+          <h3 style="margin:0;">Dashboard Progress Kamu</h3>
+          <p style="margin:0; color:#cbd5e1; font-size: 14px;">Selesaikan challenge dari owner untuk naik pangkat di kelasmu!</p>
+        </div>
+        <div class="badge">🏆 Pangkat saat ini: Rookie Speaker</div>
+      </div>
+      <p style="font-size: 14px;">Progress menuju pangkat "Pro Speaker" (40%)</p>
+      <div class="progress-container">
+        <div class="progress-bar"></div>
+      </div>
+      <ul class="task-list">
+        <li>
+          <span>✅ Ikut Assessment Test Pilihan Kelas</span>
+          <span style="color: var(--orange); font-weight: bold;">+10 EXP</span>
+        </li>
+        <li>
+          <span>⏳ Submit 1 Video Public Speaking (Link Instagram)</span>
+          <button class="btn btn-outline" style="padding: 5px 15px; font-size: 12px;">Kerjakan</button>
+        </li>
+        <li>
+          <span>🔒 Review CV 2 Teman Komunitas (Terkunci)</span>
+          <span style="color: gray; font-size: 14px;">Butuh Level 2</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 4. Pusat Edukasi & Blog -->
+<section class="section education" id="edukasi" style="background: var(--white);">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Artikel & Edukasi</h2>
+      <p>Sumber insight untuk menemani progres keseharianmu.</p>
+    </div>
+    
+    <div class="edu-grid">
+      <!-- Kategori 1 -->
+      <div class="edu-category">
+        <h3>Obrolan Sehari-hari <span>Daily</span></h3>
+        <a href="#" class="article-item">
+          <h4>Solusi Saat Tiba-tiba Nge-blank Pas Ditanya Dosen</h4>
+          <span class="article-tags">#PublicSpeaking #Kuliah</span>
+        </a>
+        <a href="#" class="article-item">
+          <h4>Cara Nulis Pengalaman Organisasi di CV Biar Gak Kelihatan "Kosong"</h4>
+          <span class="article-tags">#CareerReadiness #CV</span>
+        </a>
+      </div>
+      
+      <!-- Kategori 2 -->
+      <div class="edu-category">
+        <h3>Siap Hadapi Masa Depan <span>Visionary</span></h3>
+        <a href="#" class="article-item">
+          <h4>Communication in the AI Era: Skill Manusia yang Gak Bisa Diganti Robot</h4>
+          <span class="article-tags">#FutureSkills #Networking</span>
+        </a>
+        <a href="#" class="article-item">
+          <h4>Mengatasi Impostor Syndrome: Kamu Lebih Keren dari yang Kamu Pikirkan</h4>
+          <span class="article-tags">#PersonalBranding #Mindset</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Galeri Komunitas & UGC -->
+<section class="section community" id="komunitas">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Hall of Fame: Mereka yang Sudah #ShowUp</h2>
+      <p>Inspirasi dari teman-teman yang telah berani mengambil langkah pertama dan membagikan ceritanya.</p>
+    </div>
+    
+    <div class="hall-of-fame">
+      <div class="hof-item"></div>
+      <div class="hof-item"></div>
+      <div class="hof-item"></div>
+      <div class="hof-item"></div>
+    </div>
+    
+    <a class="btn btn-navy" href="#">Punya cerita suksesmu sendiri? Bagikan di sini!</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <a class="brand" href="#home" style="font-size: 26px;">Show<span class="accent">Up</span></a>
+        <p class="footer-desc">Say It & Show It.<br>Wadah berlatih, belajar, dan terkoneksi untuk membantu kamu membangun skill dan menunjukan identitas profesionalmu.</p>
+        <div class="social-links">
+          <a href="https://instagram.com" target="_blank" aria-label="Instagram">IG</a>
+          <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn">IN</a>
+          <a href="https://tiktok.com" target="_blank" aria-label="TikTok">TK</a>
+        </div>
+      </div>
+      
+      <div class="footer-links">
+        <div class="link-col">
+          <h4>Sitemap</h4>
+          <a href="#home">Beranda</a>
+          <a href="#about">Tentang Kami</a>
+          <a href="#assessment">Cek Kelas</a>
+          <a href="#show-it">Show It Session</a>
+        </div>
+        <div class="link-col">
+          <h4>Resources</h4>
+          <a href="#edukasi">Artikel Edukasi</a>
+          <a href="#komunitas">Galeri Komunitas</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <span>Hak Cipta &copy; 2026 Show Up.</span>
+      <span>Say It & Show It.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- JavaScript Tambahan -->
+<script>
+  // Script untuk Fitur 1 (Klasifikasi Kelas)
+  function cekKelas() {
+    const kendala = document.getElementById('kendala').value;
+    const hasilBox = document.getElementById('hasil-kelas');
+    
+    let namaKelas = "";
+    if(kendala === "nervous") {
+      namaKelas = "Kelas: 'Brave Beginner' <br> <span style='font-weight:normal; font-size:14px;'>(Fokus Mengatasi Demam Panggung & Basic Public Speaking)</span>";
+    } else if(kendala === "struktur") {
+      namaKelas = "Kelas: 'Structured Speaker' <br> <span style='font-weight:normal; font-size:14px;'>(Fokus Storytelling & Critical Thinking)</span>";
+    } else if(kendala === "cv") {
+      namaKelas = "Kelas: 'Career Ready' <br> <span style='font-weight:normal; font-size:14px;'>(Fokus Bedah CV & Interview Hack)</span>";
+    }
+      else if(kendala === "bingung") {
+      namaKelas = "Kelas: 'Confuse' <br> <span style='font-weight:normal; font-size:14px;'>(belajar lagi ya)</span>";
+    }
+
+  
+    hasilBox.innerHTML = "🎯 Berdasarkan analisismu, kamu direkomendasikan masuk: <br><br>" + namaKelas;
+    hasilBox.style.display = "block";
+  }
+
+  // Script Google Analytics Placeholder (dari kodemu sebelumnya)
+  console.log("Analytics Ready: Tracking user flow to Show It Sessions and Education sections.");
+</script>
+
+</body>
+</html>
