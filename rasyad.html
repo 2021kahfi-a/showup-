@@ -6,6 +6,32 @@
 <meta name="theme-color" content="#ffffff" />
 <title>Show Up — Say It & Show It: Building Skills, Shaping Your Identity</title>
 <style>
+  /* KUNCI GRID AGAR KARTU KANAN-KIRI TETAP SEJAJAR DI ATAS */
+.levels-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 20px !important;
+  align-items: start !important; /* Menjaga kartu 2 & 3 tetap di samping atas */
+  width: 100% !important;
+}
+
+/* RAPIKAN ISI TASK */
+.task-item {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-sizing: border-box;
+}
+
+.task-info {
+  flex: 1;
+  padding-right: 10px;
+}
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
 
 :root {
@@ -288,7 +314,13 @@ button { font: inherit; cursor: pointer; }
               </div>
               <div class="task-item locked" id="task-1-2">
                 <div class="task-info"><h4>Task 2: Fear Journal</h4><p>Tuliskan 3 hal ketakutan terbesarmu.</p></div>
-                <button class="btn-submit" id="btn-task-1-2" onclick="completeTask(1, 2)">Kerjakan</button>
+                <button class="btn-submit"<div class="task-item locked" id="task-1-2">
+  <div class="task-info">
+    <h4>Task 2: Fear Journal</h4>
+    <p>Tuliskan 3 hal ketakutan terbesarmu saat berbicara.</p>
+  </div>
+  <button class="btn-submit" id="btn-task-1-2" onclick="completeTask(1, 2); window.open('https://docs.google.com/forms/d/e/1FAIpQLScu2yR10WBqIcgBUQp5IFDBZTVKiHTSL5YWnz44ZcpInL6a2A/viewform?usp=header', '_blank')">Submit ↗</button>
+</div>
               </div>
               <div class="task-item locked" id="task-1-3">
                 <div class="task-info"><h4>Task 3: Review TED Talk</h4><p>Tonton 1 video TED Talk.</p></div>
