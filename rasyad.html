@@ -510,18 +510,47 @@ button { font: inherit; cursor: pointer; }
         </div>
 
         <!-- Level 02 -->
-        <div class="level-card locked" id="level-2">
-          <div class="lock-overlay" id="overlay-2">
-            <h2>🔒</h2>
-            <p>Selesaikan Baby Speaker untuk membuka level ini</p>
-          </div>
-          <div class="level-number">LEVEL 02</div>
-          <h4>Shy Talker 🫣</h4>
-          <p class="focus">Fokus: Melatih artikulasi, intonasi, dan mengurangi filler words.</p>
-          <div class="task-box"><div class="task-title">Task 1: Artikulasi Jelas</div></div>
-          <div class="task-box"><div class="task-title">Task 2: Olah Pernapasan</div></div>
-          <div class="task-box"><div class="task-title">Task 3: Bebas Filler Words</div></div>
-        </div>
+        <!-- Level 02 -->
+<div class="level-card locked" id="level-2">
+  <div class="lock-overlay" id="overlay-2">
+    <h2>🔒</h2>
+    <p>Selesaikan Baby Speaker untuk membuka level ini</p>
+  </div>
+  <div class="level-number">LEVEL 02</div>
+  <h4>Shy Talker 🫣</h4>
+  <p class="focus">Fokus: Melatih artikulasi, intonasi, dan mengurangi filler words.</p>
+  
+  <button id="btn-start-2" class="btn-start" onclick="startClass(2)">Mulai Kelas</button>
+
+  <div id="tasks-2" class="task-list" style="display: none;">
+    <!-- Task 1 -->
+    <div class="task-item active" id="task-2-1">
+      <div class="task-info">
+        <h4>Task 1: Tongue Twister (15s)</h4>
+        <p>Rekam audio/video baca kalimat rumit 3x cepat tanpa blepotan.</p>
+      </div>
+      <button class="btn-submit" id="btn-task-2-1" onclick="completeTask(2, 1); window.open('https://docs.google.com/forms/d/e/1FAIpQLSflfkjYVq03S7OMnZ5iHoRMjKcHVMk1eaPVcupOQeZwMlofiA/viewform?usp=header', '_blank')">Submit ↗</button>
+    </div>
+
+    <!-- Task 2 -->
+    <div class="task-item locked" id="task-2-2">
+      <div class="task-info">
+        <h4>Task 2: Voice Over Intonasi</h4>
+        <p>Baca 1 paragraf quotes favoritmu dengan intonasi bersemangat.</p>
+      </div>
+      <button class="btn-submit" id="btn-task-2-2" onclick="completeTask(2, 2); window.open('https://docs.google.com/forms/d/e/1FAIpQLScu2yR10WBqIcgBUQp5IFDBZTVKiHTSL5YWnz44ZcpInL6a2A/viewform?usp=header', '_blank')" disabled>🔒 Locked</button>
+    </div>
+
+    <!-- Task 3 -->
+    <div class="task-item locked" id="task-2-3">
+      <div class="task-info">
+        <h4>Task 3: 30s Tanpa "Emm..."</h4>
+        <p>Ceritain hobi/makanan favorit 30s tanpa kata jeda ("uhm", "eee").</p>
+      </div>
+      <button class="btn-submit" id="btn-task-2-3" onclick="completeTask(2, 3); window.open('https://docs.google.com/forms/d/e/1FAIpQLSflfkjYVq03S7OMnZ5iHoRMjKcHVMk1eaPVcupOQeZwMlofiA/viewform?usp=header', '_blank')" disabled>🔒 Locked</button>
+    </div>
+  </div>
+</div>
 
         <!-- Level 03 -->
         <div class="level-card locked" id="level-3">
