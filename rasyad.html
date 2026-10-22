@@ -6,6 +6,59 @@
 <meta name="theme-color" content="#ffffff" />
 <title>Show Up — Say It & Show It: Building Skills, Shaping Your Identity</title>
 <style>
+  /* --- LEBARKAN CONTAINER DASHBOARD SAMA DENGAN INDEX.HTML --- */
+.wrap {
+  width: min(1280px, calc(100% - 40px)) !important;
+  max-width: 1280px !important;
+  margin: 0 auto !important;
+  box-sizing: border-box !important;
+}
+
+.nav-wrapper {
+  width: 100% !important;
+  background: var(--white) !important;
+  border-bottom: 1px solid var(--border);
+}
+
+.nav {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  height: 80px !important;
+  width: 100% !important;
+}
+
+.navlinks {
+  display: flex !important;
+  gap: 32px !important;
+  align-items: center !important;
+}
+
+.nav-right {
+  display: flex !important;
+  align-items: center !important;
+  gap: 20px !important;
+}
+  /* --- UNIFORM CONTAINER UNTUK SELURUH DASHBOARD --- */
+.wrap {
+  width: min(1160px, calc(100% - 40px)) !important;
+  max-width: 1160px !important;
+  margin: 0 auto !important;
+  box-sizing: border-box !important;
+}
+
+/* Pastikan section roadmap presisi mengikuti lebar wrap dashboard */
+.roadmap-wrapper {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 50px 30px !important;
+  border-radius: 24px !important;
+}
+
+.roadmap-wrapper .wrap {
+  width: 100% !important;
+  max-width: 100% !important;
+}
   /* KUNCI GRID AGAR KARTU KANAN-KIRI TETAP SEJAJAR DI ATAS */
 .levels-grid {
   display: grid !important;
@@ -198,6 +251,122 @@ button { font: inherit; cursor: pointer; }
   width: 100% !important;
   box-sizing: border-box !important;
 }
+/* --- PAKSA KARTU BERJEJER 3 KOLOM KE SAMPING --- */
+/* --- CSS ROADMAP GAMIFIKASI RESPONSIF & RAPI --- */
+.roadmap-wrapper {
+  background: var(--navy);
+  color: var(--white);
+  padding: 50px 20px;
+  border-radius: 24px;
+  margin-top: 40px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.phase-header {
+  border-left: 4px solid var(--orange);
+  padding-left: 15px;
+  margin: 35px 0 15px;
+  text-align: left;
+  width: 100%;
+  box-sizing: border-box;
+}
+.phase-header h3 { font-size: 20px; color: var(--white); margin: 0; }
+.phase-header p { font-size: 13px; color: #cbd5e1; margin: 4px 0 0; }
+
+.levels-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 20px !important;
+  align-items: start !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.level-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: left;
+  transition: 0.3s;
+  position: relative !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  min-height: 220px;
+}
+.level-card.unlocked { border-color: var(--orange); background: rgba(255, 107, 53, 0.05); }
+.level-card.locked { opacity: 0.7; }
+
+.level-number { font-size: 12px; font-weight: 800; color: var(--orange); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+.level-card h4 { font-size: 18px; margin-bottom: 8px; color: var(--white); }
+.level-card p.focus { font-size: 12px; color: #94a3b8; margin-bottom: 15px; line-height: 1.4; }
+
+.btn-start {
+  width: 100%;
+  padding: 10px;
+  background-color: var(--orange);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.task-list { margin-top: 15px; }
+
+.task-item {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 10px 12px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-sizing: border-box;
+  gap: 10px;
+}
+.task-info { flex: 1; }
+.task-info h4 { margin: 0 0 3px 0; font-size: 12px; color: var(--white); }
+.task-info p { margin: 0; font-size: 11px; color: #94a3b8; line-height: 1.3; }
+
+.task-item.locked { opacity: 0.4; pointer-events: none; }
+.task-item.completed { border-color: #10b981; background: rgba(16, 185, 129, 0.1); }
+
+.btn-submit {
+  background: transparent;
+  color: var(--orange);
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.task-item.completed .btn-submit { color: #10b981; }
+
+.lock-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(15, 23, 42, 0.88);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  backdrop-filter: blur(2px);
+  border-radius: 16px;
+  padding: 15px;
+  box-sizing: border-box;
+}
+.lock-overlay h2 { font-size: 24px; margin-bottom: 5px; }
+.lock-overlay p { color: #cbd5e1; font-size: 12px; margin: 0; line-height: 1.4; }
+
+@media (max-width: 900px) {
+  .levels-grid { grid-template-columns: 1fr !important; }
+}
 </style>
 </head>
 <body>
@@ -209,7 +378,7 @@ button { font: inherit; cursor: pointer; }
     <nav class="navlinks">
       <a href="index.html">Beranda</a>
       <a href="#about">Tentang Kami</a>
-      <a href="#cek-kelas">Cek Kelas & Roadmap</a>
+      <a href="#cek-kelas">Cek Kelas</a>
       <a href="#show-it">Show It Session</a>
       <a href="#edukasi">Edukasi</a>
     </nav>
@@ -287,172 +456,161 @@ button { font: inherit; cursor: pointer; }
     </div>
 
     <!-- SECTION 2: ROADMAP 15 PANGKAT PUBLIC SPEAKING -->
-    <div class="roadmap-wrapper" id="roadmap-ps" style="margin-top: 60px;">
-      <div class="wrap" style="width: 100%;">
-        <div style="text-align: center; margin-bottom: 40px;">
-          <span style="background: rgba(255,107,53,0.2); color: var(--orange); padding: 6px 16px; border-radius: 20px; font-weight: bold; font-size: 13px;">ROADMAP AKADEMI</span>
-          <h2 style="font-size: 32px; margin-top: 10px;">15 Pangkat Public Speaking</h2>
-          <p style="color: #cbd5e1; max-width: 600px; margin: auto;">Selesaikan 3 Task di setiap level untuk membuka kunci pangkat berikutnya!</p>
-        </div>
+    <!-- SECTION 2: ROADMAP 15 PANGKAT PUBLIC SPEAKING -->
+    <div class="roadmap-wrapper" id="roadmap-ps">
+      <div style="text-align: center; margin-bottom: 40px;">
+        <span style="background: rgba(255,107,53,0.2); color: var(--orange); padding: 6px 16px; border-radius: 20px; font-weight: bold; font-size: 13px;">ROADMAP AKADEMI</span>
+        <h2 style="font-size: 32px; margin-top: 10px;">15 Pangkat Public Speaking</h2>
+        <p style="color: #cbd5e1; max-width: 600px; margin: auto;">Selesaikan 3 Task di setiap level untuk membuka kunci pangkat berikutnya!</p>
+      </div>
 
-        <!-- FASE 1 -->
-        <div class="phase-header">
-          <h3>🟢 FASE 1: THE FOUNDATION (Mengatasi Rasa Takut & Dasar Bicara)</h3>
-          <p>Membangun fondasi keberanian dasar di depan kamera dan publik.</p>
-        </div>
-        <div class="levels-grid">
-          <!-- Level 1 -->
-          <div class="level-card unlocked" id="level-1">
-            <div class="level-number">LEVEL 01</div>
-            <h4>Baby Speaker 👶</h4>
-            <p class="focus">Fokus: Keberanian dasar menatap kamera & menyapa publik.</p>
-            <button id="btn-start-1" class="btn-start" onclick="startClass(1)">Mulai Kelas</button>
-            <div id="tasks-1" class="task-list" style="display: none;">
-              <div class="task-item active" id="task-1-1">
-                <div class="task-info"><h4>Task 1: Video Intro (30s)</h4><p>Upload video perkenalan diri 30s.</p></div>
-                <button class="btn-submit" id="btn-task-1-1" onclick="completeTask(1, 1)">Submit ↗</button>
+      <!-- FASE 1 -->
+      <div class="phase-header">
+        <h3>🟢 FASE 1: THE FOUNDATION (Mengatasi Rasa Takut & Dasar Bicara)</h3>
+        <p>Membangun fondasi keberanian dasar di depan kamera dan publik.</p>
+      </div>
+
+      <div class="levels-grid">
+        <!-- Level 01 -->
+        <div class="level-card unlocked" id="level-1">
+          <div class="level-number">LEVEL 01</div>
+          <h4>Baby Speaker 👶</h4>
+          <p class="focus">Fokus: Keberanian dasar menatap kamera & menyapa publik.</p>
+          
+          <button id="btn-start-1" class="btn-start" onclick="startClass(1)">Mulai Kelas</button>
+
+          <div id="tasks-1" class="task-list" style="display: none;">
+            <!-- Task 1 -->
+            <div class="task-item active" id="task-1-1">
+              <div class="task-info">
+                <h4>Task 1: Video Intro (30s)</h4>
+                <p>Upload video perkenalan diri 30s.</p>
               </div>
-              <div class="task-item locked" id="task-1-2">
-                <div class="task-info"><h4>Task 2: Fear Journal</h4><p>Tuliskan 3 hal ketakutan terbesarmu.</p></div>
-                <button class="btn-submit"<div class="task-item locked" id="task-1-2">
-  <div class="task-info">
-    <h4>Task 2: Fear Journal</h4>
-    <p>Tuliskan 3 hal ketakutan terbesarmu saat berbicara.</p>
-  </div>
-  <button class="btn-submit" id="btn-task-1-2" onclick="completeTask(1, 2); window.open('https://docs.google.com/forms/d/e/1FAIpQLScu2yR10WBqIcgBUQp5IFDBZTVKiHTSL5YWnz44ZcpInL6a2A/viewform?usp=header', '_blank')">Submit ↗</button>
-</div>
+              <button class="btn-submit" id="btn-task-1-1" onclick="completeTask(1, 1); window.open('https://docs.google.com/forms/d/e/1FAIpQLSflfkjYVq03S7OMnZ5iHoRMjKcHVMk1eaPVcupOQeZwMlofiA/viewform?usp=header', '_blank')">Submit ↗</button>
+            </div>
+
+            <!-- Task 2 -->
+            <div class="task-item locked" id="task-1-2">
+              <div class="task-info">
+                <h4>Task 2: Fear Journal</h4>
+                <p>Tuliskan 3 hal ketakutan terbesarmu saat berbicara.</p>
               </div>
-              <div class="task-item locked" id="task-1-3">
-                <div class="task-info"><h4>Task 3: Review TED Talk</h4><p>Tonton 1 video TED Talk.</p></div>
-                <button class="btn-submit" id="btn-task-1-3" onclick="completeTask(1, 3)">Submit ↗</button>
+              <button class="btn-submit" id="btn-task-1-2" onclick="completeTask(1, 2); window.open('https://docs.google.com/forms/d/e/1FAIpQLScu2yR10WBqIcgBUQp5IFDBZTVKiHTSL5YWnz44ZcpInL6a2A/viewform?usp=header', '_blank')" disabled>🔒 Locked</button>
+            </div>
+
+            <!-- Task 3 -->
+            <div class="task-item locked" id="task-1-3">
+              <div class="task-info">
+                <h4>Task 3: Review TED Talk</h4>
+                <p>Tonton 1 video TED Talk dan tuliskan rangkumannya.</p>
               </div>
+              <button class="btn-submit" id="btn-task-1-3" onclick="completeTask(1, 3); window.open('https://docs.google.com/forms/d/e/1FAIpQLSflfkjYVq03S7OMnZ5iHoRMjKcHVMk1eaPVcupOQeZwMlofiA/viewform?usp=header', '_blank')" disabled>🔒 Locked</button>
             </div>
           </div>
+        </div>
 
-          <!-- Level 2 -->
-          <div class="level-card locked" id="level-2">
-            <div class="lock-overlay" id="overlay-2"><h2>🔒</h2><p>Selesaikan Baby Speaker untuk membuka level ini</p></div>
-            <div class="level-number">LEVEL 02</div>
-            <h4>Shy Talker 🫣</h4>
-            <p class="focus">Fokus: Melatih artikulasi, intonasi, dan mengurangi filler words.</p>
+        <!-- Level 02 -->
+        <div class="level-card locked" id="level-2">
+          <div class="lock-overlay" id="overlay-2">
+            <h2>🔒</h2>
+            <p>Selesaikan Baby Speaker untuk membuka level ini</p>
           </div>
+          <div class="level-number">LEVEL 02</div>
+          <h4>Shy Talker 🫣</h4>
+          <p class="focus">Fokus: Melatih artikulasi, intonasi, dan mengurangi filler words.</p>
+          <div class="task-box"><div class="task-title">Task 1: Artikulasi Jelas</div></div>
+          <div class="task-box"><div class="task-title">Task 2: Olah Pernapasan</div></div>
+          <div class="task-box"><div class="task-title">Task 3: Bebas Filler Words</div></div>
+        </div>
 
-          <!-- Level 3 -->
-          <div class="level-card locked" id="level-3">
-            <div class="lock-overlay" id="overlay-3"><h2>🔒</h2><p>Selesaikan Shy Talker untuk membuka level ini</p></div>
-            <div class="level-number">LEVEL 03</div>
-            <h4>Ice Breaker 🧊</h4>
-            <p class="focus">Fokus: Impromptu speaking ringan & menyuarakan opini.</p>
+        <!-- Level 03 -->
+        <div class="level-card locked" id="level-3">
+          <div class="lock-overlay" id="overlay-3">
+            <h2>🔒</h2>
+            <p>Selesaikan Shy Talker untuk membuka level ini</p>
           </div>
+          <div class="level-number">LEVEL 03</div>
+          <h4>Ice Breaker 🧊</h4>
+          <p class="focus">Fokus: Impromptu speaking ringan & menyuarakan opini.</p>
+          <div class="task-box"><div class="task-title">Task 1: Re-share Berita</div></div>
+          <div class="task-box"><div class="task-title">Task 2: Focus Eye-Contact</div></div>
+          <div class="task-box"><div class="task-title">Task 3: Peer Feedback</div></div>
         </div>
+      </div>
 
-        <!-- FASE 2 -->
-        <div class="phase-header">
-          <h3>🟡 FASE 2: THE CONFIDENT SPEAKER (Mulai Menguasai Panggung)</h3>
-          <p>Meningkatkan struktur bicara, storytelling, dan gesture tubuh.</p>
-        </div>
-        <div class="levels-grid">
-          <div class="level-card locked"><div class="lock-overlay"><h2>🔒</h2><p>Terkunci</p></div><div class="level-number">LEVEL 04</div><h4>Stage Rookie 🎭</h4><p class="focus">Fokus: Teknik Hook pembuka & Closing yang berkesan.</p></div>
-          <div class="level-card locked"><div class="lock-overlay"><h2>🔒</h2><p>Terkunci</p></div><div class="level-number">LEVEL 05</div><h4>Storyweaver 📖</h4><p class="focus">Fokus: Menyampaikan cerita emosional & ekspresi tubuh.</p></div>
-          <div class="level-card locked"><div class="lock-overlay"><h2>🔒</h2><p>Terkunci</p></div><div class="level-number">LEVEL 06</div><h4>Crowd Charmer ✨</h4><p class="focus">Fokus: Analogi sederhana, humor, dan interaksi audiens.</p></div>
-        </div>
+      <!-- FASE 2 -->
+      <div class="phase-header">
+        <h3>🟡 FASE 2: THE CONFIDENT SPEAKER (Mulai Menguasai Panggung)</h3>
+        <p>Meningkatkan struktur bicara, storytelling, dan gesture tubuh.</p>
+      </div>
+      <div class="levels-grid">
+        <div class="level-card locked" id="level-4"><div class="lock-overlay"><h2>🔒</h2><p>Terkunci</p></div><div class="level-number">LEVEL 04</div><h4>Stage Rookie 🎭</h4><p class="focus">Fokus: Teknik Hook pembuka & Closing yang berkesan.</p></div>
+        <div class="level-card locked" id="level-5"><div class="lock-overlay"><h2>🔒</h2><p>Terkunci</p></div><div class="level-number">LEVEL 05</div><h4>Storyweaver 📖</h4><p class="focus">Fokus: Menyampaikan cerita emosional & ekspresi tubuh.</p></div>
+        <div class="level-card locked" id="level-6"><div class="lock-overlay"><h2>🔒</h2><p>Terkunci</p></div><div class="level-number">LEVEL 06</div><h4>Crowd Charmer ✨</h4><p class="focus">Fokus: Analogi sederhana, humor, dan interaksi audiens.</p></div>
+      </div>
 
-        <!-- FASE 3 -->
-        <div class="phase-header">
-          <h3>🟠 FASE 3: THE PERSUASIVE COMMUNICATOR (Mempengaruhi & Berargumentasi)</h3>
-          <p>Menguasai logika berpikir, persuasi bisnis, dan improvisasi acara.</p>
-        </div>
-        <div class="levels-grid">
-          <div class="level-card locked"><div class="lock-overlay"><h2>🔒</h2><p>Terkunci</p></div><div class="level-number">LEVEL 07</div><h4>Argument Builder 🧠</h4><p class="focus">Fokus: Metode PREP (Point, Reason, Example, Point).</p></div>
-          <div class="level-card locked"><div class="lock-overlay"><h2>🔒</h2><p>Terkunci</p></div><div class="level-number">LEVEL 08</div><h4>Persuasion Knight 🛡️</h4><p class="focus">Fokus: Pitching ide bisnis & handling objection.</p></div>
-          <div class="level-card locked"><div class="lock-overlay"><h2>🔒</h2><p>Terkunci</p></div><div class="level-number">LEVEL 09</div><h4>MC Candidate 🎙️</h4><p class="focus">Fokus: Memandu acara formal/informal & cue card.</p></div>
-        </div>
+      <!-- FASE 3 -->
+      <div class="phase-header">
+        <h3>🟠 FASE 3: THE PERSUASIVE COMMUNICATOR (Mempengaruhi & Berargumentasi)</h3>
+        <p>Menguasai logika berpikir, persuasi bisnis, dan improvisasi acara.</p>
+      </div>
+      <div class="levels-grid">
+        <div class="level-card locked" id="level-7"><div class="lock-overlay"><h2>🔒</h2><p>Terkunci</p></div><div class="level-number">LEVEL 07</div><h4>Argument Builder 🧠</h4><p class="focus">Fokus: Metode PREP (Point, Reason, Example, Point).</p></div>
+        <div class="level-card locked" id="level-8"><div class="lock-overlay"><h2>🔒</h2><p>Terkunci</p></div><div class="level-number">LEVEL 08</div><h4>Persuasion Knight 🛡️</h4><p class="focus">Fokus: Pitching ide bisnis & handling objection.</p></div>
+        <div class="level-card locked" id="level-9"><div class="lock-overlay"><h2>🔒</h2><p>Terkunci</p></div><div class="level-number">LEVEL 09</div><h4>MC Candidate 🎙️</h4><p class="focus">Fokus: Memandu acara formal/informal & cue card.</p></div>
+      </div>
 
-        <!-- FASE 4 -->
-        <div class="phase-header">
-          <h3>🔴 FASE 4: THE LEADERSHIP SPEAKER (Kepemimpinan & Debat)</h3>
-          <p>Komunikasi tingkat eksekutif, debat retorika, dan pidato motivasi.</p>
-        </div>
-        <div class="levels-grid">
-          <div class="level-card locked"><div class="lock-overlay"><h2>🔒</h2><p>Terkunci</p></div><div class="level-number">LEVEL 10</div><h4>Executive Voice 👔</h4><p class="focus">Fokus: Presentasi manajerial & Sandwich Feedback.</p></div>
-          <div class="level-card locked"><div class="lock-overlay"><h2>🔒</h2><p>Terkunci</p></div><div class="level-number">LEVEL 11</div><h4>Debate Strategist ⚖️</h4><p class="focus">Fokus: Sanggahan cepat & mendeteksi logical fallacy.</p></div>
-          <div class="level-card locked"><div class="lock-overlay"><h2>🔒</h2><p>Terkunci</p></div><div class="level-number">LEVEL 12</div><h4>Inspirational Orator 🗣️</h4><p class="focus">Fokus: Pidato motivasi ala TED Talk & jeda strategis.</p></div>
-        </div>
+      <!-- FASE 4 -->
+      <div class="phase-header">
+        <h3>🔴 FASE 4: THE LEADERSHIP SPEAKER (Kepemimpinan & Debat)</h3>
+        <p>Komunikasi tingkat eksekutif, debat retorika, dan pidato motivasi.</p>
+      </div>
+      <div class="levels-grid">
+        <div class="level-card locked" id="level-10"><div class="lock-overlay"><h2>🔒</h2><p>Terkunci</p></div><div class="level-number">LEVEL 10</div><h4>Executive Voice 👔</h4><p class="focus">Fokus: Presentasi manajerial & Sandwich Feedback.</p></div>
+        <div class="level-card locked" id="level-11"><div class="lock-overlay"><h2>🔒</h2><p>Terkunci</p></div><div class="level-number">LEVEL 11</div><h4>Debate Strategist ⚖️</h4><p class="focus">Fokus: Sanggahan cepat & mendeteksi logical fallacy.</p></div>
+        <div class="level-card locked" id="level-12"><div class="lock-overlay"><h2>🔒</h2><p>Terkunci</p></div><div class="level-number">LEVEL 12</div><h4>Inspirational Orator 🗣️</h4><p class="focus">Fokus: Pidato motivasi ala TED Talk & jeda strategis.</p></div>
+      </div>
 
-        <!-- FASE 5 -->
-        <div class="phase-header">
-          <h3>🟣 FASE 5: THE LEGENDARY MAESTRO (Tingkat Ahli & Mentor)</h3>
-          <p>Membangun personal brand nasional hingga menjadi mentor resmi.</p>
-        </div>
-        <div class="levels-grid">
-          <div class="level-card locked"><div class="lock-overlay"><h2>🔒</h2><p>Terkunci</p></div><div class="level-number">LEVEL 13</div><h4>Thought Leader 💡</h4><p class="focus">Fokus: Serial opini publik & menulis artikel panduan.</p></div>
-          <div class="level-card locked"><div class="lock-overlay"><h2>🔒</h2><p>Terkunci</p></div><div class="level-number">LEVEL 14</div><h4>Voice Maestro 🌟</h4><p class="focus">Fokus: Keynote speaker & wawancara media massa.</p></div>
-          <div class="level-card locked"><div class="lock-overlay"><h2>🔒</h2><p>Terkunci</p></div><div class="level-number">LEVEL 15</div><h4>Grand Public Speaker 👑</h4><p class="focus">Fokus: Kelulusan puncak & sertifikasi Mentor Show Up.</p></div>
-        </div>
-
+      <!-- FASE 5 -->
+      <div class="phase-header">
+        <h3>🟣 FASE 5: THE LEGENDARY MAESTRO (Tingkat Ahli & Mentor)</h3>
+        <p>Membangun personal brand nasional hingga menjadi mentor resmi.</p>
+      </div>
+      <div class="levels-grid">
+        <div class="level-card locked" id="level-13"><div class="lock-overlay"><h2>🔒</h2><p>Terkunci</p></div><div class="level-number">LEVEL 13</div><h4>Thought Leader 💡</h4><p class="focus">Fokus: Serial opini publik & menulis artikel panduan.</p></div>
+        <div class="level-card locked" id="level-14"><div class="lock-overlay"><h2>🔒</h2><p>Terkunci</p></div><div class="level-number">LEVEL 14</div><h4>Voice Maestro 🌟</h4><p class="focus">Fokus: Keynote speaker & wawancara media massa.</p></div>
+        <div class="level-card locked" id="level-15"><div class="lock-overlay"><h2>🔒</h2><p>Terkunci</p></div><div class="level-number">LEVEL 15</div><h4>Grand Public Speaker 👑</h4><p class="focus">Fokus: Kelulusan puncak & sertifikasi Mentor Show Up.</p></div>
       </div>
     </div>
-        </div>
 
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- SECTION SHOW IT (UPLOAD TASK GOOGLE FORM) -->
-<section class="section show-it-session" id="show-it">
+<!-- SECTION PENGGANTI: FAQ & PANDUAN TASK -->
+<div id="faq-section" style="padding: 100px 0; width: 100%;">
   <div class="wrap">
-    <div class="section-head">
-      <h2>Show It Session: Submit Tugasmu</h2>
-      <p>Kirimkan draf CV atau link video tugas dari level pangkatmu untuk mendapatkan review resmi.</p>
+    <div style="text-align: center; margin-bottom: 40px;">
+      <span style="background: rgba(255,107,53,0.2); color: var(--orange); padding: 6px 16px; border-radius: 20px; font-weight: bold; font-size: 13px;">BANTUAN & PANDUAN</span>
+      <h2 style="font-size: 28px; margin-top: 10px; color: var(--navy);">Panduan Mengerjakan Task & Leveling</h2>
+      <p style="color: #64748b; font-size: 14px;">Segala hal yang perlu kamu ketahui tentang sistem pangkat Show Up.</p>
     </div>
-    
-    <div class="session-grid">
-      <div class="session-card">
-        <h3>📄 Rate My CV</h3>
-        <p>Upload draf CV-mu via Google Form dan dapatkan feedback konstruktif langsung dari mentor.</p>
-        <div style="flex-grow: 1;"></div>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSflfkjYVq03S7OMnZ5iHoRMjKcHVMk1eaPVcupOQeZwMlofiA/viewform?usp=header" target="_blank" class="btn btn-orange">Submit CV di sini</a>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 24px; border-radius: 16px;">
+        <h4 style="margin: 0 0 8px 0; color: var(--navy); font-size: 16px;">🚀 Gimana cara membuka Level berikutnya?</h4>
+        <p style="margin: 0; color: #64748b; font-size: 13px; line-height: 1.5;">Kamu wajib menyelesaikan 3 Task di level saat ini secara berurutan. Setelah Task 3 selesai, level selanjutnya otomatis terbuka.</p>
       </div>
-      
-      <div class="session-card">
-        <h3>🎥 Your Video Challenge</h3>
-        <p>Submit link video Reels/IG public speaking-mu di sini. Latih keberanianmu dan kumpulkan poin.</p>
-        <div style="flex-grow: 1;"></div>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSflfkjYVq03S7OMnZ5iHoRMjKcHVMk1eaPVcupOQeZwMlofiA/viewform?usp=header" target="_blank" class="btn btn-orange">TEST YOUR SKILL HERE</a>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 24px; border-radius: 16px;">
+        <h4 style="margin: 0 0 8px 0; color: var(--navy); font-size: 16px;">📝 Gimana cara pengiriman tugas (Submit)?</h4>
+        <p style="margin: 0; color: #64748b; font-size: 13px; line-height: 1.5;">Klik tombol 'Submit' pada task yang aktif, lalu isi Google Form yang terbuka. Tugasmu akan direview oleh mentor kami.</p>
       </div>
-      
-      <div class="session-card">
-        <h3>💼 Mock Interview Board</h3>
-        <p>Jawab pertanyaan interview simulasi bulan ini dan pelajari cara menjawab dari peserta lain.</p>
-        <div style="flex-grow: 1;"></div>
-        <button class="btn btn-orange" onclick="alert('Masuk ke Board Simulasi Interview!')">Coba Simulasi</button>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; padding: 24px; border-radius: 16px;">
+        <h4 style="margin: 0 0 8px 0; color: var(--navy); font-size: 16px;">🏆 Apa benefit kalau sampai Level 15?</h4>
+        <p style="margin: 0; color: #64748b; font-size: 13px; line-height: 1.5;">Kamu berhak mendapatkan Sertifikasi Resmi Mentor Show Up dan kesempatan menjadi fasilitator di event nasional.</p>
       </div>
     </div>
   </div>
-</section>
-
-<!-- SECTION EDUKASI -->
-<section class="section" id="edukasi">
-  <div class="wrap">
-    <div class="section-head">
-      <h2>Artikel & Edukasi</h2>
-      <p>Insight praktis untuk mengasah skill berkomunikasimu setiap hari.</p>
-    </div>
-    
-    <div class="edu-grid">
-      <a href="#" class="article-item">
-        <h4>Solusi Saat Tiba-tiba Nge-blank Pas Bicara di Depan Dosen</h4>
-        <span style="font-size: 12px; color: var(--orange); font-weight: bold;">#PublicSpeaking #Kuliah</span>
-      </a>
-      <a href="#" class="article-item">
-        <h4>Communication in the AI Era: Skill Manusia yang Tak Tergantikan</h4>
-        <span style="font-size: 12px; color: var(--orange); font-weight: bold;">#FutureSkills #Career</span>
-      </a>
-    </div>
-  </div>
-</section>
-
+</div>
 <!-- FOOTER -->
 <footer class="footer">
   <div class="wrap">
@@ -500,6 +658,57 @@ button { font: inherit; cursor: pointer; }
         if (nextLevelCard && lockOverlay) {
           nextLevelCard.classList.remove('locked');
           nextLevelCard.classList.add('unlocked');
+          lockOverlay.style.display = 'none';
+        }
+      }, 500);
+    }
+  }
+</script>
+<!-- SCRIPT GAMIFIKASI PERBAIKAN -->
+<script>
+  function startClass(level) {
+    document.getElementById(`btn-start-${level}`).style.display = 'none';
+    document.getElementById(`tasks-${level}`).style.display = 'block';
+  }
+
+  function completeTask(level, taskNumber) {
+    let currentTask = document.getElementById(`task-${level}-${taskNumber}`);
+    let currentBtn = document.getElementById(`btn-task-${level}-${taskNumber}`);
+
+    // Update status task saat ini menjadi Selesai
+    if (currentTask && currentBtn) {
+      currentTask.classList.remove('active', 'locked');
+      currentTask.classList.add('completed');
+      currentBtn.innerText = '✓ Selesai';
+      currentBtn.disabled = true;
+    }
+
+    if (taskNumber < 3) {
+      // Buka kunci task berikutnya
+      let nextTaskNum = taskNumber + 1;
+      let nextTask = document.getElementById(`task-${level}-${nextTaskNum}`);
+      let nextBtn = document.getElementById(`btn-task-${level}-${nextTaskNum}`);
+
+      if (nextTask && nextBtn) {
+        nextTask.classList.remove('locked');
+        nextTask.classList.add('active');
+        nextBtn.disabled = false; // Buka kunci tombol
+        nextBtn.innerText = 'Submit ↗'; // Ganti teks tulisan tombol
+      }
+    } else {
+      // Jika Task 3 selesai -> Buka Level berikutnya!
+      setTimeout(() => {
+        alert("🎉 SELAMAT! Kamu telah menyelesaikan semua task dan naik pangkat!");
+
+        let nextLevel = level + 1;
+        let nextLevelCard = document.getElementById(`level-${nextLevel}`);
+        let lockOverlay = document.getElementById(`overlay-${nextLevel}`);
+
+        if (nextLevelCard) {
+          nextLevelCard.classList.remove('locked');
+          nextLevelCard.classList.add('unlocked');
+        }
+        if (lockOverlay) {
           lockOverlay.style.display = 'none';
         }
       }, 500);
