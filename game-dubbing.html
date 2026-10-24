@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voice Dubbing Challenge - Show Up</title>
+  <style>
+    :root {
+      --navy: #0f172a;
+      --orange: #ff6b35;
+      --blue: #3b82f6;
+      --bg-dark: #090d16;
+      --card-bg: #1e293b;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-dark);
+      color: #f8fafc;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .header {
+      width: 100%;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-sizing: border-box;
+      max-width: 900px;
+    }
+    .btn-back {
+      color: #94a3b8;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .game-container {
+      width: 90%;
+      max-width: 800px;
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 30px;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      margin-bottom: 40px;
+      text-align: center;
+    }
+    .step-box { display: none; }
+    .step-box.active { display: block; }
+
+    /* Dropdown & Selection */
+    select {
+      width: 100%;
+      padding: 14px;
+      background: #0f172a;
+      color: white;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      font-size: 16px;
+      margin-bottom: 20px;
+      outline: none;
+    }
+    select:focus { border-color: var(--blue); }
+
+    /* Buttons */
+    .btn-primary {
+      background: var(--blue);
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      font-size: 15px;
+      font-weight: bold;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: transform 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-primary:hover { transform: scale(1.05); }
+    .btn-orange { background: var(--orange); }
+    .btn-red { background: #ef4444; }
+    .btn-outline {
+      background: transparent;
+      border: 2px solid #334155;
+      color: white;
+    }
+
+    /* Karaoke Teleprompter */
+    .teleprompter-box {
+      background: #000;
+      border: 2px solid var(--blue);
+      border-radius: 16px;
+      padding: 24px;
+      height: 220px;
+      overflow-y: auto;
+      text-align: left;
+      font-size: 24px;
+      font-weight: bold;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      color: #475569; /* Default text color */
+    }
+    .k-word {
+      transition: color 0.1s ease-in-out;
+    }
+    .k-word.active {
+      color: #38bdf8;
+      text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+    }
+    .k-word.passed {
+      color: #ffffff;
+    }
+
+    /* Record Controls */
+    .record-controls {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .pulse {
+      animation: pulse-red 1.5s infinite;
+    }
+    @keyframes pulse-red {
+      0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+      70% { box-shadow: 0 0 0 15px rgba(239, 68, 68, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+    }
+    audio {
+      width: 100%;
+      height: 40px;
+      margin-top: 15px;
+      outline: none;
+    }
+
+    /* Criteria Grid */
+    .criteria-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 20px;
+      text-align: left;
+    }
+    .crit-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid #334155;
+      border-radius: 14px;
+      padding: 16px;
+    }
+    .crit-title {
+      font-size: 13px;
+      color: #94a3b8;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .crit-score { font-weight: bold; color: var(--blue); }
+    .crit-desc { font-size: 12px; color: #cbd5e1; line-height: 1.4; margin: 0; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <a href="index.html" class="btn-back">← Keluar Game</a>
+    <span style="font-weight: bold; color: var(--blue);">🎙️ Voice Dubbing Challenge</span>
+  </div>
+
+  <div class="game-container">
+
+    <!-- STEP 1: PILIH SCRIPT -->
+    <div id="step-1" class="step-box active">
+      <h2>1. Pilih Karakter & Script Voice Over</h2>
+      <p style="color: #94a3b8; font-size: 14px; margin-bottom: 24px;">Pilih genre dubbing yang ingin kamu tantang. Sesuaikan emosi dan nadamu!</p>
+
+      <div style="text-align: left;">
+        <label style="color: #cbd5e1; font-size: 13px; font-weight: bold;">Pilih Genre / Script:</label>
+        <select id="script-selector" onchange="previewScript()">
+          <option value="0">🎬 Animasi - Hero Semangat</option>
+          <option value="1">🦹‍♂️ Animasi - Villain Jahat</option>
+          <option value="2">📻 Penyiar Radio - Hits & Gaul</option>
+          <option value="3">🥤 Iklan Komersial - Minuman Segar</option>
+          <option value="4">🍿 Trailer Film - Epik & Misterius</option>
+          <option value="5">🌿 Dokumenter - Alam Liar (Tenang)</option>
+        </select>
+      </div>
+
+      <div style="background: rgba(59,130,246,0.1); border: 1px dashed var(--blue); padding: 20px; border-radius: 12px; margin-bottom: 24px; text-align: left;">
+        <span style="font-size: 12px; color: var(--blue); font-weight: bold;">PREVIEW SCRIPT:</span>
+        <p id="script-preview" style="font-size: 15px; line-height: 1.6; font-style: italic; color: #e2e8f0; margin-top: 8px;">(Script preview akan muncul di sini...)</p>
+      </div>
+
+      <button class="btn-primary btn-orange" onclick="goToStudio()">Siapkan Studio Rekaman ➔</button>
+    </div>
+
+    <!-- STEP 2: STUDIO REKAMAN & KARAOKE -->
+    <div id="step-2" class="step-box">
+      <h2>2. Studio Rekaman Voice Note</h2>
+      <p style="color: #94a3b8; font-size: 13px;">Tekan rekam, lalu baca teks yang menyala biru layaknya prompter karaoke!</p>
+
+      <div class="teleprompter-box" id="teleprompter-box">
+        <!-- Text injected by JS -->
+      </div>
+
+      <div id="status-text" style="font-weight: bold; color: #ef4444; font-size: 14px; display: none;">🔴 Merekam...</div>
+
+      <!-- Controls -->
+      <div class="record-controls" id="controls-recording">
+        <button id="btn-record" class="btn-primary btn-red" onclick="startRecording()">🎙️ Mulai Rekam</button>
+        <button id="btn-stop" class="btn-primary" style="display: none;" onclick="stopRecording()">⏹️ Stop</button>
+      </div>
+
+      <!-- Playback Area (Hidden initially) -->
+      <div id="playback-area" style="display: none; margin-top: 20px;">
+        <p style="font-size: 13px; color: #10b981; font-weight: bold;">Cek Hasil Rekamanmu:</p>
+        <audio id="audio-playback" controls></audio>
+        
+        <div style="margin-top: 20px; display: flex; justify-content: center; gap: 15px;">
+          <button class="btn-primary btn-outline" onclick="retakeAudio()">🔄 Take Ulang</button>
+          <button class="btn-primary btn-orange" onclick="processEvaluation()">Kirim & Nilai ➔</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3: PENILAIAN -->
+    <div id="step-3" class="step-box">
+      <h2>🎉 Evaluasi Voice Over Selesai!</h2>
+      <p style="color: #94a3b8; font-size: 14px;">Berikut analisis performa dubbing-mu hari ini:</p>
+
+      <!-- Overall Score -->
+      <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 16px; margin-bottom: 20px; border: 1px solid #334155;">
+        <div style="font-size: 13px; color: #94a3b8;">SKOR DUBBER TOTAL</div>
+        <div style="font-size: 52px; font-weight: 800; color: #38bdf8;" id="total-score">92/100</div>
+        <div style="font-size: 13px; color: #10b981; font-weight: 600;" id="overall-status">Luar Biasa, Siap Masuk Studio!</div>
+      </div>
+
+      <h3 style="text-align: left; color: var(--blue); font-size: 16px; margin-bottom: 10px;">📊 Rincian Teknik Vokal</h3>
+      <div class="criteria-grid">
+        <div class="crit-card">
+          <div class="crit-title"><span>Penjiwaan & Emosi</span> <span class="crit-score" id="score-emosi">95/100</span></div>
+          <p class="crit-desc">Emosi karakter sangat tersampaikan. Warna suara sesuai dengan genre yang dipilih.</p>
+        </div>
+        <div class="crit-card">
+          <div class="crit-title"><span>Kejelasan Artikulasi</span> <span class="crit-score" id="score-artikulasi">90/100</span></div>
+          <p class="crit-desc">Pengucapan vokal dan konsonan terdengar bulat tanpa terkesan bergumam.</p>
+        </div>
+        <div class="crit-card">
+          <div class="crit-title"><span>Tempo & Pacing</span> <span class="crit-score" id="score-tempo">88/100</span></div>
+          <p class="crit-desc">Kecepatan baca sangat pas mengikuti irama teleprompter. Tidak terburu-buru.</p>
+        </div>
+        <div class="crit-card">
+          <div class="crit-title"><span>Dinamika Intonasi</span> <span class="crit-score" id="score-intonasi">92/100</span></div>
+          <p class="crit-desc">Terdapat variasi tinggi rendah nada yang membuat naskah terdengar lebih hidup.</p>
+        </div>
+      </div>
+
+      <div style="margin-top: 30px;">
+        <button class="btn-primary" onclick="resetGame()">Coba Script Lain 🔄</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const scripts = [
+      "Tidak akan kubiarkan kau menyakiti mereka! Teman-teman, pinjamkan aku kekuatan kalian! Kita pasti menang!",
+      "Hahaha! Kalian pikir bisa menghentikanku? Dengan kristal ini, seluruh dunia akan tunduk di bawah kakiku! Bersiaplah menghadapi kehancuran!",
+      "Yow yow yow! Balik lagi bareng gue di 99.9 FM, radio paling hits sekota! Buat lo yang lagi kejebak macet, mending dengerin lagu-lagu asik dari kita. Request lagu? Langsung aja drop di kolom komentar!",
+      "Haus? Capek aktivitas seharian? Segarkan harimu dengan Splash! Ekstrak buah aslinya, bikin kamu semangat lagi. Splash, segarnya nyata!",
+      "Di dunia yang hancur karena perang... Satu pria... Berani melawan takdir. Bersiaplah untuk aksi terbesar tahun ini... THE SURVIVOR. Tayang di bioskop kesayangan Anda.",
+      "Di kedalaman hutan hujan tropis, kehidupan berjalan dalam keheningan. Seekor macan tutul mengintai mangsanya dengan sabar. Inilah hukum rimba, di mana yang kuat, yang bertahan."
+    ];
+
+    let mediaRecorder;
+    let audioChunks = [];
+    let karaokeInterval;
+    let currentWords = [];
+    let wordIndex = 0;
+
+    // Inisialisasi Script Preview
+    function previewScript() {
+      const idx = document.getElementById('script-selector').value;
+      document.getElementById('script-preview').innerText = `"${scripts[idx]}"`;
+    }
+    previewScript();
+
+    function goToStudio() {
+      const idx = document.getElementById('script-selector').value;
+      const text = scripts[idx];
+      
+      // Pecah kata-kata untuk efek karaoke
+      const box = document.getElementById('teleprompter-box');
+      box.innerHTML = '';
+      currentWords = text.split(' ');
+      
+      currentWords.forEach((word, i) => {
+        const span = document.createElement('span');
+        span.className = 'k-word';
+        span.id = `kw-${i}`;
+        span.innerText = word + ' ';
+        box.appendChild(span);
+      });
+
+      // Minta Izin Mic di awal
+      navigator.mediaDevices.getUserMedia({ audio: true })
+        .then(stream => {
+          mediaRecorder = new MediaRecorder(stream);
+          mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+          mediaRecorder.onstop = loadAudioPlayback;
+          showStep(2);
+        })
+        .catch(err => {
+          alert("Gagal mengakses mikrofon. Izinkan akses mic di browser kamu untuk bermain.");
+        });
+    }
+
+    function startRecording() {
+      audioChunks = [];
+      mediaRecorder.start();
+      
+      // UI Update
+      document.getElementById('btn-record').style.display = 'none';
+      const btnStop = document.getElementById('btn-stop');
+      btnStop.style.display = 'inline-flex';
+      btnStop.classList.add('pulse');
+      document.getElementById('status-text').style.display = 'block';
+
+      // Mulai Animasi Karaoke
+      wordIndex = 0;
+      document.querySelectorAll('.k-word').forEach(w => w.className = 'k-word'); // reset color
+      
+      // Perkiraan rata-rata orang baca 1 kata = 350ms (Sesuaikan agar pas)
+      karaokeInterval = setInterval(() => {
+        if (wordIndex > 0) {
+          document.getElementById(`kw-${wordIndex-1}`).classList.remove('active');
+          document.getElementById(`kw-${wordIndex-1}`).classList.add('passed');
+        }
+        if (wordIndex < currentWords.length) {
+          const currentWordEl = document.getElementById(`kw-${wordIndex}`);
+          currentWordEl.classList.add('active');
+          // Auto scroll
+          currentWordEl.scrollIntoView({ behavior: "smooth", block: "center" });
+          wordIndex++;
+        } else {
+          clearInterval(karaokeInterval);
+        }
+      }, 350);
+    }
+
+    function stopRecording() {
+      if(mediaRecorder.state !== 'inactive') mediaRecorder.stop();
+      clearInterval(karaokeInterval);
+      
+      // UI Update
+      document.getElementById('btn-stop').style.display = 'none';
+      document.getElementById('btn-stop').classList.remove('pulse');
+      document.getElementById('status-text').style.display = 'none';
+      document.getElementById('playback-area').style.display = 'block';
+    }
+
+    function loadAudioPlayback() {
+      const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+      const audioUrl = URL.createObjectURL(audioBlob);
+      document.getElementById('audio-playback').src = audioUrl;
+    }
+
+    function retakeAudio() {
+      document.getElementById('playback-area').style.display = 'none';
+      document.getElementById('btn-record').style.display = 'inline-flex';
+      // Reset text colors
+      document.querySelectorAll('.k-word').forEach(w => w.className = 'k-word');
+      document.getElementById('teleprompter-box').scrollTop = 0;
+    }
+
+    function processEvaluation() {
+      // Bikin sistem skor random tapi tetap bagus di rentang 80-98
+      const baseScore = 85;
+      const emosi = Math.min(98, baseScore + Math.floor(Math.random() * 10));
+      const arti = Math.min(97, baseScore + Math.floor(Math.random() * 12));
+      const tempo = Math.min(96, baseScore + 2 + Math.floor(Math.random() * 8));
+      const inton = Math.min(95, baseScore + Math.floor(Math.random() * 10));
+      
+      const total = Math.round((emosi + arti + tempo + inton) / 4);
+
+      document.getElementById('total-score').innerText = `${total}/100`;
+      document.getElementById('score-emosi').innerText = `${emosi}/100`;
+      document.getElementById('score-artikulasi').innerText = `${arti}/100`;
+      document.getElementById('score-tempo').innerText = `${tempo}/100`;
+      document.getElementById('score-intonasi').innerText = `${inton}/100`;
+
+      showStep(3);
+    }
+
+    function resetGame() {
+      document.getElementById('playback-area').style.display = 'none';
+      document.getElementById('btn-record').style.display = 'inline-flex';
+      showStep(1);
+    }
+
+    function showStep(stepNum) {
+      document.querySelectorAll('.step-box').forEach(box => box.classList.remove('active'));
+      document.getElementById(`step-${stepNum}`).classList.add('active');
+    }
+  </script>
+</body>
+</html>
