@@ -3,685 +3,2724 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="theme-color" content="#ffffff" />
-<title>Show Up — Say It & Show It: Building Skills, Shaping Your Identity</title>
+<meta name="theme-color" content="#0B132B" />
+<title>Show Up — Say It & Show It | Bangun Kepercayaan Diri & Skill Komunikasi</title>
+<meta name="description" content="Platform pengembangan skill public speaking, personal branding, dan persiapan karier untuk mahasiswa dan fresh graduate. Pelajari cara bersuara dan tunjukkan potensimu." />
+
+<!-- Modern Web Typography -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
 <style>
-  /* KUNCI GRID AGAR KARTU KANAN-KIRI TETAP SEJAJAR DI ATAS */
-.levels-grid {
-  display: grid !important;
-  grid-template-columns: repeat(3, 1fr) !important;
-  gap: 20px !important;
-  align-items: start !important; /* Menjaga kartu 2 & 3 tetap di samping atas */
-  width: 100% !important;
+/* ==========================================================================
+   DESIGN TOKENS & SYSTEM
+   ========================================================================== */
+:root {
+  /* Brand Palette */
+  --navy-950: #070B16;
+  --navy-900: #0B132B;
+  --navy-800: #141E3C;
+  --navy-700: #1E2B4F;
+  --navy-600: #334155;
+  
+  --orange-500: #FF6026;
+  --orange-600: #E64F17;
+  --orange-400: #FF7D4D;
+  --orange-soft: rgba(255, 96, 38, 0.12);
+  --orange-glow: rgba(255, 96, 38, 0.35);
+
+  --emerald-500: #10B981;
+  --emerald-soft: rgba(16, 185, 129, 0.12);
+  --blue-500: #3B82F6;
+  --blue-soft: rgba(59, 130, 246, 0.12);
+  --amber-500: #F59E0B;
+
+  /* Surfaces & Text */
+  --bg-white: #FFFFFF;
+  --bg-slate: #F8FAFC;
+  --bg-slate-card: #F1F5F9;
+  --text-main: #0F172A;
+  --text-muted: #64748B;
+  --text-light: #94A3B8;
+  --border-light: #E2E8F0;
+  --border-subtle: #F1F5F9;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.06), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 20px 40px -15px rgba(15, 23, 42, 0.08), 0 0 1px rgba(15, 23, 42, 0.1);
+  --shadow-xl: 0 25px 50px -12px rgba(15, 23, 42, 0.15);
+  --shadow-orange: 0 10px 25px -4px var(--orange-glow);
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* RAPIKAN ISI TASK */
-.task-item {
-  display: flex !important;
-  justify-content: space-between !important;
-  align-items: center !important;
-  background: rgba(0, 0, 0, 0.2);
-  padding: 12px;
-  border-radius: 10px;
+/* Base Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg-white);
+  color: var(--text-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Manrope', 'Plus Jakarta Sans', sans-serif;
+  font-weight: 800;
+  color: var(--navy-900);
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Layout Container */
+.wrap {
+  width: min(1180px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+.section {
+  padding: 100px 0;
+  position: relative;
+}
+
+.section-head {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 56px;
+}
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--orange-soft);
+  color: var(--orange-500);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  margin-bottom: 16px;
+  border: 1px solid rgba(255, 96, 38, 0.2);
+}
+
+.section-tag.blue {
+  background: var(--blue-soft);
+  color: var(--blue-500);
+  border-color: rgba(59, 130, 246, 0.2);
+}
+
+.section-tag.emerald {
+  background: var(--emerald-soft);
+  color: var(--emerald-500);
+  border-color: rgba(16, 185, 129, 0.2);
+}
+
+.section-head h2 {
+  font-size: clamp(28px, 4vw, 42px);
+  margin-bottom: 16px;
+  color: var(--navy-900);
+}
+
+.section-head p {
+  color: var(--text-muted);
+  font-size: clamp(15px, 1.8vw, 17px);
+  line-height: 1.7;
+}
+
+/* ==========================================================================
+   BUTTONS & MICRO-INTERACTIONS
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 26px;
+  font-weight: 700;
+  font-size: 15px;
+  border-radius: var(--radius-full);
+  border: 0;
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-orange {
+  background: linear-gradient(135deg, var(--orange-500), var(--orange-600));
+  color: #FFFFFF;
+  box-shadow: var(--shadow-orange);
+}
+
+.btn-orange:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px -4px var(--orange-glow);
+  background: linear-gradient(135deg, var(--orange-400), var(--orange-500));
+}
+
+.btn-navy {
+  background: var(--navy-900);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-md);
+}
+
+.btn-navy:hover {
+  background: var(--navy-800);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-outline-white {
+  background: rgba(255, 255, 255, 0.08);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+}
+
+.btn-outline-white:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+.btn-outline-navy {
+  background: transparent;
+  color: var(--navy-900);
+  border: 1.5px solid var(--border-light);
+}
+
+.btn-outline-navy:hover {
+  border-color: var(--navy-900);
+  background: var(--bg-slate);
+}
+
+.btn-sm {
+  padding: 8px 18px;
+  font-size: 13px;
+  border-radius: var(--radius-full);
+}
+
+/* ==========================================================================
+   HEADER & NAVIGATION
+   ========================================================================== */
+.nav-wrapper {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid var(--border-light);
+  transition: var(--transition);
+}
+
+.nav {
+  height: 82px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Manrope', sans-serif;
+  font-weight: 800;
+  font-size: 24px;
+  color: var(--navy-900);
+  letter-spacing: -0.04em;
+}
+
+.brand-dot {
+  width: 9px;
+  height: 9px;
+  background: var(--orange-500);
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 10px var(--orange-500);
+}
+
+.brand span.accent {
+  color: var(--orange-500);
+}
+
+.navlinks {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+.navlinks a {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--navy-600);
+  position: relative;
+  padding: 6px 0;
+}
+
+.navlinks a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--orange-500);
+  border-radius: 2px;
+  transition: width 0.25s ease;
+}
+
+.navlinks a:hover {
+  color: var(--navy-900);
+}
+
+.navlinks a:hover::after {
+  width: 100%;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--navy-600);
+  background: var(--bg-slate);
+  border: 1px solid var(--border-light);
+  transition: var(--transition);
+}
+
+.icon-btn:hover {
+  color: var(--navy-900);
+  background: #FFFFFF;
+  border-color: var(--text-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.icon-btn.wa-btn {
+  color: #25D366;
+}
+
+.icon-btn.wa-btn:hover {
+  background: rgba(37, 211, 102, 0.1);
+  border-color: #25D366;
+}
+
+.game-btn {
+  background: linear-gradient(135deg, var(--orange-500), #FF4500);
+  color: #FFFFFF;
+  padding: 9px 18px;
+  border-radius: var(--radius-full);
+  font-size: 13.5px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 0;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255, 96, 38, 0.3);
+  transition: var(--transition);
+}
+
+.game-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(255, 96, 38, 0.45);
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background: #FFFFFF;
+  border-radius: 50%;
+  display: inline-block;
+  animation: pulse 1.6s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.6; }
+  100% { transform: scale(0.95); opacity: 1; }
+}
+
+/* Mobile Toggle */
+.mobile-toggle {
+  display: none;
+  background: transparent;
+  border: 0;
+  color: var(--navy-900);
+  cursor: pointer;
+  padding: 6px;
+}
+
+/* ==========================================================================
+   1. HERO SECTION (DARK PREMIUM)
+   ========================================================================== */
+.hero {
+  background: radial-gradient(circle at 50% 15%, #18264e 0%, #0B132B 60%, #070B16 100%);
+  color: #FFFFFF;
+  padding: 90px 0 140px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+/* Ambient glow accents */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(255, 96, 38, 0.22) 0%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.hero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  padding: 7px 18px;
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 600;
+  color: #E2E8F0;
+  margin-bottom: 24px;
+  backdrop-filter: blur(8px);
+}
+
+.hero-pill span.badge-sparkle {
+  color: var(--orange-400);
+}
+
+.hero h1 {
+  font-size: clamp(38px, 5.5vw, 68px);
+  line-height: 1.1;
+  color: #FFFFFF;
+  margin-bottom: 24px;
+  letter-spacing: -0.035em;
+}
+
+.hero h1 .text-gradient {
+  background: linear-gradient(135deg, #FFFFFF 30%, var(--orange-400) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero p.lead {
+  font-size: clamp(16px, 2vw, 20px);
+  line-height: 1.7;
+  color: #CBD5E1;
+  max-width: 740px;
+  margin: 0 auto 38px;
+  font-weight: 400;
+}
+
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 50px;
+}
+
+/* Trust Proof Numbers */
+.trust-strip {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 36px;
+  flex-wrap: wrap;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.trust-item {
+  text-align: left;
+}
+
+.trust-number {
+  font-family: 'Manrope', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1;
+}
+
+.trust-number span {
+  color: var(--orange-400);
+}
+
+.trust-label {
+  font-size: 12px;
+  color: #94A3B8;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   VALUE PROPOSITION HIGHLIGHT CARDS (FLOATING)
+   ========================================================================== */
+.highlights-wrap {
+  margin-top: -70px;
+  position: relative;
+  z-index: 10;
+}
+
+.highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.highlight-card {
+  background: var(--bg-white);
+  border-radius: var(--radius-lg);
+  padding: 34px 28px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-light);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.highlight-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: transparent;
+  transition: background 0.25s;
+}
+
+.highlight-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+  border-color: rgba(255, 96, 38, 0.3);
+}
+
+.highlight-card:hover::after {
+  background: linear-gradient(90deg, var(--orange-500), var(--orange-400));
+}
+
+.hc-icon-box {
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  margin-bottom: 22px;
+  background: var(--orange-soft);
+  color: var(--orange-500);
+  transition: var(--transition);
+}
+
+.highlight-card:hover .hc-icon-box {
+  transform: scale(1.08);
+}
+
+.hc-icon-box.blue {
+  background: var(--blue-soft);
+  color: var(--blue-500);
+}
+
+.hc-icon-box.emerald {
+  background: var(--emerald-soft);
+  color: var(--emerald-500);
+}
+
+.highlight-card h3 {
+  font-size: 20px;
+  color: var(--navy-900);
   margin-bottom: 10px;
+}
+
+.highlight-card p {
+  font-size: 14.5px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.highlight-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--orange-500);
+}
+
+.highlight-link:hover {
+  gap: 10px;
+}
+
+/* ==========================================================================
+   2. TENTANG KAMI & PHILOSOPHY
+   ========================================================================== */
+.about {
+  background: var(--bg-slate);
+}
+
+.phil-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+  margin-top: 40px;
+}
+
+.phil-card {
+  background: var(--bg-white);
+  border-radius: var(--radius-xl);
+  padding: 44px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.phil-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.phil-card.say-it-card {
+  border-top: 4px solid var(--orange-500);
+}
+
+.phil-card.show-it-card {
+  border-top: 4px solid var(--navy-900);
+}
+
+.phil-tag {
+  display: inline-block;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  padding: 5px 12px;
+  border-radius: var(--radius-full);
+  margin-bottom: 14px;
+}
+
+.say-it-card .phil-tag {
+  background: var(--orange-soft);
+  color: var(--orange-500);
+}
+
+.show-it-card .phil-tag {
+  background: rgba(11, 19, 43, 0.08);
+  color: var(--navy-900);
+}
+
+.phil-card h3 {
+  font-size: 32px;
+  margin-bottom: 14px;
+  letter-spacing: -0.03em;
+}
+
+.say-it-card h3 {
+  color: var(--orange-500);
+}
+
+.show-it-card h3 {
+  color: var(--navy-900);
+}
+
+.phil-card p.subtitle {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy-900);
+  margin-bottom: 12px;
+}
+
+.phil-card p.desc {
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 22px;
+}
+
+.phil-checklist {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.phil-checklist li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--navy-600);
+  font-weight: 500;
+}
+
+.phil-checklist svg {
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   OUR MENTORS SECTION
+   ========================================================================== */
+.mentors-section {
+  background: var(--bg-white);
+}
+
+.mentors-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.mentor-card {
+  background: var(--bg-white);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  position: relative;
+}
+
+.mentor-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--orange-400);
+}
+
+.mentor-image-frame {
+  width: 100%;
+  aspect-ratio: 1/1;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: 20px;
+  background: var(--bg-slate);
+  position: relative;
+}
+
+.mentor-image-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  transition: transform 0.4s ease;
+}
+
+.mentor-card:hover .mentor-image-frame img {
+  transform: scale(1.05);
+}
+
+.mentor-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(11, 19, 43, 0.85);
+  backdrop-filter: blur(8px);
+  color: #FFFFFF;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.mentor-info h3 {
+  font-size: 19px;
+  color: var(--navy-900);
+  margin-bottom: 4px;
+}
+
+.mentor-role {
+  color: var(--orange-500);
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.mentor-bio {
+  color: var(--text-muted);
+  font-size: 13.5px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+.mentor-action {
+  margin-top: auto;
+  border-top: 1px solid var(--border-light);
+  padding-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mentor-view-link {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy-900);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mentor-card:hover .mentor-view-link {
+  color: var(--orange-500);
+}
+
+/* ==========================================================================
+   INTERACTIVE ASSESSMENT SECTION
+   ========================================================================== */
+.assessment-section {
+  background: var(--bg-slate);
+}
+
+.assessment-box {
+  max-width: 680px;
+  margin: 0 auto;
+  background: var(--bg-white);
+  border-radius: var(--radius-xl);
+  padding: 40px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-lg);
+}
+
+.quiz-instruction {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--navy-900);
+  margin-bottom: 16px;
+  display: block;
+}
+
+.quiz-options {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.quiz-option-label {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border-light);
+  background: var(--bg-white);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.quiz-option-label:hover {
+  border-color: var(--orange-400);
+  background: rgba(255, 96, 38, 0.03);
+}
+
+.quiz-option-label input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--border-light);
+  border-radius: 50%;
+  outline: none;
+  display: grid;
+  place-content: center;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+
+.quiz-option-label input[type="radio"]::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: transform 0.15s ease-in-out;
+  background: var(--orange-500);
+}
+
+.quiz-option-label input[type="radio"]:checked {
+  border-color: var(--orange-500);
+}
+
+.quiz-option-label input[type="radio"]:checked::before {
+  transform: scale(1);
+}
+
+.quiz-option-label:has(input[type="radio"]:checked) {
+  border-color: var(--orange-500);
+  background: var(--orange-soft);
+}
+
+.quiz-option-text {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--navy-900);
+}
+
+.result-card {
+  display: none;
+  margin-top: 24px;
+  padding: 24px;
+  background: linear-gradient(135deg, rgba(255, 96, 38, 0.08), rgba(255, 96, 38, 0.02));
+  border: 1.5px solid var(--orange-400);
+  border-radius: var(--radius-md);
+  animation: fadeIn 0.35s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   3. SHOW IT SESSION & PRACTICAL SUBMISSIONS
+   ========================================================================== */
+.show-it-section {
+  background: var(--bg-white);
+}
+
+.session-header-banner {
+  background: linear-gradient(135deg, var(--navy-900) 0%, var(--navy-800) 100%);
+  color: #FFFFFF;
+  padding: 60px 40px;
+  border-radius: var(--radius-xl);
+  text-align: center;
+  margin-bottom: -40px;
+  position: relative;
+  z-index: 1;
+  box-shadow: var(--shadow-xl);
+}
+
+.session-header-banner h2 {
+  color: #FFFFFF;
+  font-size: clamp(26px, 3.5vw, 38px);
+  margin-bottom: 12px;
+}
+
+.session-header-banner p {
+  color: #CBD5E1;
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 15px;
+}
+
+.session-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  position: relative;
+  z-index: 2;
+  margin-top: 60px;
+}
+
+.session-action-card {
+  background: var(--bg-white);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  padding: 34px 26px;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition);
+}
+
+.session-action-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+  border-color: rgba(255, 96, 38, 0.3);
+}
+
+.session-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: var(--orange-soft);
+  color: var(--orange-500);
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.session-action-card h3 {
+  font-size: 21px;
+  color: var(--navy-900);
+  margin-bottom: 10px;
+}
+
+.session-action-card p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 24px;
+  flex-grow: 1;
+}
+
+/* File Upload Drop Zone */
+.custom-file-drop {
+  border: 1.5px dashed var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  text-align: center;
+  background: var(--bg-slate);
+  cursor: pointer;
+  transition: var(--transition);
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.custom-file-drop:hover {
+  border-color: var(--orange-500);
+  background: rgba(255, 96, 38, 0.04);
+}
+
+.custom-file-drop input[type="file"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.file-status-text {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   GAMIFICATION BOARD & LEVEL UP
+   ========================================================================== */
+.gamification-section {
+  background: var(--bg-slate);
+  padding-top: 20px;
+}
+
+.gamification-board {
+  background: linear-gradient(145deg, var(--navy-900), #0F172A);
+  color: #FFFFFF;
+  padding: 44px;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-xl);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.gamification-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.gamification-title h3 {
+  color: #FFFFFF;
+  font-size: 24px;
+  margin-bottom: 4px;
+}
+
+.gamification-title p {
+  color: #94A3B8;
+  font-size: 14px;
+}
+
+.badge-rank {
+  background: linear-gradient(135deg, var(--orange-500), #FF4500);
+  color: #FFFFFF;
+  padding: 8px 18px;
+  border-radius: var(--radius-full);
+  font-size: 13.5px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 15px rgba(255, 96, 38, 0.3);
+}
+
+.streak-chip {
+  background: rgba(255, 255, 255, 0.1);
+  color: #F8FAFC;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13.5px;
+  color: #CBD5E1;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.progress-container {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-full);
+  height: 12px;
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+
+.progress-bar-fill {
+  width: 40%;
+  background: linear-gradient(90deg, var(--orange-500), var(--orange-400));
+  height: 100%;
+  border-radius: var(--radius-full);
+  transition: width 0.5s ease;
+}
+
+.tasks-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.interactive-task {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  transition: var(--transition);
+}
+
+.interactive-task:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.task-info-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.task-checkbox {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: var(--transition);
+  background: transparent;
+  color: transparent;
+}
+
+.task-checkbox.checked {
+  background: var(--emerald-500);
+  border-color: var(--emerald-500);
+  color: #FFFFFF;
+}
+
+.task-title {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: #FFFFFF;
+}
+
+.task-exp-tag {
+  color: var(--orange-400);
+  font-weight: 700;
+  font-size: 13.5px;
+}
+
+/* ==========================================================================
+   4. PUSAT EDUKASI & ARTIKEL
+   ========================================================================== */
+.education-section {
+  background: var(--bg-white);
+}
+
+.edu-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 36px;
+}
+
+.edu-category-column {
+  background: var(--bg-slate);
+  border-radius: var(--radius-xl);
+  padding: 36px;
+  border: 1px solid var(--border-light);
+}
+
+.edu-cat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--border-light);
+}
+
+.edu-cat-header h3 {
+  font-size: 22px;
+  color: var(--navy-900);
+}
+
+.edu-pill {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  background: var(--orange-soft);
+  color: var(--orange-500);
+}
+
+.edu-pill.visionary {
+  background: var(--blue-soft);
+  color: var(--blue-500);
+}
+
+.article-card-modern {
+  display: block;
+  background: var(--bg-white);
+  padding: 22px 24px;
+  border-radius: var(--radius-md);
+  margin-bottom: 16px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.article-card-modern:hover {
+  transform: translateY(-4px);
+  border-color: var(--orange-500);
+  box-shadow: var(--shadow-md);
+}
+
+.article-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: var(--orange-500);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.article-card-modern h4 {
+  font-size: 16.5px;
+  line-height: 1.45;
+  color: var(--navy-900);
+  margin-bottom: 8px;
+  transition: var(--transition);
+}
+
+.article-card-modern:hover h4 {
+  color: var(--orange-500);
+}
+
+.article-reading-time {
+  font-size: 12px;
+  color: var(--text-light);
+}
+
+/* ==========================================================================
+   5. SOCIAL MEDIA HIGHLIGHTS
+   ========================================================================== */
+.social-section {
+  background: var(--bg-slate);
+}
+
+.social-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.social-card {
+  background: var(--bg-white);
+  border-radius: var(--radius-lg);
+  padding: 30px;
+  text-align: center;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.social-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-xl);
+  border-color: rgba(255, 96, 38, 0.3);
+}
+
+.social-card-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #FFF0EB, #FFE2D4);
+  display: grid;
+  place-items: center;
+  font-size: 26px;
+  margin-bottom: 18px;
+}
+
+.social-card h4 {
+  font-size: 17px;
+  color: var(--navy-900);
+  margin-bottom: 8px;
+}
+
+.social-card p {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+/* ==========================================================================
+   6. HALL OF FAME & TESTIMONIALS (NO PLACEHOLDERS)
+   ========================================================================== */
+.community-section {
+  background: var(--bg-white);
+}
+
+.hall-of-fame-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+  margin-bottom: 48px;
+}
+
+.hof-card-modern {
+  background: var(--bg-slate);
+  border-radius: var(--radius-lg);
+  padding: 26px;
+  border: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+  transition: var(--transition);
+}
+
+.hof-card-modern:hover {
+  transform: translateY(-6px);
+  background: var(--bg-white);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--orange-400);
+}
+
+.hof-stars {
+  color: #F59E0B;
+  font-size: 14px;
+  margin-bottom: 14px;
+  letter-spacing: 2px;
+}
+
+.hof-quote {
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--navy-600);
+  font-style: italic;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+.hof-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hof-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--orange-500), var(--orange-400));
+  color: #FFFFFF;
+  font-weight: 800;
+  font-size: 14px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.hof-avatar.alt-blue {
+  background: linear-gradient(135deg, var(--navy-900), var(--blue-500));
+}
+
+.hof-avatar.alt-emerald {
+  background: linear-gradient(135deg, #059669, #10B981);
+}
+
+.hof-avatar.alt-purple {
+  background: linear-gradient(135deg, #7C3AED, #A78BFA);
+}
+
+.hof-meta h5 {
+  font-size: 14px;
+  color: var(--navy-900);
+  margin-bottom: 2px;
+}
+
+.hof-meta span {
+  font-size: 11.5px;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+.footer {
+  background: var(--navy-950);
+  color: #FFFFFF;
+  padding: 80px 0 36px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 60px;
+  align-items: flex-start;
+  padding-bottom: 50px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 36px;
+  flex-wrap: wrap;
+}
+
+.footer-brand-col {
+  max-width: 380px;
+}
+
+.footer-desc {
+  color: #94A3B8;
+  font-size: 14px;
+  line-height: 1.7;
+  margin: 16px 0 24px;
+}
+
+.social-links {
+  display: flex;
+  gap: 12px;
+}
+
+.social-circle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  display: grid;
+  place-items: center;
+  color: #FFFFFF;
+  transition: var(--transition);
   border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.social-circle:hover {
+  background: var(--orange-500);
+  transform: translateY(-3px);
+  border-color: var(--orange-500);
+}
+
+.footer-nav-col h4 {
+  font-size: 16px;
+  color: #FFFFFF;
+  margin-bottom: 18px;
+}
+
+.footer-links-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-links-list a {
+  color: #94A3B8;
+  font-size: 14px;
+  transition: var(--transition);
+}
+
+.footer-links-list a:hover {
+  color: var(--orange-400);
+  transform: translateX(4px);
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #64748B;
+  font-size: 13.5px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+/* ==========================================================================
+   DRAWER / GAME ARENA
+   ========================================================================== */
+#game-drawer {
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: 380px;
+  height: 100vh;
+  background: #0B132B;
+  color: #FFFFFF;
+  z-index: 9999;
+  transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: -15px 0 40px rgba(0, 0, 0, 0.6);
+  padding: 34px 26px;
+  overflow-y: auto;
   box-sizing: border-box;
 }
 
-.task-info {
-  flex: 1;
-  padding-right: 10px;
-}
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
-
-:root {
-  /* Palet Warna "The Confident Professional" */
-  --navy: #0F172A;
-  --navy-dark: #020617;
-  --orange: #FF6B35;
-  --orange-hover: #E85A28;
-  --white: #FFFFFF;
-  --gray-bg: #F8FAFC;
-  --gray-text: #64748B;
-  --border: #E2E8F0;
-  --shadow: 0 12px 35px rgba(15, 23, 42, 0.08);
+#game-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(11, 19, 43, 0.65);
+  backdrop-filter: blur(6px);
+  z-index: 9998;
+  display: none;
 }
 
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { margin: 0; background: var(--white); color: var(--navy); font-family: 'DM Sans', sans-serif; }
-h1, h2, h3, p { margin-top: 0; }
-h1, h2, h3 { font-family: Manrope, sans-serif; letter-spacing: -0.03em; }
-a { color: inherit; text-decoration: none; }
-button { font: inherit; cursor: pointer; }
-
-/* Container & Global */
-.wrap { width: min(1160px, calc(100% - 40px)); margin: auto; }
-.section { padding: 90px 0; }
-.section-head { margin-bottom: 45px; text-align: center; }
-.section-head h2 { font-size: clamp(32px, 4vw, 46px); line-height: 1.1; margin-bottom: 15px; }
-.section-head p { color: var(--gray-text); line-height: 1.7; max-width: 600px; margin: 0 auto; }
-
-/* Tombol (CTA) */
-.btn { border: 0; border-radius: 999px; padding: 14px 24px; font-weight: 700; font-size: 15px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: 0.2s; }
-.btn-orange { background: var(--orange); color: var(--white); }
-.btn-orange:hover { background: var(--orange-hover); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3); }
-.btn-navy { background: var(--navy); color: var(--white); }
-.btn-navy:hover { background: #1e293b; transform: translateY(-2px); }
-.btn-outline { background: transparent; border: 1px solid var(--white); color: var(--white); }
-.btn-outline:hover { background: rgba(255,255,255,0.1); transform: translateY(-2px); }
-
-/* Header / Navigasi */
-.nav-wrapper { background: var(--white); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border); }
-.nav { height: 80px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-.brand { display: flex; align-items: center; gap: 10px; font-family: Manrope; font-weight: 800; font-size: 22px; color: var(--navy); }
-.brand span.accent { color: var(--orange); }
-.navlinks { display: flex; gap: 28px; align-items: center; font-weight: 500; font-size: 15px; color: var(--navy); }
-.navlinks a:hover { color: var(--orange); }
-.nav-right { display: flex; align-items: center; gap: 20px; }
-.ig-icon { font-weight: bold; font-size: 18px; color: var(--navy); transition: 0.2s; }
-.ig-icon:hover { color: var(--orange); transform: scale(1.1); }
-
-/* 1. Hero Section */
-.hero { background: var(--navy); color: var(--white); padding: 80px 0 100px; text-align: center; }
-.hero h1 { font-size: clamp(42px, 6vw, 72px); line-height: 1.05; max-width: 900px; margin: 0 auto 24px; }
-.hero p { font-size: 18px; line-height: 1.7; color: #cbd5e1; max-width: 700px; margin: 0 auto 35px; }
-.hero-actions { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
-
-/* Fitur Highlight */
-.highlights { margin-top: -50px; position: relative; z-index: 10; padding-bottom: 60px; }
-.highlights-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-.highlight-card { background: var(--white); border-radius: 16px; padding: 30px; box-shadow: var(--shadow); text-align: center; border: 1px solid var(--border); }
-.hc-icon { width: 56px; height: 56px; background: rgba(255, 107, 53, 0.1); color: var(--orange); border-radius: 50%; display: grid; place-items: center; font-size: 24px; margin: 0 auto 20px; }
-.highlight-card h3 { font-size: 20px; color: var(--navy); margin-bottom: 12px; }
-.highlight-card p { font-size: 14px; color: var(--gray-text); line-height: 1.6; margin: 0; }
-
-/* 2. Tentang Kami */
-.about { background: var(--gray-bg); text-align: center; }
-.about-intro { max-width: 750px; margin: 0 auto 50px; }
-.about-intro h2 { font-size: clamp(28px, 4vw, 38px); margin-bottom: 20px; }
-.about-intro p { font-size: 16px; color: var(--gray-text); line-height: 1.8; }
-.philosophy { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; }
-.phil-box { background: var(--white); border: 1px solid var(--border); border-radius: 20px; padding: 40px; max-width: 450px; flex: 1; min-width: 300px; text-align: left; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
-.phil-box h3.say-it { color: var(--orange); font-size: 32px; margin-bottom: 15px; }
-.phil-box h3.show-it { color: var(--navy); font-size: 32px; margin-bottom: 15px; }
-
-/* --- FITUR TAMBAHAN CSS --- */
-/* Form Assessment & Upload */
-.form-group { margin-bottom: 15px; text-align: left; }
-.form-group label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 14px; }
-.form-control { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-family: inherit; }
-.result-box { display: none; margin-top: 20px; padding: 15px; background: rgba(255, 107, 53, 0.1); border-left: 4px solid var(--orange); border-radius: 8px; font-weight: bold; }
-
-/* Gamification / Level Up */
-.gamification-board { background: var(--navy); color: var(--white); padding: 40px; border-radius: 20px; margin-top: 40px; }
-.level-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px;}
-.badge { background: var(--orange); padding: 5px 15px; border-radius: 20px; font-size: 14px; font-weight: bold; }
-.progress-container { width: 100%; background: rgba(255,255,255,0.2); border-radius: 10px; height: 10px; margin-bottom: 20px; }
-.progress-bar { width: 40%; background: var(--orange); height: 100%; border-radius: 10px; }
-.task-list { list-style: none; padding: 0; margin: 0; text-align: left; }
-.task-list li { background: rgba(255,255,255,0.05); padding: 15px; margin-bottom: 10px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;}
-
-/* 3. Show It Session */
-.show-it-session { background: var(--white); }
-.show-it-header { background: var(--navy); color: var(--white); padding: 60px 0; border-radius: 24px; text-align: center; margin-bottom: -40px; position: relative; z-index: 1; }
-.show-it-header h2 { font-size: clamp(32px, 4vw, 42px); margin: 0; }
-.session-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; position: relative; z-index: 2; margin-top: 60px; }
-.session-card { background: var(--white); border: 1px solid var(--border); border-radius: 20px; padding: 35px 25px; text-align: center; box-shadow: var(--shadow); display: flex; flex-direction: column; transition: 0.3s; }
-.session-card:hover { transform: translateY(-8px); }
-.session-card h3 { font-size: 22px; margin-bottom: 15px; }
-.session-card p { font-size: 14px; color: var(--gray-text); line-height: 1.7; margin-bottom: 25px; flex-grow: 1; }
-.session-card .btn { width: 100%; margin-top: auto;}
-
-/* 4. Pusat Edukasi & Blog */
-.education { background: var(--gray-bg); }
-.edu-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
-.edu-category h3 { font-size: 24px; border-bottom: 2px solid var(--border); padding-bottom: 15px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center; }
-.edu-category h3 span { font-size: 12px; background: var(--orange); color: var(--white); padding: 4px 10px; border-radius: 20px; font-weight: 700; }
-.article-item { display: block; background: var(--white); padding: 20px; border-radius: 16px; margin-bottom: 15px; border: 1px solid var(--border); transition: 0.2s; }
-.article-item:hover { border-color: var(--navy); box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-.article-item h4 { font-size: 17px; margin: 0 0 8px 0; color: var(--navy); }
-.article-tags { font-size: 12px; color: var(--orange); font-weight: 600; }
-
-
-
-/* 5. Galeri Komunitas */
-.community { background: var(--white); text-align: center; }
-.hall-of-fame { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 40px; }
-.hof-item { aspect-ratio: 1; background: var(--gray-bg); border-radius: 16px; display: grid; place-items: center; font-weight: bold; color: var(--gray-text); border: 1px dashed #cbd5e1; }
-.hof-item:nth-child(1) { background: #f1f5f9 url('https://placehold.co/300x300/e2e8f0/64748b?text=Testimoni+1') center/cover; border:none; }
-.hof-item:nth-child(2) { background: #f1f5f9 url('https://placehold.co/300x300/e2e8f0/64748b?text=Testimoni+2') center/cover; border:none; }
-.hof-item:nth-child(3) { background: #f1f5f9 url('https://placehold.co/300x300/e2e8f0/64748b?text=UGC+Video') center/cover; border:none; }
-.hof-item:nth-child(4) { background: #f1f5f9 url('https://placehold.co/300x300/e2e8f0/64748b?text=Success+Story') center/cover; border:none; }
-
-/* Footer */
-.footer { background: var(--navy-dark); color: var(--white); padding: 60px 0 30px; }
-.footer-top { display: flex; justify-content: space-between; gap: 40px; align-items: start; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 30px; flex-wrap: wrap; }
-.footer .brand { color: var(--white); }
-.footer-desc { max-width: 350px; color: #94a3b8; font-size: 14px; line-height: 1.7; margin-top: 15px; }
-.footer-links { display: flex; gap: 40px; }
-.link-col h4 { margin: 0 0 15px 0; font-size: 16px; color: var(--white); }
-.link-col a { display: block; color: #94a3b8; margin-bottom: 10px; font-size: 14px; transition: 0.2s; }
-.link-col a:hover { color: var(--orange); }
-.social-links { display: flex; gap: 15px; margin-top: 15px; }
-.social-links a { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.1); display: grid; place-items: center; font-weight: bold; transition: 0.2s; }
-.social-links a:hover { background: var(--orange); color: var(--white); }
-.footer-bottom { display: flex; justify-content: space-between; color: #64748b; font-size: 13px; }
-
-@media(max-width: 900px) {
-  .navlinks { display: none; }
-  .highlights-grid, .session-grid, .edu-grid, .philosophy { grid-template-columns: 1fr; }
-  .hall-of-fame { grid-template-columns: repeat(2, 1fr); }
-  .footer-top { flex-direction: column; }
-  .footer-links { flex-wrap: wrap; }
+.game-drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
-@media(max-width: 540px) {
-  .hero h1 { font-size: 32px; }
-  .nav-right .ig-icon { display: none; }
+
+.game-card-link {
+  display: block;
+  text-decoration: none;
+  margin-bottom: 14px;
+}
+
+.game-card-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  transition: var(--transition);
+}
+
+.game-card-item:hover {
+  background: rgba(255, 96, 38, 0.15);
+  border-color: var(--orange-500);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   MOBILE MENU DRAWER
+   ========================================================================== */
+#mobile-menu {
+  position: fixed;
+  top: 82px;
+  left: 0;
+  width: 100%;
+  background: #FFFFFF;
+  box-shadow: var(--shadow-lg);
+  border-bottom: 1px solid var(--border-light);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  z-index: 999;
+  transform: translateY(-120%);
+  transition: transform 0.3s ease;
+}
+
+#mobile-menu.open {
+  transform: translateY(0);
+}
+
+#mobile-menu a {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy-900);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (MEDIA QUERIES)
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .highlights-grid,
+  .mentors-grid,
+  .session-cards-grid,
+  .social-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hall-of-fame-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 860px) {
+  .navlinks {
+    display: none;
+  }
+
+  .mobile-toggle {
+    display: block;
+  }
+
+  .phil-grid,
+  .edu-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section {
+    padding: 70px 0;
+  }
+
+  .hero {
+    padding: 60px 0 110px;
+  }
+
+  .highlights-wrap {
+    margin-top: -50px;
+  }
+
+  .highlights-grid,
+  .mentors-grid,
+  .session-cards-grid,
+  .social-grid,
+  .hall-of-fame-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-top {
+    flex-direction: column;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+  }
+
+  .trust-strip {
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .trust-item {
+    text-align: center;
+  }
+
+  #game-drawer {
+    width: 100%;
+    right: -100%;
+  }
 }
 </style>
 </head>
 <body>
 
-<!-- Header Navigasi -->
+<!-- ==========================================================================
+   NAVBAR (HEADER)
+   ========================================================================== -->
 <div class="nav-wrapper">
   <header class="wrap nav">
-    <a class="brand" href="#home">
+    <!-- Brand -->
+    <a class="brand" href="#home" aria-label="Show Up Homepage">
       Show<span class="accent">Up</span>
+      <span class="brand-dot"></span>
     </a>
-    <nav class="navlinks">
+
+    <!-- Desktop Navigation Links -->
+    <nav class="navlinks" aria-label="Main Navigation">
       <a href="#home">Beranda</a>
       <a href="#about">Tentang Kami</a>
+      <a href="#our-mentors">Mentor</a>
       <a href="rasyad.html">Cek Kelas</a>
       <a href="#show-it">Show It Session</a>
-      <a href="index.html#artikel">Artikel & Edukasi</a>
+      <a href="#artikel">Artikel & Edukasi</a>
+      <a href="#komunitas">Komunitas</a>
     </nav>
-   <!-- NAV RIGHT DENGAN IKON IG & WHATSAPP CHAT AUTOMATION -->
-<div class="nav-right" style="display: flex; align-items: center; gap: 16px;">
-  <!-- Ikon Instagram -->
-  <a href="https://www.instagram.com/showup.co.id" target="_blank" title="Instagram Show Up" style="color: var(--navy); display: flex; align-items: center; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.15)'" onmouseout="this.style.transform='scale(1)'">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-    </svg>
-  </a>
 
-  <!-- Ikon WhatsApp (Pesan Otomatis) -->
-  <a href="https://wa.me/6285881976076?text=Ready%20To%20Show%20Up!%20Saya%20siap%20unlock%20potensi%20diri%20dan%20%23ShowUp%20bersama.%20Mohon%20bantuannya%20untuk%20mulai%20bimbingan%20kelas%20ya!%20🚀" target="_blank" title="Hubungi Kami via WhatsApp" style="color: #25D366; display: flex; align-items: center; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.15)'" onmouseout="this.style.transform='scale(1)'">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
-    </svg>
-  </a>
-<!-- Tombol Play Game (Membuat Hamburger Drawer Buka) -->
- 
- <a href="game-public-speaking.html" style="text-decoration: none;">
-  <!-- Kartu Public Speaking Game -->
-</a>
- <button
-  onclick="toggleGameMenu()"
-  style="height: 38px; padding: 0 14px; border: 0; border-radius: 20px; background: var(--orange); color: white; font: inherit; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; gap: 7px; cursor: pointer;"
->
-  <span aria-hidden="true">▶</span>
-  <span>Play Game</span>
-</button>
+    <!-- Nav Action Buttons -->
+    <div class="nav-right">
+      <!-- Instagram Link -->
+      <a href="https://www.instagram.com/showup.co.id" target="_blank" rel="noopener noreferrer" class="icon-btn" title="Instagram @showup.co.id" aria-label="Instagram">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+        </svg>
+      </a>
 
-</div>
-  <!-- Tombol Utama -->
+      <!-- WhatsApp Direct Chat Link -->
+      <a href="https://wa.me/6285881976076?text=Ready%20To%20Show%20Up!%20Saya%20siap%20unlock%20potensi%20diri%20dan%20%23ShowUp%20bersama.%20Mohon%20bantuannya%20untuk%20mulai%20bimbingan%20kelas%20ya!%20🚀" target="_blank" rel="noopener noreferrer" class="icon-btn wa-btn" title="Konsultasi WhatsApp" aria-label="WhatsApp">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+        </svg>
+      </a>
 
-</div>
+      <!-- Game Drawer Trigger Button -->
+      <button class="game-btn" onclick="toggleGameMenu()" aria-label="Buka Game Arena">
+        <span class="pulse-dot"></span>
+        <span>Play Game</span>
+      </button>
+
+      <!-- Mobile Hamburger Toggle -->
+      <button class="mobile-toggle" onclick="toggleMobileMenu()" aria-label="Toggle Navigation Menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
     </div>
   </header>
 </div>
 
-<!-- 1. Halaman Beranda (Homepage) - Hero Section -->
+<!-- Mobile Navigation Menu -->
+<div id="mobile-menu">
+  <a href="#home" onclick="toggleMobileMenu()">Beranda</a>
+  <a href="#about" onclick="toggleMobileMenu()">Tentang Kami</a>
+  <a href="#our-mentors" onclick="toggleMobileMenu()">Our Mentors</a>
+  <a href="rasyad.html" onclick="toggleMobileMenu()">Cek Kelas</a>
+  <a href="#show-it" onclick="toggleMobileMenu()">Show It Session</a>
+  <a href="#artikel" onclick="toggleMobileMenu()">Artikel & Edukasi</a>
+  <a href="#komunitas" onclick="toggleMobileMenu()">Komunitas</a>
+</div>
+
+<!-- ==========================================================================
+   1. HERO SECTION (HERO + VALUE PROOF)
+   ========================================================================== -->
 <section class="hero" id="home">
   <div class="wrap">
-    <h1>Say It & Show It: Building Skills, Shaping Your Identity.</h1>
-    <p>Platform suportif yang menemani kamu membangun skill komunikasi, meningkatkan kepercayaan diri, dan berani menunjukkan value dirimu ke dunia profesional.</p>
-    <div class="hero-actions">
-      <a class="btn btn-orange" href="#assessment">Cek Kelasku Sekarang</a>
-      <a class="btn btn-outline" href="#about">Pelajari Lebih Lanjut</a>
+    <div class="hero-content">
+      <div class="hero-pill">
+        <span class="badge-sparkle">✨</span>
+        <span>Platform Komunikasi & Personal Branding Generasi Muda</span>
+      </div>
+
+      <h1>
+        Say It & Show It: Building Skills, <br>
+        <span class="text-gradient">Shaping Your Identity.</span>
+      </h1>
+
+      <p class="lead">
+        Platform suportif yang menemani kamu mengatasi rasa grogi, menguasai komunikasi terstruktur, dan berani menonjolkan value dirimu ke dunia profesional.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn btn-orange" href="#assessment">
+          <span>Cek Kelasku Sekarang</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+        <a class="btn btn-outline-white" href="#about">
+          <span>Pelajari Filosofi Kami</span>
+        </a>
+      </div>
+
+      <!-- Trust Strip Metrics -->
+      <div class="trust-strip">
+        <div class="trust-item">
+          <div class="trust-number">500<span>+</span></div>
+          <div class="trust-label">Member Telah Bergabung</div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-number">98<span>%</span></div>
+          <div class="trust-label">Peningkatan Rasa Percaya Diri</div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-number">3<span>+</span></div>
+          <div class="trust-label">Mentor Praktisi Berpengalaman</div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-number">100<span>%</span></div>
+          <div class="trust-label">Simulasi Praktik Langsung</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- Highlight Section -->
-<section class="highlights wrap">
+<!-- ==========================================================================
+   HIGHLIGHT CARDS (PRACTICE, LEARN, CONNECT)
+   ========================================================================== -->
+<section class="wrap highlights-wrap">
   <div class="highlights-grid">
+    <!-- Card 1 -->
     <div class="highlight-card">
-      <div class="hc-icon">🎯</div>
-      <h3>Practice (Show It Session)</h3>
-      <p>Wadah berlatih dan dapatkan peer-feedback langsung untuk kembangkan potensimu.</p>
+      <div class="hc-icon-box">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <circle cx="12" cy="12" r="6"></circle>
+          <circle cx="12" cy="12" r="2"></circle>
+        </svg>
+      </div>
+      <h3>Practice (Show It)</h3>
+      <p>Wadah latihan praktis berkala dan peroleh peer-feedback langsung untuk akselerasi kemampuan bicaramu.</p>
+      <a href="#show-it" class="highlight-link">
+        <span>Mulai Praktik</span>
+        <span>→</span>
+      </a>
     </div>
+
+    <!-- Card 2 -->
     <div class="highlight-card">
-      <div class="hc-icon">📚</div>
+      <div class="hc-icon-box blue">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+        </svg>
+      </div>
       <h3>Learn (Edukasi)</h3>
-      <p>Insight sehari-hari & panduan masa depan untuk atasi rasa insecure-mu.</p>
+      <p>Kumpulan kurikulum taktis harian untuk mengikis rasa takut, impostor syndrome, serta trik presentasi memukau.</p>
+      <a href="#artikel" class="highlight-link">
+        <span>Baca Insight</span>
+        <span>→</span>
+      </a>
     </div>
+
+    <!-- Card 3 -->
     <div class="highlight-card">
-      <div class="hc-icon">🤝</div>
+      <div class="hc-icon-box emerald">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+          <circle cx="9" cy="7" r="4"></circle>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+        </svg>
+      </div>
       <h3>Connect (Komunitas)</h3>
-      <p>Ruang aman untuk bertumbuh bersama dan memperluas networking-mu.</p>
+      <p>Ruang aman bebas judging untuk bertumbuh bersama sesama mahasiswa ambisius dan perluas relasi masa depan.</p>
+      <a href="#komunitas" class="highlight-link">
+        <span>Gabung Circle</span>
+        <span>→</span>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- 2. Halaman Tentang Kami -->
+<!-- ==========================================================================
+   2. TENTANG KAMI & FILOSOFI DIRI
+   ========================================================================== */
 <section class="section about" id="about">
   <div class="wrap">
-    <div class="about-intro">
-      <h2>Sering overthinking sebelum bicara?<br>Atau bingung nulis apa di CV padahal pengalamanmu banyak? You're not alone. We Are Here For You.</h2>
-      <p>Kami paham tantangan terbesar mahasiswa dan fresh graduate. Punya potensi dan semangat besar, tapi sering kali terhalang rasa kurang percaya diri saat harus menunjukkannya ke dunia profesional.</p>
+    <div class="section-head">
+      <span class="section-tag">FILOSOFI SHOW UP</span>
+      <h2>Sering Overthinking Sebelum Bicara? <br>You're Not Alone. We Are Here For You.</h2>
+      <p>
+        Banyak anak muda memiliki ide brilian dan segudang pengalaman, namun terhalang oleh keraguan saat harus menyampaikannya di forum publik atau wawancara kerja. Kami hadir menjembatani jarak itu.
+      </p>
     </div>
-    
-    <div class="philosophy">
-      <div class="phil-box">
-        <h3 class="say-it">SAY IT.</h3>
-        <p><strong>Keberanianmu untuk bersuara.</strong><br>Mulai dari public speaking, presentasi di depan kelas, hingga kemampuan menyampaikan gagasan secara jelas dan terstruktur.</p>
+
+    <div class="phil-grid">
+      <!-- Say It Card -->
+      <div class="phil-card say-it-card">
+        <span class="phil-tag">SPEAK YOUR MIND</span>
+        <h3>SAY IT.</h3>
+        <p class="subtitle">Keberanianmu untuk Bersuara Secara Berbobot.</p>
+        <p class="desc">
+          Bukan sekadar bicara lantang, melainkan kemampuan merangkai gagasan secara sistematis, memikat audiens, dan menghilangkan rasa cemas di panggung.
+        </p>
+        <ul class="phil-checklist">
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF6026" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Teknik pernapasan & kontrol vokal anti-gemetar
+          </li>
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF6026" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Struktur bicara PREP (Point, Reason, Example, Point)
+          </li>
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF6026" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Refleks impromptu answering saat ditanya dosen/atasan
+          </li>
+        </ul>
       </div>
-      <div class="phil-box">
-        <h3 class="show-it">SHOW IT.</h3>
-        <p><strong>Keberanianmu untuk tampil.</strong><br>Menunjukkan kompetensi lewat personal branding, membangun portofolio, dan merancang CV yang standout.</p>
+
+      <!-- Show It Card -->
+      <div class="phil-card show-it-card">
+        <span class="phil-tag">PROVE YOUR VALUE</span>
+        <h3>SHOW IT.</h3>
+        <p class="subtitle">Keberanianmu untuk Tampil dan Dilihat.</p>
+        <p class="desc">
+          Bagaimana kamu mengemas pengalaman hidupmu menjadi profil yang standout. Dari CV ATS-friendly hingga cara kamu menjawab pertanyaan behavioral interview.
+        </p>
+        <ul class="phil-checklist">
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0B132B" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Optimasi profil LinkedIn yang dilirik oleh Recruiter
+          </li>
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0B132B" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Penyusunan portofolio & CV dengan metode STAR
+          </li>
+          <li>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0B132B" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Personal presence yang memancarkan kredibilitas
+          </li>
+        </ul>
       </div>
     </div>
   </div>
 </section>
-<!-- SECTION OUR MENTORS -->
-<div class="wrap" style="padding: 80px 0 40px 0;" id="our-mentors">
-  <div style="text-align: center; margin-bottom: 40px;">
-    <span style="background: rgba(255,107,53,0.15); color: var(--orange); padding: 6px 16px; border-radius: 20px; font-weight: bold; font-size: 13px;">EXPERTS & MENTORS</span>
-    <h2 style="font-size: 32px; margin-top: 10px; color: var(--navy);">Our Mentors</h2>
-    <p style="color: #64748b; font-size: 14px;">Belajar langsung dari para profesional yang siap membimbing perjalanan tokomu!</p>
-  </div>
 
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
-    
-  <!-- Mentor 1 -->
-<a href="mentor-rasyad.html" style="text-decoration: none; color: inherit; display: block;">
-  <div style="background: #ffffff; border-radius: 20px; padding: 20px; text-align: center; border: 1px solid #e2e8f0; box-shadow: 0 4px 15px rgba(0,0,0,0.03); cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-    <!-- Frame Foto Mentor 1 -->
-    <div style="width: 100%; aspect-ratio: 1/1; background: #f1f5f9; border-radius: 16px; overflow: hidden; margin-bottom: 20px; display: flex; align-items: center; justify-content: center;">
-      <img src="images/mentor1.jpg" alt="Muhammad Kahfi Rasyad" style="width: 100%; height: 100%; object-fit: cover; object-position: top;">
-    </div>
-    <h3 style="margin: 0 0 4px 0; color: var(--navy); font-size: 20px;">Muhammad Kahfi Rasyad</h3>
-    <p style="color: var(--orange); font-weight: 700; font-size: 13px; margin: 0 0 12px 0;">Public Speaking Specialist</p>
-    <p style="color: #64748b; font-size: 13px; line-height: 1.5; margin: 0;">Praktisi komunikasi dengan pengalaman membimbing ratusan profesional muda mengatasi rasa tidak percaya diri.</p>
-  </div>
-</a>
-   <!-- Mentor 2 -->
-<a href="mentor-waffa.html" style="text-decoration: none; color: inherit; display: block;">
-  <div style="background: #ffffff; border-radius: 20px; padding: 20px; text-align: center; border: 1px solid #e2e8f0; box-shadow: 0 4px 15px rgba(0,0,0,0.03); cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-    <div style="width: 100%; aspect-ratio: 1/1; background: #f1f5f9; border-radius: 16px; overflow: hidden; margin-bottom: 20px; display: flex; align-items: center; justify-content: center;">
-      <img src="images/mentor2.jpg" alt="Waffa Ma'alim Fithoriq" style="width: 100%; height: 100%; object-fit: cover; object-position: top;">
-    </div>
-    <h3 style="margin: 0 0 4px 0; color: var(--navy); font-size: 20px;">Waffa Ma'alim Fithoriq</h3>
-    <p style="color: var(--orange); font-weight: 700; font-size: 13px; margin: 0 0 12px 0;">Personal Branding Coach</p>
-    <p style="color: #64748b; font-size: 13px; line-height: 1.5; margin: 0;">Ahli dalam memoles portofolio diri, optimasi LinkedIn, dan strategi penyampaian value di dunia kerja.</p>
-  </div>
-</a>
-
-<!-- Mentor 3 -->
-<a href="mentor-nazwa.html" style="text-decoration: none; color: inherit; display: block;">
-  <div style="background: #ffffff; border-radius: 20px; padding: 20px; text-align: center; border: 1px solid #e2e8f0; box-shadow: 0 4px 15px rgba(0,0,0,0.03); cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-5px)'" onmouseout="this.style.transform='translateY(0)'">
-    <div style="width: 100%; aspect-ratio: 1/1; background: #f1f5f9; border-radius: 16px; overflow: hidden; margin-bottom: 20px; display: flex; align-items: center; justify-content: center;">
-      <img src="images/mentor3.jpg" alt="Nazwa Priyandini Cahyani Putri" style="width: 100%; height: 100%; object-fit: cover; object-position: top;">
-    </div>
-    <h3 style="margin: 0 0 4px 0; color: var(--navy); font-size: 20px;">Nazwa Priyandini Cahyani Putri</h3>
-    <p style="color: var(--orange); font-weight: 700; font-size: 13px; margin: 0 0 12px 0;">Career & Leadership Trainer</p>
-    <p style="color: #64748b; font-size: 13px; line-height: 1.5; margin: 0;">Fokus mendampingi kesiapan karier, teknik wawancara kerja, serta kepemimpinan di ruang publik.</p>
-  </div>
-</a>
-  </div>
-</div> 
-
-<!-- FITUR TAMBAHAN 1: Assessment / Interview Kelas -->
-<section class="section" id="assessment" style="background: var(--white);">
+<!-- ==========================================================================
+   OUR MENTORS SECTION
+   ========================================================================== -->
+<section class="section mentors-section" id="our-mentors">
   <div class="wrap">
     <div class="section-head">
-      <h2>Cek Kelas Apa yang Cocok Buatmu!</h2>
-      <p>Jawab pertanyaan ini dan kami akan mengklasifikasikan kelemahanmu untuk masuk ke kelas pelatihan yang tepat.</p>
+      <span class="section-tag">EXPERTS & MENTORS</span>
+      <h2>Belajar Langsung dari Para Praktisi</h2>
+      <p>Mentor yang telah mendampingi ratusan talenta muda mengatasi demam panggung dan menembus karier impian.</p>
     </div>
-    <div style="max-width: 500px; margin: auto; background: var(--gray-bg); padding: 30px; border-radius: 16px; border: 1px solid var(--border);">
-      <div class="form-group">
-        <label>Apa kendala terbesarmu saat ini?</label>
-        <select id="kendala" class="form-control">
-          <option value="nervous">Sering grogi dan nge-blank saat bicara</option>
-          <option value="struktur">Bicara sudah berani, tapi tidak terstruktur</option>
-          <option value="cv">Bingung cara menulis CV dan Personal Branding</option>
-          <option value="bingung">Ngeluarin Kata Aja Gabisa</option>
-        </select>
-      </div>
-      <button class="btn btn-navy" style="width: 100%;" onclick="cekKelas()">Temukan Kelasku</button>
-     <div id="hasil-kelas" class="result-box"></div>
-    </div>
-  </div>
-</section>
 
-<!-- 3. Halaman Show It Session & FITUR TAMBAHAN 2: Upload -->
-<section class="section show-it-session" id="show-it" style="background: var(--gray-bg);">
-  <div class="wrap">
-    <div class="show-it-header">
-      <h2>Waktunya Unjuk Gigi. Learn It, Practice It, Show It!</h2>
-    </div>
-    
-    <div class="session-grid">
-      <!-- Modifikasi Upload CV -->
-      <div class="session-card">
-        <h3>📄 Rate My CV</h3>
-        <p>Upload draf CV-mu dalam format PDF dan dapatkan feedback konstruktif langsung dari mentor & sesama member.</p>
-        <div class="form-group">
-          <input type="file" class="form-control" accept="application/pdf">
+    <div class="mentors-grid">
+      <!-- Mentor 1 -->
+      <a href="mentor-rasyad.html" class="mentor-card">
+        <div class="mentor-image-frame">
+          <img src="images/mentor1.jpg" alt="Muhammad Kahfi Rasyad" loading="lazy">
+          <span class="mentor-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="#FF6026"><circle cx="12" cy="12" r="10"></circle></svg>
+            Mentor Aktif
+          </span>
         </div>
-        <button class="btn btn-orange" onclick="alert('CV berhasil dikirim untuk direview!')">Kirim CV</button>
+        <div class="mentor-info">
+          <h3>Muhammad Kahfi Rasyad</h3>
+          <span class="mentor-role">Public Speaking Specialist</span>
+          <p class="mentor-bio">Praktisi komunikasi panggung yang fokus pada psikologi percaya diri, artikulasi vokal, dan metode eliminasi nervous seketika.</p>
+        </div>
+        <div class="mentor-action">
+          <span class="mentor-view-link">Lihat Profil & Jadwal →</span>
+        </div>
+      </a>
+
+      <!-- Mentor 2 -->
+      <a href="mentor-waffa.html" class="mentor-card">
+        <div class="mentor-image-frame">
+          <img src="images/mentor2.jpg" alt="Waffa Ma'alim Fithoriq" loading="lazy">
+          <span class="mentor-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="#FF6026"><circle cx="12" cy="12" r="10"></circle></svg>
+            Mentor Aktif
+          </span>
+        </div>
+        <div class="mentor-info">
+          <h3>Waffa Ma'alim Fithoriq</h3>
+          <span class="mentor-role">Personal Branding Coach</span>
+          <p class="mentor-bio">Spesialis strategi personal branding digital, penulisan resume standout, dan pemetaan value diri di bursa karier profesional.</p>
+        </div>
+        <div class="mentor-action">
+          <span class="mentor-view-link">Lihat Profil & Jadwal →</span>
+        </div>
+      </a>
+
+      <!-- Mentor 3 -->
+      <a href="mentor-nazwa.html" class="mentor-card">
+        <div class="mentor-image-frame">
+          <img src="images/mentor3.jpg" alt="Nazwa Priyandini Cahyani Putri" loading="lazy">
+          <span class="mentor-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="#FF6026"><circle cx="12" cy="12" r="10"></circle></svg>
+            Mentor Aktif
+          </span>
+        </div>
+        <div class="mentor-info">
+          <h3>Nazwa Priyandini C. P.</h3>
+          <span class="mentor-role">Career & Leadership Trainer</span>
+          <p class="mentor-bio">Fasilitator kepemimpinan muda dan persiapan interview HRD/User, membantu calon profesional tampil berwibawa.</p>
+        </div>
+        <div class="mentor-action">
+          <span class="mentor-view-link">Lihat Profil & Jadwal →</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+   INTERACTIVE ASSESSMENT / QUIZ DIAGNOSTIK
+   ========================================================================== -->
+<section class="section assessment-section" id="assessment">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag blue">DIAGNOSTIK KELAS</span>
+      <h2>Cari Tahu Kelas yang Paling Tepat Buatmu</h2>
+      <p>Pilih tantangan terbesar yang sedang kamu hadapi. Sistem kami akan merekomendasikan kurikulum & mentor yang paling pas.</p>
+    </div>
+
+    <div class="assessment-box">
+      <span class="quiz-instruction">Apa kendala utamamu saat ini?</span>
+      
+      <div class="quiz-options">
+        <label class="quiz-option-label">
+          <input type="radio" name="kendala_radio" value="nervous" checked>
+          <span class="quiz-option-text">Sering grogi, tangan dingin, dan tiba-tiba nge-blank saat bicara</span>
+        </label>
+        
+        <label class="quiz-option-label">
+          <input type="radio" name="kendala_radio" value="struktur">
+          <span class="quiz-option-text">Bicara sudah berani, tapi berbelit-belit dan tidak terstruktur</span>
+        </label>
+        
+        <label class="quiz-option-label">
+          <input type="radio" name="kendala_radio" value="cv">
+          <span class="quiz-option-text">Bingung cara menulis CV dan membangun Personal Branding</span>
+        </label>
+        
+        <label class="quiz-option-label">
+          <input type="radio" name="kendala_radio" value="bingung">
+          <span class="quiz-option-text">Sangat pemalu, bahkan kesulitan mengeluarkan sepatah kata di depan umum</span>
+        </label>
       </div>
-      
-      <!-- Modifikasi Upload Video IG -->
-      <div class="session-card">
-  <h3>🎥 Video Challenge</h3>
-  <p>Submit link video Reels/IG public speaking-mu di sini. Latih keberanianmu dan kumpulkan poin.</p>
-  <button class="btn btn-orange" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSflfkjYVq03S7OMnZ5iHoRMjKcHVMk1eaPVcupOQeZwMlofiA/viewform?usp=header', '_blank')">Submit Video</button>
-</div>
-      
-      <div class="session-card">
-        <h3>💼 Mock Interview Board</h3>
-        <p>Jawab pertanyaan interview simulasi bulan ini dan pelajari cara menjawab dari peserta lain.</p>
-        <div style="flex-grow: 1;"></div>
-        <button class="btn btn-orange" onclick="alert('Masuk ke Mock Interview Board')">Coba Simulasi</button>
+
+      <button class="btn btn-navy" style="width: 100%;" onclick="jalankanCekKelas()">
+        <span>Temukan Rekomendasi Kelasku</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </button>
+
+      <!-- Tempat Tampil Hasil -->
+      <div id="hasil-kelas" class="result-card"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+   3. SHOW IT SESSION & UPLOAD WORKSPACE
+   ========================================================================== -->
+<section class="section show-it-section" id="show-it">
+  <div class="wrap">
+    <div class="session-header-banner">
+      <h2>Waktunya Unjuk Gigi: Learn It, Practice It, Show It!</h2>
+      <p>Di Show Up, kamu tidak hanya menyimak teori. Kami sediakan panggung nyata untuk melatih skill-mu setiap minggu.</p>
+    </div>
+
+    <div class="session-cards-grid">
+      <!-- Card 1: Rate My CV -->
+      <div class="session-action-card">
+        <div class="session-icon">📄</div>
+        <h3>Rate My CV</h3>
+        <p>Unggah draf CV-mu dalam format PDF. Dapatkan feedback poin-demi-poin langsung dari mentor agar lolos screening HRD.</p>
+        
+        <label class="custom-file-drop">
+          <input type="file" id="cvFileInput" accept="application/pdf" onchange="handleFileSelected(this)">
+          <div style="font-size: 24px; margin-bottom: 6px;">📤</div>
+          <div class="file-status-text" id="cvFileLabel">Pilih file CV (PDF maks. 5MB)</div>
+        </label>
+        
+        <button class="btn btn-orange" style="width: 100%;" onclick="submitCvFile()">
+          <span>Kirim CV untuk Review</span>
+        </button>
+      </div>
+
+      <!-- Card 2: Video Challenge -->
+      <div class="session-action-card">
+        <div class="session-icon">🎥</div>
+        <h3>Video Challenge</h3>
+        <p>Latihan bicara 60 detik dengan topik mingguan kami. Submit link Instagram Reels/TikTok-mu untuk kumpulkan EXP & masukan.</p>
+        <div style="background: var(--bg-slate); padding: 14px; border-radius: var(--radius-md); margin-bottom: 20px; font-size: 13px; color: var(--navy-600); border: 1px dashed var(--border-light);">
+          <strong>Topik Minggu Ini:</strong> "Perkenalan Diri Menggunakan Metode Hook-Story-Offer"
+        </div>
+        <button class="btn btn-orange" style="width: 100%;" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSflfkjYVq03S7OMnZ5iHoRMjKcHVMk1eaPVcupOQeZwMlofiA/viewform?usp=header', '_blank')">
+          <span>Submit Video Challenge ↗</span>
+        </button>
+      </div>
+
+      <!-- Card 3: Mock Interview Simulator -->
+      <div class="session-action-card">
+        <div class="session-icon">💼</div>
+        <h3>Mock Interview Board</h3>
+        <p>Uji kesiapan mentalmu menghadapi pertanyaan wawancara paling jebakan. Dapatkan contoh jawaban ideal dari para alumni.</p>
+        <div id="interviewQuestionBox" style="background: var(--bg-slate); padding: 14px; border-radius: var(--radius-md); margin-bottom: 20px; font-size: 13px; color: var(--navy-900); font-weight: 600; min-height: 48px; display: flex; align-items: center;">
+          Klik tombol di bawah untuk membangkitkan simulasi pertanyaan!
+        </div>
+        <button class="btn btn-navy" style="width: 100%;" onclick="generateInterviewQuestion()">
+          <span>Acak Pertanyaan Interview</span>
+        </button>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FITUR TAMBAHAN 3: Gamification Board -->
-<section class="section" style="background: var(--gray-bg); padding-top: 0;">
+<!-- ==========================================================================
+   GAMIFICATION BOARD & INTERACTIVE PROGRESS
+   ========================================================================== -->
+<section class="section gamification-section">
   <div class="wrap">
     <div class="gamification-board">
-      <div class="level-header">
-        <div>
-          <h3 style="margin:0;">Dashboard Progress Kamu</h3>
-          <p style="margin:0; color:#cbd5e1; font-size: 14px;">Selesaikan challenge dari owner untuk naik pangkat di kelasmu!</p>
+      <div class="gamification-top">
+        <div class="gamification-title">
+          <h3>🎮 Dashboard Tantangan Kamu</h3>
+          <p>Selesaikan quest harian untuk menaikkan peringkatmu dari Baby Speaker menuju Confident Orator!</p>
         </div>
-        <div class="badge">🏆 Pangkat saat ini: Baby Speaker</div>
+        <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+          <div class="streak-chip">🔥 5 Hari Berturut-turut</div>
+          <div class="badge-rank" id="currentRankBadge">🏆 Pangkat: Baby Speaker</div>
+        </div>
       </div>
-      <p style="font-size: 14px;">Progress menuju pangkat "Shy Talker" (40%)</p>
+
+      <!-- Progress Meter -->
+      <div class="progress-header">
+        <span>Progress Menuju Pangkat: <strong id="nextRankText" style="color: var(--orange-400);">Shy Talker</strong></span>
+        <span id="expCounterText">40 / 100 EXP (40%)</span>
+      </div>
       <div class="progress-container">
-        <div class="progress-bar"></div>
+        <div class="progress-bar-fill" id="expProgressBar"></div>
       </div>
-      <ul class="task-list">
-        <li>
-          <span>✅ Task 1: Video Intro</span>
-          <span style="color: var(--orange); font-weight: bold;">+10 EXP</span>
-        </li>
-        <li>
-          <span>⏳ Task 2: Fear Journal</span>
-          <button class="btn btn-outline" style="padding: 5px 15px; font-size: 12px;">Kerjakan</button>
-        </li>
-        <li>
-          <span>🔒 Task 3: Review Ted Talk</span>
-          <span style="color: gray; font-size: 14px;">Butuh Level 2</span>
-        </li>
-      </ul>
+
+      <!-- Checklist Task -->
+      <div class="tasks-wrapper">
+        <!-- Task 1 -->
+        <div class="interactive-task" id="task1">
+          <div class="task-info-left">
+            <button class="task-checkbox checked" onclick="toggleTask(1, 15)" aria-label="Selesaikan Task 1">✓</button>
+            <div>
+              <span class="task-title">Task 1: Rekam Video Perkenalan Diri 60 Detik</span>
+              <p style="font-size: 12px; color: #94A3B8; margin: 2px 0 0;">Upload ke grup komunitas Show Up</p>
+            </div>
+          </div>
+          <span class="task-exp-tag">+15 EXP (Selesai)</span>
+        </div>
+
+        <!-- Task 2 -->
+        <div class="interactive-task" id="task2">
+          <div class="task-info-left">
+            <button class="task-checkbox checked" onclick="toggleTask(2, 25)" aria-label="Selesaikan Task 2">✓</button>
+            <div>
+              <span class="task-title">Task 2: Menulis "Fear Journal" Komunikasi</span>
+              <p style="font-size: 12px; color: #94A3B8; margin: 2px 0 0;">Identifikasi 3 pemicu rasa grogimu</p>
+            </div>
+          </div>
+          <span class="task-exp-tag">+25 EXP (Selesai)</span>
+        </div>
+
+        <!-- Task 3 -->
+        <div class="interactive-task" id="task3">
+          <div class="task-info-left">
+            <button class="task-checkbox" onclick="toggleTask(3, 30)" aria-label="Selesaikan Task 3"></button>
+            <div>
+              <span class="task-title">Task 3: Bedah 1 Video TED Talk Favorit</span>
+              <p style="font-size: 12px; color: #94A3B8; margin: 2px 0 0;">Tuliskan hook & body language pembicara</p>
+            </div>
+          </div>
+          <button class="btn btn-sm btn-outline-white" onclick="toggleTask(3, 30)">Kerjakan (+30 EXP)</button>
+        </div>
+
+        <!-- Task 4 -->
+        <div class="interactive-task" id="task4">
+          <div class="task-info-left">
+            <button class="task-checkbox" onclick="toggleTask(4, 30)" aria-label="Selesaikan Task 4"></button>
+            <div>
+              <span class="task-title">Task 4: Praktik Pidato Impromptu di Game Arena</span>
+              <p style="font-size: 12px; color: #94A3B8; margin: 2px 0 0;">Uji refleks bicaramu dengan timer 60 detik</p>
+            </div>
+          </div>
+          <button class="btn btn-sm btn-outline-white" onclick="toggleTask(4, 30)">Mulai Game (+30 EXP)</button>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ARTIKEL & EDUKASI -->
-<div class="wrap" id="artikel" style="padding: 60px 0 40px 0;">
-  <!-- Kodingan modul artikel & edukasi -->
-</div>
-  <div style="text-align: center; margin-bottom: 40px;">
-    <h2 style="font-size: 32px; color: var(--navy); margin-bottom: 8px;">Artikel & Edukasi</h2>
-    <p style="color: #64748b; font-size: 14px;">Sumber insight untuk menemani progres keseharianmu.</p>
-  </div>
-
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;">
-    
-    <!-- Kolom 1: Obrolan Sehari-hari -->
-    <div>
-      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px;">
-        <h3 style="margin: 0; color: var(--navy); font-size: 20px;">Obrolan Sehari-hari</h3>
-        <span style="background: #ff6b35; color: white; padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: bold;">Daily</span>
-      </div>
-
-      <!-- Artikel 1 -->
-      <a href="artikel-ngeblank.html" style="text-decoration: none; color: inherit; display: block; margin-bottom: 16px;">
-        <div style="background: #ffffff; border-radius: 16px; padding: 20px; border: 1px solid #e2e8f0; transition: all 0.2s; cursor: pointer;" onmouseover="this.style.transform='translateY(-3px)'; this.style.borderColor='var(--orange)';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='#e2e8f0';">
-          <h4 style="margin: 0 0 8px 0; color: var(--navy); font-size: 16px; line-height: 1.4;">Solusi Saat Tiba-tiba Nge-blank Pas Ditanya Dosen</h4>
-          <span style="color: var(--orange); font-size: 12px; font-weight: 600;">#PublicSpeaking #Kuliah</span>
-        </div>
-      </a>
-
-      <!-- Artikel 2 -->
-      <a href="artikel-cv.html" style="text-decoration: none; color: inherit; display: block;">
-        <div style="background: #ffffff; border-radius: 16px; padding: 20px; border: 1px solid #e2e8f0; transition: all 0.2s; cursor: pointer;" onmouseover="this.style.transform='translateY(-3px)'; this.style.borderColor='var(--orange)';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='#e2e8f0';">
-          <h4 style="margin: 0 0 8px 0; color: var(--navy); font-size: 16px; line-height: 1.4;">Cara Nulis Pengalaman Organisasi di CV Biar Gak Kelihatan "Kosong"</h4>
-          <span style="color: var(--orange); font-size: 12px; font-weight: 600;">#CareerReadiness #CV</span>
-        </div>
-      </a>
-    </div>
-
-    <!-- Kolom 2: Siap Hadapi Masa Depan -->
-    <div>
-      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px;">
-        <h3 style="margin: 0; color: var(--navy); font-size: 20px;">Siap Hadapi Masa Depan</h3>
-        <span style="background: #ff6b35; color: white; padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: bold;">Visionary</span>
-      </div>
-
-      <!-- Artikel 3 -->
-      <a href="artikel-ai.html" style="text-decoration: none; color: inherit; display: block; margin-bottom: 16px;">
-        <div style="background: #ffffff; border-radius: 16px; padding: 20px; border: 1px solid #e2e8f0; transition: all 0.2s; cursor: pointer;" onmouseover="this.style.transform='translateY(-3px)'; this.style.borderColor='var(--orange)';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='#e2e8f0';">
-          <h4 style="margin: 0 0 8px 0; color: var(--navy); font-size: 16px; line-height: 1.4;">Communication in the AI Era: Skill Manusia yang Gak Bisa Diganti Robot</h4>
-          <span style="color: var(--orange); font-size: 12px; font-weight: 600;">#FutureSkills #Networking</span>
-        </div>
-      </a>
-
-      <!-- Artikel 4 -->
-      <a href="artikel-impostor.html" style="text-decoration: none; color: inherit; display: block;">
-        <div style="background: #ffffff; border-radius: 16px; padding: 20px; border: 1px solid #e2e8f0; transition: all 0.2s; cursor: pointer;" onmouseover="this.style.transform='translateY(-3px)'; this.style.borderColor='var(--orange)';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='#e2e8f0';">
-          <h4 style="margin: 0 0 8px 0; color: var(--navy); font-size: 16px; line-height: 1.4;">Mengatasi Impostor Syndrome: Kamu Lebih Keren dari yang Kamu Pikirkan</h4>
-          <span style="color: var(--orange); font-size: 12px; font-weight: 600;">#PersonalBranding #Mindset</span>
-        </div>
-      </a>
-    </div>
-
-  </div>
-</div>
-</section>
-<!-- SECTION OUR CONTENT ON SOCIAL MEDIA -->
-<div class="wrap" style="padding: 60px 0 30px 0;">
-  <div style="text-align: center; margin-bottom: 40px;">
-    <span style="background: rgba(255,107,53,0.15); color: var(--orange); padding: 6px 16px; border-radius: 20px; font-weight: bold; font-size: 13px;">SOCIAL MEDIA</span>
-    <h2 style="font-size: 32px; margin-top: 10px; color: var(--navy);">Our Content on Social Media</h2>
-    <p style="color: #64748b; font-size: 14px;">Intip konten-konten edukasi dan keseruan kami di media sosial!</p>
-  </div>
-
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-    <!-- Post 1 -->
-    <div style="background: #ffffff; border-radius: 16px; padding: 24px; text-align: center; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
-      <div style="font-size: 36px; margin-bottom: 12px;">📸</div>
-      <h4 style="margin: 0 0 6px 0; color: var(--navy); font-size: 16px;">Skill Unlocked Content</h4>
-      <p style="font-size: 12px; color: #64748b; margin-bottom: 18px;"></p>
-      <a href="https://www.instagram.com/p/Dex3pqtGYfM/" target="_blank" style="display: inline-block; background: var(--orange); color: white; padding: 8px 18px; border-radius: 8px; font-weight: bold; font-size: 12px; text-decoration: none;">Lihat Postingan ↗</a>
-    </div>
-
-    <!-- Post 2 -->
-    <div style="background: #ffffff; border-radius: 16px; padding: 24px; text-align: center; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
-      <div style="font-size: 36px; margin-bottom: 12px;">🎬</div>
-      <h4 style="margin: 0 0 6px 0; color: var(--navy); font-size: 16px;">Pintar Tapi Bingung Untuk Show It?</h4>
-      <p style="font-size: 12px; color: #64748b; margin-bottom: 18px;"></p>
-      <a href="https://www.instagram.com/p/Dex3kXhmfQP/" target="_blank" style="display: inline-block; background: var(--orange); color: white; padding: 8px 18px; border-radius: 8px; font-weight: bold; font-size: 12px; text-decoration: none;">Lihat Postingan ↗</a>
-    </div>
-
-    <!-- Post 3 -->
-    <div style="background: #ffffff; border-radius: 16px; padding: 24px; text-align: center; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
-      <div style="font-size: 36px; margin-bottom: 12px;">💡</div>
-      <h4 style="margin: 0 0 6px 0; color: var(--navy); font-size: 16px;">Our Welcoming Content </h4>
-      <p style="font-size: 12px; color: #64748b; margin-bottom: 18px;"></p>
-      <a href="https://www.instagram.com/p/Dex29JEGdtt/" target="_blank" style="display: inline-block; background: var(--orange); color: white; padding: 8px 18px; border-radius: 8px; font-weight: bold; font-size: 12px; text-decoration: none;">Lihat Postingan ↗</a>
-    </div>
-  </div>
-</div>
-<!-- 5. Galeri Komunitas & UGC -->
-<section class="section community" id="komunitas">
+<!-- ==========================================================================
+   4. PUSAT EDUKASI & ARTIKEL
+   ========================================================================== -->
+<section class="section education-section" id="artikel">
   <div class="wrap">
     <div class="section-head">
-      <h2>Hall of Fame: Mereka yang Sudah #ShowUp</h2>
-      <p>Inspirasi dari teman-teman yang telah berani mengambil langkah pertama dan membagikan ceritanya.</p>
+      <span class="section-tag">KNOWLEDGE BASE</span>
+      <h2>Artikel & Wawasan Pilihan</h2>
+      <p>Panduan ringkas, actionable, dan relevan dengan realitas perkuliahan serta dunia kerja masa kini.</p>
     </div>
-    
-    <div class="hall-of-fame">
-      <div class="hof-item"></div>
-      <div class="hof-item"></div>
-      <div class="hof-item"></div>
-      <div class="hof-item"></div>
+
+    <div class="edu-grid">
+      <!-- Kolom 1: Obrolan Sehari-hari -->
+      <div class="edu-category-column">
+        <div class="edu-cat-header">
+          <h3>Obrolan Sehari-hari</h3>
+          <span class="edu-pill">Daily Life</span>
+        </div>
+
+        <!-- Artikel 1 -->
+        <a href="artikel-ngeblank.html" class="article-card-modern">
+          <div class="article-meta">
+            <span>#PublicSpeaking</span>
+            <span>•</span>
+            <span class="article-reading-time">3 Menit Baca</span>
+          </div>
+          <h4>Solusi Saat Tiba-tiba Nge-blank Pas Ditanya Dosen di Depan Kelas</h4>
+          <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5;">Trik jeda strategis dan formula "Beli Waktu" tanpa terlihat panik atau bingung.</p>
+        </a>
+
+        <!-- Artikel 2 -->
+        <a href="artikel-cv.html" class="article-card-modern">
+          <div class="article-meta">
+            <span>#CareerReady</span>
+            <span>•</span>
+            <span class="article-reading-time">4 Menit Baca</span>
+          </div>
+          <h4>Cara Nulis Pengalaman Organisasi di CV Biar Gak Kelihatan "Kosong"</h4>
+          <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5;">Ubah deskripsi tugas biasa jadi pencapaian bermakna dengan metrik terukur.</p>
+        </a>
+      </div>
+
+      <!-- Kolom 2: Siap Hadapi Masa Depan -->
+      <div class="edu-category-column">
+        <div class="edu-cat-header">
+          <h3>Siap Hadapi Masa Depan</h3>
+          <span class="edu-pill visionary">Visionary</span>
+        </div>
+
+        <!-- Artikel 3 -->
+        <a href="artikel-cv.html" class="article-card-modern">
+          <div class="article-meta" style="color: var(--blue-500);">
+            <span>#FutureSkills</span>
+            <span>•</span>
+            <span class="article-reading-time">5 Menit Baca</span>
+          </div>
+          <h4>Communication in the AI Era: Skill Manusia yang Tak Bisa Digantikan Robot</h4>
+          <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5;">Mengapa empati, persuasi, dan storytelling menjadi komoditas paling mahal di era AI.</p>
+        </a>
+
+        <!-- Artikel 4 -->
+        <a href="artikel-ngeblank.html" class="article-card-modern">
+          <div class="article-meta" style="color: var(--blue-500);">
+            <span>#Mindset</span>
+            <span>•</span>
+            <span class="article-reading-time">4 Menit Baca</span>
+          </div>
+          <h4>Mengatasi Impostor Syndrome: Kamu Lebih Berkompeten dari yang Kamu Pikirkan</h4>
+          <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5;">Langkah psikologis membedakan antara fakta objektif vs ketakutan yang kamu buat sendiri.</p>
+        </a>
+      </div>
     </div>
-    
-    <a class="btn btn-navy" href="#">Punya cerita suksesmu sendiri? Bagikan di sini!</a>
   </div>
 </section>
 
-<!-- Footer -->
+<!-- ==========================================================================
+   5. SOCIAL MEDIA HIGHLIGHTS
+   ========================================================================== -->
+<section class="section social-section">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag">CONNECT ON SOCIALS</span>
+      <h2>Konten Edukasi Kami di Instagram</h2>
+      <p>Simak tips cepat, micro-learning, dan cuplikan webinar seru di akun resmi kami @showup.co.id.</p>
+    </div>
+
+    <div class="social-grid">
+      <!-- Post 1 -->
+      <div class="social-card">
+        <div class="social-card-icon">📸</div>
+        <h4>Skill Unlocked Series</h4>
+        <p>Bongkar tuntas teknik menyusun elevator pitch 30 detik untuk networking dengan petinggi organisasi.</p>
+        <a href="https://www.instagram.com/p/Dex3pqtGYfM/" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-navy">
+          <span>Lihat di Instagram ↗</span>
+        </a>
+      </div>
+
+      <!-- Post 2 -->
+      <div class="social-card">
+        <div class="social-card-icon">🎬</div>
+        <h4>Pintar Tapi Bingung Show It?</h4>
+        <p>Kenali 3 tanda kamu punya deep knowledge tapi gagal mengomunikasikannya ke orang lain.</p>
+        <a href="https://www.instagram.com/p/Dex3kXhmfQP/" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-orange">
+          <span>Tonton Video Reels ↗</span>
+        </a>
+      </div>
+
+      <!-- Post 3 -->
+      <div class="social-card">
+        <div class="social-card-icon">💡</div>
+        <h4>Our Welcoming Showcase</h4>
+        <p>Perkenalan komunitas Show Up dan peta jalan belajar dari pemula hingga fasih berbicara di publik.</p>
+        <a href="https://www.instagram.com/p/Dex29JEGdtt/" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-navy">
+          <span>Lihat Postingan ↗</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+   6. HALL OF FAME / COMMUNITY TESTIMONIALS (REAL AVATARS & STORIES)
+   ========================================================================== -->
+<section class="section community-section" id="komunitas">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="section-tag emerald">HALL OF FAME</span>
+      <h2>Mereka yang Sudah Berani #ShowUp</h2>
+      <p>Kisah nyata dari mahasiswa dan fresh graduate yang berhasil melompat melewati rasa takutnya.</p>
+    </div>
+
+    <div class="hall-of-fame-grid">
+      <!-- Testi 1 -->
+      <div class="hof-card-modern">
+        <div>
+          <div class="hof-stars">★★★★★</div>
+          <p class="hof-quote">
+            "Dulu kalau disuruh presentasi skripsi rasanya pengin pingsan. Setelah ikut sesi drill di Show Up, aku tahu cara atur nafas dan berhasil dapat nilai A dari penguji!"
+          </p>
+        </div>
+        <div class="hof-author">
+          <div class="hof-avatar">AN</div>
+          <div class="hof-meta">
+            <h5>Aditya Nugraha</h5>
+            <span>Mahasiswa Universitas Indonesia</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testi 2 -->
+      <div class="hof-card-modern">
+        <div>
+          <div class="hof-stars">★★★★★</div>
+          <p class="hof-quote">
+            "Feedback CV-nya bener-bener daging! Formatku dirombak total pakai metode STAR, dan 2 minggu kemudian dapet panggilan interview di perusahaan BUMN."
+          </p>
+        </div>
+        <div class="hof-author">
+          <div class="hof-avatar alt-blue">SL</div>
+          <div class="hof-meta">
+            <h5>Siti Lestari</h5>
+            <span>Management Trainee Candidate</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testi 3 -->
+      <div class="hof-card-modern">
+        <div>
+          <div class="hof-stars">★★★★★</div>
+          <p class="hof-quote">
+            "Fitur Video Challenge bikin nagih! Lingkungannya suportif banget, gak ada yang ngecengin walau kita masih kaku atau berbelit-belit di awal."
+          </p>
+        </div>
+        <div class="hof-author">
+          <div class="hof-avatar alt-emerald">RP</div>
+          <div class="hof-meta">
+            <h5>Rafi Pratama</h5>
+            <span>Ketua BEM Fakultas 2025</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testi 4 -->
+      <div class="hof-card-modern">
+        <div>
+          <div class="hof-stars">★★★★★</div>
+          <p class="hof-quote">
+            "Game Pidato Impromptu di sini bikin otakku terlatih responsif. Sekarang pas meeting organisasi selalu siap saat ditanya solusi spontan."
+          </p>
+        </div>
+        <div class="hof-author">
+          <div class="hof-avatar alt-purple">DN</div>
+          <div class="hof-meta">
+            <h5>Dinda Nurhaliza</h5>
+            <span>Fresh Graduate Hubungan Internasional</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Komunitas -->
+    <div style="text-align: center;">
+      <a class="btn btn-navy" href="https://wa.me/6285881976076?text=Halo%20Show%20Up!%20Saya%20ingin%20bergabung%20dengan%20grup%20komunitas%20dan%20berbagi%20pengalaman.%20Boleh%20minta%20link%20joinnya?" target="_blank" rel="noopener noreferrer">
+        <span>Punya Cerita Suksesmu Sendiri? Bagikan di Sini!</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+   FOOTER
+   ========================================================================== -->
 <footer class="footer">
   <div class="wrap">
     <div class="footer-top">
-      <div>
-        <a class="brand" href="#home" style="font-size: 26px;">Show<span class="accent">Up</span></a>
-        <p class="footer-desc">Say It & Show It.<br>Wadah berlatih, belajar, dan terkoneksi untuk membantu kamu membangun skill dan menunjukan identitas profesionalmu.</p>
+      <!-- Col 1: Brand -->
+      <div class="footer-brand-col">
+        <a class="brand" href="#home" style="color: #FFFFFF; font-size: 26px;">
+          Show<span class="accent">Up</span>
+          <span class="brand-dot"></span>
+        </a>
+        <p class="footer-desc">
+          Say It & Show It.<br>
+          Wadah bertumbuh, berlatih, dan berjejaring bagi anak muda Indonesia untuk membangun skill komunikasi serta membentuk identitas profesional yang kredibel.
+        </p>
         <div class="social-links">
-          <a href="https://instagram.com" target="_blank" aria-label="Instagram">IG</a>
-          <a href="https://linkedin.com" target="_blank" aria-label="LinkedIn">IN</a>
-          <a href="https://tiktok.com" target="_blank" aria-label="TikTok">TK</a>
+          <a href="https://www.instagram.com/showup.co.id" target="_blank" rel="noopener noreferrer" class="social-circle" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          </a>
+          <a href="https://wa.me/6285881976076" target="_blank" rel="noopener noreferrer" class="social-circle" aria-label="WhatsApp">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+          </a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-circle" aria-label="LinkedIn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+          </a>
         </div>
       </div>
-      
-      <div class="footer-links">
-        <div class="link-col">
-          <h4>Sitemap</h4>
-          <a href="#home">Beranda</a>
-          <a href="#about">Tentang Kami</a>
-          <a href="#assessment">Cek Kelas</a>
-          <a href="#show-it">Show It Session</a>
+
+      <!-- Col 2: Navigasi -->
+      <div class="footer-nav-col">
+        <h4>Navigasi Utama</h4>
+        <div class="footer-links-list">
+          <a href="#home">Beranda Utama</a>
+          <a href="#about">Filosofi Show Up</a>
+          <a href="#our-mentors">Profil Para Mentor</a>
+          <a href="rasyad.html">Peta Roadmap Kelas</a>
+          <a href="#assessment">Diagnostik Masalahmu</a>
         </div>
-        <div class="link-col">
-          <h4>Resources</h4>
-          <a href="#edukasi">Artikel Edukasi</a>
-          <a href="#komunitas">Galeri Komunitas</a>
+      </div>
+
+      <!-- Col 3: Fasilitas & Fitur -->
+      <div class="footer-nav-col">
+        <h4>Fasilitas Belajar</h4>
+        <div class="footer-links-list">
+          <a href="#show-it">Show It Session (Review CV)</a>
+          <a href="game-public-speaking.html">Public Speaking Arena</a>
+          <a href="game-dubbing.html">Voice Dubbing Challenge</a>
+          <a href="game-pidato.html">Pidato Impromptu Game</a>
+          <a href="#artikel">Pusat Edukasi & Artikel</a>
         </div>
       </div>
     </div>
-    
+
     <div class="footer-bottom">
-      <span>Hak Cipta &copy; 2026 Show Up.</span>
-      <span>Say It & Show It.</span>
+      <span>Hak Cipta &copy; 2026 Show Up Indonesia. All rights reserved.</span>
+      <span>Say It & Show It: Building Skills, Shaping Your Identity.</span>
     </div>
   </div>
 </footer>
 
-<!-- JavaScript Tambahan -->
-<script>
-  // Script untuk Fitur 1 (Klasifikasi Kelas)
-  function cekKelas() {
-    const kendala = document.getElementById('kendala').value;
-    const hasilBox = document.getElementById('hasil-kelas');
-    
-    let namaKelas = "";
-    if(kendala === "nervous") {
-      namaKelas = "Kelas: 'Brave Beginner' <br> <span style='font-weight:normal; font-size:14px;'>(Fokus Mengatasi Demam Panggung & Basic Public Speaking)</span>";
-    } else if(kendala === "struktur") {
-      namaKelas = "Shy Speakerg' <br> <span style='font-weight:normal; font-size:14px;'>(Fokus Storytelling & Critical Thinking)</span>";
-    } else if(kendala === "cv") {
-      namaKelas = "Kelas: 'Career Ready' <br> <span style='font-weight:normal; font-size:14px;'>(Fokus Bedah CV & Interview Hack)</span>";
-    }
-      else if(kendala === "bingung") {
-      namaKelas = "Kelas: 'Baby Speaker' <br> <span style='font-weight:normal; font-size:14px;'>(belajar lagi ya)</span>";
-    }
-
-  
-    hasilBox.innerHTML = "🎯 Berdasarkan analisismu, kamu direkomendasikan masuk: <br><br>" + namaKelas;
-    hasilBox.style.display = "block";
-  }
-
-  // Script Google Analytics Placeholder (dari kodemu sebelumnya)
-  console.log("Analytics Ready: Tracking user flow to Show It Sessions and Education sections.");
-</script>
-<!-- OVERLAY HAMBURGER MENU / GAME ARENA DRAWER -->
-<div id="game-drawer" style="position: fixed; top: 0; right: -420px; width: 360px; height: 100vh; background: #0f172a; color: white; z-index: 9999; transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: -10px 0 30px rgba(0,0,0,0.5); padding: 30px 24px; overflow-y: auto; box-sizing: border-box;">
-  
+<!-- ==========================================================================
+   GAME ARENA SLIDE-OUT DRAWER
+   ========================================================================== -->
+<div id="game-drawer">
   <!-- Header Drawer -->
-  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 16px;">
+  <div class="game-drawer-header">
     <div style="display: flex; align-items: center; gap: 10px;">
-      <span style="font-size: 24px;">🎮</span>
-      <h2 style="margin: 0; font-size: 20px; color: #ffffff; font-weight: 700;">Game Arena</h2>
+      <span style="font-size: 26px;">🎮</span>
+      <div>
+        <h3 style="margin: 0; font-size: 19px; color: #FFFFFF;">Game Arena</h3>
+        <span style="font-size: 12px; color: #94A3B8;">Latihan Spontan & Refleks Bicara</span>
+      </div>
     </div>
-    <button onclick="toggleGameMenu()" style="background: rgba(255,255,255,0.1); border: none; color: white; border-radius: 50%; width: 34px; height: 34px; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center;">✕</button>
+    <button onclick="toggleGameMenu()" style="background: rgba(255,255,255,0.1); border: 0; color: #FFFFFF; border-radius: 50%; width: 34px; height: 34px; cursor: pointer; font-size: 16px; display: grid; place-items: center;">✕</button>
   </div>
 
-  <p style="color: #94a3b8; font-size: 13px; line-height: 1.5; margin-bottom: 24px;">
-    Uji keberanian & refleks bicaramu! Pilih mode game di bawah untuk memulai tes interaktif.
+  <p style="color: #94A3B8; font-size: 13.5px; line-height: 1.5; margin-bottom: 24px;">
+    Pilih salah satu mode simulasi interaktif di bawah untuk menguji ketangkasan artikulasi dan penyampaian gagasanmu!
   </p>
 
-<!-- DAFTAR KARTU GAME -->
-<div style="display: flex; flex-direction: column; gap: 16px;">
-  
-  <!-- Game 1: Public Speaking Arena (Bisa Diklik) -->
-  <a href="game-public-speaking.html" style="text-decoration: none; color: inherit; display: block;">
-    <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 18px; transition: all 0.2s; cursor: pointer;" onmouseover="this.style.background='rgba(255,107,53,0.15)'; this.style.borderColor='#ff6b35';" onmouseout="this.style.background='rgba(255,255,255,0.05)'; this.style.borderColor='rgba(255,255,255,0.1)';">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-        <span style="background: #ff6b35; color: white; font-size: 10px; font-weight: bold; padding: 3px 8px; border-radius: 10px;">SIMULASI</span>
-        <span style="color: #cbd5e1; font-size: 12px;">⭐ Mode 1</span>
+  <!-- Daftar Permainan -->
+  <div style="display: flex; flex-direction: column; gap: 14px;">
+    <!-- Game 1 -->
+    <a href="game-public-speaking.html" class="game-card-link">
+      <div class="game-card-item">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <span style="background: var(--orange-500); color: white; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 6px;">SIMULASI</span>
+          <span style="color: #CBD5E1; font-size: 12px;">⭐ Mode 1</span>
+        </div>
+        <h4 style="margin: 0 0 6px 0; font-size: 16px; color: #FFFFFF;">🎤 Public Speaking Arena</h4>
+        <p style="margin: 0; color: #94A3B8; font-size: 12.5px; line-height: 1.5;">Latihan presentasi spontan dengan timer countdown & topik tak terduga.</p>
       </div>
-      <h3 style="margin: 0 0 6px 0; font-size: 16px; color: #ffffff;">🎤 Public Speaking Arena</h3>
-      <p style="margin: 0; color: #94a3b8; font-size: 12px; line-height: 1.4;">Latihan presentasi spontan dengan timer & topik acak.</p>
-    </div>
-  </a>
+    </a>
 
-<!-- Game 2: Voice Dubbing Challenge (Bisa Diklik) -->
-<a href="game-dubbing.html" style="text-decoration: none; color: inherit; display: block;">
-  <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 18px; transition: all 0.2s; cursor: pointer;" onmouseover="this.style.background='rgba(59,130,246,0.15)'; this.style.borderColor='#3b82f6';" onmouseout="this.style.background='rgba(255,255,255,0.05)'; this.style.borderColor='rgba(255,255,255,0.1)';">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-      <span style="background: #3b82f6; color: white; font-size: 10px; font-weight: bold; padding: 3px 8px; border-radius: 10px;">EKSPRESI</span>
-      <span style="color: #cbd5e1; font-size: 12px;">⭐ Mode 2</span>
-    </div>
-    <h3 style="margin: 0 0 6px 0; font-size: 16px; color: #ffffff;">🎙️ Voice Dubbing Challenge</h3>
-    <p style="margin: 0; color: #94a3b8; font-size: 12px; line-height: 1.4;">Olah intonasi vokalmu dengan rekaman suara berbagai karakter.</p>
-  </div>
-</a>
+    <!-- Game 2 -->
+    <a href="game-dubbing.html" class="game-card-link">
+      <div class="game-card-item" style="border-left: 3px solid #3B82F6;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <span style="background: #3B82F6; color: white; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 6px;">EKSPRESI</span>
+          <span style="color: #CBD5E1; font-size: 12px;">⭐ Mode 2</span>
+        </div>
+        <h4 style="margin: 0 0 6px 0; font-size: 16px; color: #FFFFFF;">🎙️ Voice Dubbing Challenge</h4>
+        <p style="margin: 0; color: #94A3B8; font-size: 12.5px; line-height: 1.5;">Olah intonasi, dinamika suara, dan ekspresi vokal dengan panduan skrip.</p>
+      </div>
+    </a>
 
-<!-- Game 3: Pidato Impromptu (Bisa Diklik) -->
-<a href="game-pidato.html" style="text-decoration: none; color: inherit; display: block;">
-  <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 18px; transition: all 0.2s; cursor: pointer;" onmouseover="this.style.background='rgba(255,107,53,0.15)'; this.style.borderColor='#ff6b35';" onmouseout="this.style.background='rgba(255,255,255,0.05)'; this.style.borderColor='rgba(255,255,255,0.1)';">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-      <span style="background: #10b981; color: white; font-size: 10px; font-weight: bold; padding: 3px 8px; border-radius: 10px;">PERSUASIF</span>
-      <span style="color: #cbd5e1; font-size: 12px;">⭐ Mode 3</span>
-    </div>
-    <h3 style="margin: 0 0 6px 0; font-size: 16px; color: #ffffff;">📜 Pidato Impromptu</h3>
-    <p style="margin: 0; color: #94a3b8; font-size: 12px; line-height: 1.4;">Uji penulisan naskah & penyampaian pidato dalam durasi 60 detik.</p>
-  </div>
-</a>
- 
-
-</div>
-
+    <!-- Game 3 -->
+    <a href="game-pidato.html" class="game-card-link">
+      <div class="game-card-item" style="border-left: 3px solid #10B981;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <span style="background: #10B981; color: white; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 6px;">PERSUASIF</span>
+          <span style="color: #CBD5E1; font-size: 12px;">⭐ Mode 3</span>
+        </div>
+        <h4 style="margin: 0 0 6px 0; font-size: 16px; color: #FFFFFF;">📜 Pidato Impromptu</h4>
+        <p style="margin: 0; color: #94A3B8; font-size: 12.5px; line-height: 1.5;">Uji kecepatan menyusun naskah dan membawakannya secara lugas dalam 60 detik.</p>
+      </div>
+    </a>
   </div>
 </div>
 
-<!-- Latar Belakang Gelap Saat Menu Terbuka -->
-<div id="game-backdrop" onclick="toggleGameMenu()" style="position: fixed; top:0; left:0; width:100vw; height:100vh; background: rgba(15,23,42,0.6); backdrop-filter: blur(4px); z-index: 9998; display: none;"></div>
+<!-- Backdrop Gelap -->
+<div id="game-backdrop" onclick="toggleGameMenu()"></div>
 
-<!-- Script Pembuka & Penutup Drawer -->
+<!-- ==========================================================================
+   INTERACTIVE JAVASCRIPT
+   ========================================================================== -->
 <script>
+  // 1. Drawer Game Arena
   function toggleGameMenu() {
     const drawer = document.getElementById('game-drawer');
     const backdrop = document.getElementById('game-backdrop');
     if (drawer.style.right === '0px') {
       drawer.style.right = '-420px';
       backdrop.style.display = 'none';
+      document.body.style.overflow = 'auto';
     } else {
       drawer.style.right = '0px';
       backdrop.style.display = 'block';
+      document.body.style.overflow = 'hidden';
     }
   }
+
+  // 2. Mobile Nav Toggle
+  function toggleMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    menu.classList.toggle('open');
+  }
+
+  // 3. Logika Assessment Interaktif Cek Kelas
+  function jalankanCekKelas() {
+    const radios = document.getElementsByName('kendala_radio');
+    let kendalaValue = 'nervous';
+    for (const r of radios) {
+      if (r.checked) {
+        kendalaValue = r.value;
+        break;
+      }
+    }
+
+    const hasilBox = document.getElementById('hasil-kelas');
+    let title = '';
+    let mentor = '';
+    let description = '';
+    let targetLink = 'rasyad.html';
+
+    if (kendalaValue === 'nervous') {
+      title = "Kelas: 'Brave Beginner' (Stage Fright Elimination)";
+      mentor = "Muhammad Kahfi Rasyad (Public Speaking Specialist)";
+      description = "Fokus mengendalikan demam panggung, teknik pernapasan diafragma, dan pembentukan mindset percaya diri di depan audiens.";
+    } else if (kendalaValue === 'struktur') {
+      title = "Kelas: 'Articulate Orator' (Structured Speech & Storytelling)";
+      mentor = "Muhammad Kahfi Rasyad & Nazwa Priyandini";
+      description = "Fokus pada kerangka berpikir terstruktur (PREP/STAR), storytelling dinamis, dan kemampuan presentasi persuasif.";
+    } else if (kendalaValue === 'cv') {
+      title = "Kelas: 'Career Ready & Personal Brand'";
+      mentor = "Waffa Ma'alim Fithoriq (Personal Branding Coach)";
+      description = "Bedah tuntas kurikulum CV ATS-Friendly, optimasi LinkedIn berdaya pikat tinggi, serta simulasi interview HRD.";
+    } else {
+      title = "Kelas: 'Foundational Speaker' (Zero to Hero)";
+      mentor = "Tim Mentor Show Up";
+      description = "Bimbingan langkah demi langkah dari mengatasi rasa malu tingkat akut hingga berani menyuarakan pendapat pertama di forum.";
+    }
+
+    hasilBox.innerHTML = `
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+        <span style="background: var(--orange-500); color: white; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 4px;">REKOMENDASI PERSONAL</span>
+      </div>
+      <h4 style="font-size: 18px; color: var(--navy-900); margin: 0 0 6px 0;">${title}</h4>
+      <p style="font-size: 13px; color: var(--orange-500); font-weight: 700; margin-bottom: 8px;">Mentor Pendamping: ${mentor}</p>
+      <p style="font-size: 14px; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px;">${description}</p>
+      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <a href="${targetLink}" class="btn btn-sm btn-orange">Lihat Roadmap Detail →</a>
+        <a href="https://wa.me/6285881976076?text=Halo%20Mentor!%20Berdasarkan%20hasil%20tes%20Show%20Up,%20saya%20direkomendasikan%20masuk%20${encodeURIComponent(title)}.%20Bisa%20info%20jadwal%20terdekatnya?" target="_blank" class="btn btn-sm btn-outline-navy">Konsultasi via WA</a>
+      </div>
+    `;
+    hasilBox.style.display = 'block';
+  }
+
+  // 4. File Upload Listener Feedback
+  function handleFileSelected(input) {
+    const label = document.getElementById('cvFileLabel');
+    if (input.files && input.files[0]) {
+      const fileName = input.files[0].name;
+      const fileSize = (input.files[0].size / (1024 * 1024)).toFixed(2);
+      label.innerHTML = `<strong>${fileName}</strong> (${fileSize} MB) terpilih ✓`;
+      label.style.color = 'var(--orange-500)';
+    }
+  }
+
+  function submitCvFile() {
+    const input = document.getElementById('cvFileInput');
+    if (!input.files || input.files.length === 0) {
+      alert('Silakan pilih berkas CV (PDF) terlebih dahulu.');
+      return;
+    }
+    alert('CV berhasil diunggah! Mentor Show Up akan mereview dan mengirimkan catatan detail ke email/kontakmu.');
+  }
+
+  // 5. Mock Interview Question Generator
+  const interviewQuestions = [
+    "\"Ceritakan tentang dirimu dan mengapa posisi ini relevan dengan visi kariermu 3 tahun ke depan?\"",
+    "\"Sebutkan satu kegagalan terbesarmu dalam berorganisasi dan bagaimana kamu bangkit darinya?\"",
+    "\"Bagaimana caramu menyampaikan kritik konstruktif kepada rekan tim yang underperforming?\"",
+    "\"Jika kamu dihadapkan pada 3 deadline penting dalam satu hari, bagaimana caramu menentukan prioritas?\"",
+    "\"Mengapa kami harus menerima kamu dibandingkan kandidat lain yang memiliki IPK lebih tinggi?\""
+  ];
+  let lastQuestionIndex = -1;
+
+  function generateInterviewQuestion() {
+    let newIndex;
+    do {
+      newIndex = Math.floor(Math.random() * interviewQuestions.length);
+    } while (newIndex === lastQuestionIndex && interviewQuestions.length > 1);
+    
+    lastQuestionIndex = newIndex;
+    const box = document.getElementById('interviewQuestionBox');
+    box.style.opacity = '0';
+    setTimeout(() => {
+      box.innerText = interviewQuestions[newIndex];
+      box.style.opacity = '1';
+    }, 150);
+  }
+
+  // 6. Gamification Task Completion Interaction
+  let totalExp = 40;
+  const taskStates = { 1: true, 2: true, 3: false, 4: false };
+
+  function toggleTask(taskId, expValue) {
+    const taskEl = document.getElementById('task' + taskId);
+    const checkbox = taskEl.querySelector('.task-checkbox');
+
+    if (taskStates[taskId]) {
+      taskStates[taskId] = false;
+      checkbox.classList.remove('checked');
+      checkbox.innerText = '';
+      totalExp = Math.max(0, totalExp - expValue);
+    } else {
+      taskStates[taskId] = true;
+      checkbox.classList.add('checked');
+      checkbox.innerText = '✓';
+      totalExp = Math.min(100, totalExp + expValue);
+    }
+
+    // Update Progress Bar
+    const progressBar = document.getElementById('expProgressBar');
+    const expText = document.getElementById('expCounterText');
+    const currentRank = document.getElementById('currentRankBadge');
+    const nextRank = document.getElementById('nextRankText');
+
+    progressBar.style.width = totalExp + '%';
+    expText.innerText = `${totalExp} / 100 EXP (${totalExp}%)`;
+
+    if (totalExp >= 100) {
+      currentRank.innerHTML = '🏆 Pangkat: Confident Orator';
+      nextRank.innerText = 'Master of Keynote (Maksimal)';
+    } else if (totalExp >= 70) {
+      currentRank.innerHTML = '🏆 Pangkat: Shy Talker';
+      nextRank.innerText = 'Confident Orator';
+    } else {
+      currentRank.innerHTML = '🏆 Pangkat: Baby Speaker';
+      nextRank.innerText = 'Shy Talker';
+    }
+  }
+
+  console.log("Show Up Interactive UI/UX Engine Ready: Modernized layout, refined typography, and responsive micro-interactions initialized.");
 </script>
 </body>
 </html>
