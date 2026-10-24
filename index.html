@@ -413,42 +413,65 @@ button { font: inherit; cursor: pointer; }
   </div>
 </section>
 
-<!-- 4. Pusat Edukasi & Blog -->
-<section class="section education" id="edukasi" style="background: var(--white);">
-  <div class="wrap">
-    <div class="section-head">
-      <h2>Artikel & Edukasi</h2>
-      <p>Sumber insight untuk menemani progres keseharianmu.</p>
-    </div>
-    
-    <div class="edu-grid">
-      <!-- Kategori 1 -->
-      <div class="edu-category">
-        <h3>Obrolan Sehari-hari <span>Daily</span></h3>
-        <a href="#" class="article-item">
-          <h4>Solusi Saat Tiba-tiba Nge-blank Pas Ditanya Dosen</h4>
-          <span class="article-tags">#PublicSpeaking #Kuliah</span>
-        </a>
-        <a href="#" class="article-item">
-          <h4>Cara Nulis Pengalaman Organisasi di CV Biar Gak Kelihatan "Kosong"</h4>
-          <span class="article-tags">#CareerReadiness #CV</span>
-        </a>
-      </div>
-      
-      <!-- Kategori 2 -->
-      <div class="edu-category">
-        <h3>Siap Hadapi Masa Depan <span>Visionary</span></h3>
-        <a href="#" class="article-item">
-          <h4>Communication in the AI Era: Skill Manusia yang Gak Bisa Diganti Robot</h4>
-          <span class="article-tags">#FutureSkills #Networking</span>
-        </a>
-        <a href="#" class="article-item">
-          <h4>Mengatasi Impostor Syndrome: Kamu Lebih Keren dari yang Kamu Pikirkan</h4>
-          <span class="article-tags">#PersonalBranding #Mindset</span>
-        </a>
-      </div>
-    </div>
+<!-- ARTIKEL & EDUKASI -->
+<div class="wrap" style="padding: 60px 0 40px 0;">
+  <div style="text-align: center; margin-bottom: 40px;">
+    <h2 style="font-size: 32px; color: var(--navy); margin-bottom: 8px;">Artikel & Edukasi</h2>
+    <p style="color: #64748b; font-size: 14px;">Sumber insight untuk menemani progres keseharianmu.</p>
   </div>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;">
+    
+    <!-- Kolom 1: Obrolan Sehari-hari -->
+    <div>
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px;">
+        <h3 style="margin: 0; color: var(--navy); font-size: 20px;">Obrolan Sehari-hari</h3>
+        <span style="background: #ff6b35; color: white; padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: bold;">Daily</span>
+      </div>
+
+      <!-- Artikel 1 -->
+      <a href="artikel-ngeblank.html" style="text-decoration: none; color: inherit; display: block; margin-bottom: 16px;">
+        <div style="background: #ffffff; border-radius: 16px; padding: 20px; border: 1px solid #e2e8f0; transition: all 0.2s; cursor: pointer;" onmouseover="this.style.transform='translateY(-3px)'; this.style.borderColor='var(--orange)';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='#e2e8f0';">
+          <h4 style="margin: 0 0 8px 0; color: var(--navy); font-size: 16px; line-height: 1.4;">Solusi Saat Tiba-tiba Nge-blank Pas Ditanya Dosen</h4>
+          <span style="color: var(--orange); font-size: 12px; font-weight: 600;">#PublicSpeaking #Kuliah</span>
+        </div>
+      </a>
+
+      <!-- Artikel 2 -->
+      <a href="artikel-cv.html" style="text-decoration: none; color: inherit; display: block;">
+        <div style="background: #ffffff; border-radius: 16px; padding: 20px; border: 1px solid #e2e8f0; transition: all 0.2s; cursor: pointer;" onmouseover="this.style.transform='translateY(-3px)'; this.style.borderColor='var(--orange)';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='#e2e8f0';">
+          <h4 style="margin: 0 0 8px 0; color: var(--navy); font-size: 16px; line-height: 1.4;">Cara Nulis Pengalaman Organisasi di CV Biar Gak Kelihatan "Kosong"</h4>
+          <span style="color: var(--orange); font-size: 12px; font-weight: 600;">#CareerReadiness #CV</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Kolom 2: Siap Hadapi Masa Depan -->
+    <div>
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px;">
+        <h3 style="margin: 0; color: var(--navy); font-size: 20px;">Siap Hadapi Masa Depan</h3>
+        <span style="background: #ff6b35; color: white; padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: bold;">Visionary</span>
+      </div>
+
+      <!-- Artikel 3 -->
+      <a href="artikel-ai.html" style="text-decoration: none; color: inherit; display: block; margin-bottom: 16px;">
+        <div style="background: #ffffff; border-radius: 16px; padding: 20px; border: 1px solid #e2e8f0; transition: all 0.2s; cursor: pointer;" onmouseover="this.style.transform='translateY(-3px)'; this.style.borderColor='var(--orange)';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='#e2e8f0';">
+          <h4 style="margin: 0 0 8px 0; color: var(--navy); font-size: 16px; line-height: 1.4;">Communication in the AI Era: Skill Manusia yang Gak Bisa Diganti Robot</h4>
+          <span style="color: var(--orange); font-size: 12px; font-weight: 600;">#FutureSkills #Networking</span>
+        </div>
+      </a>
+
+      <!-- Artikel 4 -->
+      <a href="artikel-impostor.html" style="text-decoration: none; color: inherit; display: block;">
+        <div style="background: #ffffff; border-radius: 16px; padding: 20px; border: 1px solid #e2e8f0; transition: all 0.2s; cursor: pointer;" onmouseover="this.style.transform='translateY(-3px)'; this.style.borderColor='var(--orange)';" onmouseout="this.style.transform='translateY(0)'; this.style.borderColor='#e2e8f0';">
+          <h4 style="margin: 0 0 8px 0; color: var(--navy); font-size: 16px; line-height: 1.4;">Mengatasi Impostor Syndrome: Kamu Lebih Keren dari yang Kamu Pikirkan</h4>
+          <span style="color: var(--orange); font-size: 12px; font-weight: 600;">#PersonalBranding #Mindset</span>
+        </div>
+      </a>
+    </div>
+
+  </div>
+</div>
 </section>
 <!-- SECTION OUR CONTENT ON SOCIAL MEDIA -->
 <div class="wrap" style="padding: 60px 0 30px 0;">
