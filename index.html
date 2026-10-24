@@ -313,11 +313,13 @@ img {
   transition: width 0.25s ease;
 }
 
-.navlinks a:hover {
+.navlinks a:hover,
+.navlinks a.active {
   color: var(--navy-900);
 }
 
-.navlinks a:hover::after {
+.navlinks a:hover::after,
+.navlinks a.active::after {
   width: 100%;
 }
 
@@ -1733,7 +1735,7 @@ img {
 
     <!-- Desktop Navigation Links -->
     <nav class="navlinks" aria-label="Main Navigation">
-      <a href="#home">Beranda</a>
+      <a href="#home" class="active">Beranda</a>
       <a href="#about">Tentang Kami</a>
       <a href="#our-mentors">Mentor</a>
       <a href="rasyad.html">Cek Kelas</a>

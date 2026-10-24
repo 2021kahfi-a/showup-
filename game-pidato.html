@@ -1,306 +1,373 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pidato Impromptu - Show Up</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#070B16" />
+  <title>Pidato Impromptu Game — Game Arena Show Up</title>
+  <meta name="description" content="Simulasi pidato impromptu 1 menit berbasis outline terstruktur dan prompter kamera interaktif." />
+
+  <!-- Global Stylesheet & Design System -->
+  <link rel="stylesheet" href="css/showup-global.css" />
+
   <style>
-    :root {
-      --navy: #0f172a;
-      --orange: #ff6b35;
-      --bg-dark: #090d16;
-      --card-bg: #1e293b;
-      --green: #10b981;
-    }
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: var(--bg-dark);
-      color: #f8fafc;
+      background: radial-gradient(circle at 50% 10%, #152244 0%, #0B132B 50%, #070B16 100%);
+      color: #F8FAFC;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      align-items: center;
     }
-    .header {
-      width: 100%;
-      padding: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-sizing: border-box;
-      max-width: 900px;
-    }
-    .btn-back {
-      color: #94a3b8;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 14px;
-    }
-    .game-container {
-      width: 90%;
-      max-width: 850px;
-      background: var(--card-bg);
-      border-radius: 24px;
-      padding: 30px;
-      border: 1px solid rgba(255,255,255,0.1);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-      margin-bottom: 40px;
-    }
-    .step-box { display: none; }
-    .step-box.active { display: block; }
 
-    /* Topic & Input Styling */
-    .topic-badge {
-      background: rgba(255,107,53,0.15);
-      color: var(--orange);
-      border: 1px solid var(--orange);
-      padding: 12px 20px;
-      border-radius: 12px;
-      font-size: 18px;
-      font-weight: bold;
-      text-align: center;
-      margin: 15px 0;
+    .game-arena-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
     }
-    textarea {
+
+    .game-card {
+      width: min(880px, 100%);
+      background: rgba(11, 19, 43, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: var(--radius-xl);
+      padding: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+      text-align: center;
+      box-sizing: border-box;
+      position: relative;
+    }
+
+    .step-box {
+      display: none;
+    }
+
+    .step-box.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .game-card h2 {
+      font-size: clamp(24px, 3.5vw, 32px);
+      color: #FFFFFF;
+      margin-bottom: 8px;
+    }
+
+    .game-subtitle {
+      color: #94A3B8;
+      font-size: 14.5px;
+      margin-bottom: 24px;
+    }
+
+    /* Topic Badge */
+    .topic-badge {
+      background: rgba(16, 185, 129, 0.12);
+      color: #34D399;
+      border: 1.5px solid var(--emerald-500);
+      padding: 16px 24px;
+      border-radius: var(--radius-md);
+      font-size: clamp(17px, 2.5vw, 21px);
+      font-weight: 800;
+      font-family: 'Manrope', sans-serif;
+      text-align: center;
+      margin: 18px 0;
+      box-shadow: 0 4px 20px rgba(16, 185, 129, 0.15);
+    }
+
+    textarea.speech-input {
       width: 100%;
       height: 160px;
-      background: #0f172a;
-      border: 1px solid #334155;
-      border-radius: 12px;
-      color: #ffffff;
+      background: #070B16;
+      border: 1.5px solid #334155;
+      border-radius: var(--radius-md);
+      color: #FFFFFF;
       padding: 16px;
-      font-size: 14px;
-      line-height: 1.6;
+      font-size: 14.5px;
+      line-height: 1.7;
       box-sizing: border-box;
       resize: vertical;
       font-family: inherit;
-    }
-    textarea:focus {
       outline: none;
-      border-color: var(--orange);
+      transition: var(--transition);
     }
 
-    /* Buttons */
-    .btn-primary {
-      background: var(--orange);
-      color: white;
-      border: none;
-      padding: 14px 28px;
-      font-size: 15px;
-      font-weight: bold;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-    .btn-primary:hover { transform: scale(1.03); }
-    .btn-secondary {
-      background: #334155;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      font-size: 13px;
-      border-radius: 50px;
-      cursor: pointer;
+    textarea.speech-input:focus {
+      border-color: var(--orange-500);
+      box-shadow: 0 0 15px rgba(255, 96, 38, 0.25);
     }
 
-    /* Teleprompter & Camera Area */
+    /* Simulation Dual Layout */
     .sim-layout {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 20px;
       margin-top: 20px;
     }
-    @media (max-width: 768px) {
-      .sim-layout { grid-template-columns: 1fr; }
-    }
+
     .webcam-box {
       position: relative;
       width: 100%;
-      height: 280px;
-      background: #000;
-      border-radius: 16px;
+      height: 290px;
+      background: #000000;
+      border-radius: var(--radius-md);
       overflow: hidden;
-      border: 2px solid var(--orange);
+      border: 2px solid var(--emerald-500);
+      box-shadow: 0 8px 25px rgba(16, 185, 129, 0.2);
     }
+
     video {
       width: 100%;
       height: 100%;
       object-fit: cover;
       transform: scaleX(-1);
     }
+
     .teleprompter {
-      background: #0f172a;
+      background: #070B16;
       border: 1px solid #334155;
-      border-radius: 16px;
-      padding: 16px;
-      height: 280px;
+      border-radius: var(--radius-md);
+      padding: 20px;
+      height: 290px;
       overflow-y: auto;
-      font-size: 14px;
-      line-height: 1.7;
-      color: #cbd5e1;
+      font-size: 14.5px;
+      line-height: 1.75;
+      color: #CBD5E1;
       box-sizing: border-box;
       text-align: left;
     }
+
     .timer-display {
-      font-size: 36px;
+      font-family: 'Manrope', monospace;
+      font-size: clamp(40px, 6vw, 54px);
       font-weight: 800;
-      color: #38bdf8;
+      color: #38BDF8;
       text-align: center;
-      margin: 10px 0;
+      margin: 16px 0;
+      text-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
     }
 
-    /* Detailed Evaluation Cards */
+    /* Evaluation Cards */
     .criteria-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 16px;
-      margin-top: 20px;
+      margin-top: 18px;
       text-align: left;
     }
-    @media (max-width: 600px) {
-      .criteria-grid { grid-template-columns: 1fr; }
-    }
+
     .crit-card {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid #334155;
-      border-radius: 14px;
-      padding: 16px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-md);
+      padding: 16px 18px;
     }
+
     .crit-title {
       font-size: 13px;
-      color: #94a3b8;
+      color: #94A3B8;
       display: flex;
       justify-content: space-between;
       margin-bottom: 6px;
     }
+
     .crit-score {
-      font-weight: bold;
-      color: var(--orange);
+      font-weight: 800;
+      font-family: 'Manrope', sans-serif;
+      color: #34D399;
+      font-size: 14.5px;
     }
+
     .crit-desc {
-      font-size: 12px;
-      color: #cbd5e1;
+      font-size: 12.5px;
+      color: #CBD5E1;
       line-height: 1.4;
       margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      .sim-layout, .criteria-grid {
+        grid-template-columns: 1fr;
+      }
+      .game-card {
+        padding: 24px 18px;
+      }
+      .webcam-box, .teleprompter {
+        height: 240px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <div class="header">
-    <a href="index.html" class="btn-back">← Keluar Game</a>
-    <span style="font-weight: bold; color: var(--orange);">📜 Pidato Impromptu Arena</span>
-  </div>
+  <!-- ==========================================================================
+     UNIFIED GAME ARENA TOPBAR
+     ========================================================================== -->
+  <header class="game-topbar">
+    <div class="wrap game-topbar-inner">
+      <a class="brand" href="index.html" style="color: #FFFFFF; font-size: 22px;">
+        Show<span class="accent">Up</span>
+        <span class="brand-dot"></span>
+        <span class="badge-pill" style="font-size: 10px; padding: 3px 10px; margin-left: 6px;">GAME ARENA</span>
+      </a>
 
-  <div class="game-container">
+      <nav class="game-switcher-tabs" aria-label="Game Modes">
+        <a href="game-public-speaking.html" class="game-tab-btn" title="Public Speaking Arena">
+          <span>🎙️</span> <span>Public Speaking</span>
+        </a>
+        <a href="game-dubbing.html" class="game-tab-btn" title="Voice Dubbing Challenge">
+          <span>🎬</span> <span>Voice Dubbing</span>
+        </a>
+        <a href="game-pidato.html" class="game-tab-btn active" title="Pidato Impromptu Game">
+          <span>⚡</span> <span>Pidato Impromptu</span>
+        </a>
+      </nav>
 
-    <!-- STEP 1: PEMILIHAN TOPIK & PENULISAN DRAF -->
-    <div id="step-1" class="step-box active" style="text-align: center;">
-      <h2>1. Pilih Topik & Tulis Naskah Pidatomu</h2>
-      <p style="color: #94a3b8; font-size: 14px;">Dapatkan topik acak atau tentukan topikmu sendiri, lalu susun poin ringkas pidatonya.</p>
-
-      <div id="topic-display" class="topic-badge">Klik "Acak Topik" untuk memulai</div>
-      <button class="btn-secondary" onclick="generateTopic()" style="margin-bottom: 20px;">🎲 Acak Topik Baru</button>
-
-      <div style="text-align: left; margin-bottom: 8px;">
-        <label style="font-size: 13px; color: #cbd5e1; font-weight: 600;">Tulis Naskah/Outline Pidato (Maks 1 Menit Baca):</label>
-      </div>
-      <textarea id="speech-draft" placeholder="Contoh Struktur:
-- Pembuka (Greeting & Hook menarik)
-- Isi Utama (1-2 Poin argumen kuat)
-- Penutup (Call to Action / Pesan penutup)"></textarea>
-
-      <div style="margin-top: 20px;">
-        <button class="btn-primary" onclick="proceedToSpeech()">Masuk ke Kamera & Pidato ➔</button>
-      </div>
+      <a href="index.html" class="btn btn-sm btn-outline-white">
+        <span>← Keluar ke Beranda</span>
+      </a>
     </div>
+  </header>
 
-    <!-- STEP 2: KAMERA & TELOPROMPTER (PENYAMPAIAN) -->
-    <div id="step-2" class="step-box" style="text-align: center;">
-      <h2>2. Sesi Penyampaian Pidato (1 Menit)</h2>
-      <p style="color: #94a3b8; font-size: 13px;">Baca naskahmu di kolom Teleprompter sambil tetap menjaga kontak mata ke kamera.</p>
+  <!-- ==========================================================================
+     GAME CONTENT
+     ========================================================================== -->
+  <main class="game-arena-content">
+    <div class="game-card">
 
-      <div class="sim-layout">
-        <!-- Kamera -->
-        <div class="webcam-box">
-          <video id="webcam" autoplay playsinline muted></video>
-          <div id="countdown-overlay" style="position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(15,23,42,0.85); display: none; align-items: center; justify-content: center; font-size: 80px; font-weight: bold; color: var(--orange);">3</div>
+      <!-- STEP 1: PEMILIHAN TOPIK & PENULISAN DRAF -->
+      <div id="step-1" class="step-box active">
+        <span class="badge-pill emerald" style="margin-bottom: 12px;">IMPROMPTU SPEECH DRILL</span>
+        <h2>1. Susun Outline & Naskah Pidatomu</h2>
+        <p class="game-subtitle">Dapatkan topik acak atau tentukan isu yang ingin kamu angkat, lalu rangkai poin gagasan utamanya.</p>
+
+        <div id="topic-display" class="topic-badge">Klik "Acak Topik Baru" untuk memulai</div>
+        <button class="btn btn-sm btn-outline-white" onclick="generateTopic()" style="margin-bottom: 22px;">
+          <span>🎲 Acak Topik Baru</span>
+        </button>
+
+        <div style="text-align: left; margin-bottom: 8px;">
+          <label style="font-size: 13.5px; color: #CBD5E1; font-weight: 700;">Tulis Naskah / Outline Pidato (Maks 1 Menit Bicara):</label>
         </div>
+        <textarea id="speech-draft" class="speech-input" placeholder="Contoh Struktur PREP:
+- Point (Hook / Gagasan Utama pembuka)
+- Reason (Alasan mengapa topik ini sangat penting)
+- Example (Contoh riil / pengalaman nyata pendukung)
+- Point (Closing persuasif & Call to Action yang kuat)"></textarea>
 
-        <!-- Teleprompter Naskah -->
-        <div class="teleprompter">
-          <div style="font-size: 11px; color: var(--orange); font-weight: bold; margin-bottom: 8px; text-transform: uppercase;">📄 Naskah Teks (Teleprompter):</div>
-          <div id="teleprompter-text" style="white-space: pre-wrap;"></div>
+        <div style="margin-top: 24px;">
+          <button class="btn btn-orange" onclick="proceedToSpeech()" style="padding: 14px 36px; font-size: 15px;">
+            <span>Lanjut ke Kamera & Teleprompter ➔</span>
+          </button>
         </div>
       </div>
 
-      <div class="timer-display" id="speech-timer">01:00</div>
+      <!-- STEP 2: KAMERA & TELEPROMPTER -->
+      <div id="step-2" class="step-box">
+        <span class="badge-pill" style="margin-bottom: 12px;">LIVE SIMULASI PIDATO</span>
+        <h2>2. Sesi Penyampaian Pidato (1 Menit)</h2>
+        <p class="game-subtitle">Baca outline naskahmu di kolom Teleprompter sambil menjaga kontak mata stabil ke arah lensa kamera.</p>
 
-      <button id="btn-start-speech" class="btn-primary" onclick="startSpeechProcess()">Mulai Pidato! 🚀</button>
+        <div class="sim-layout">
+          <div class="webcam-box">
+            <video id="webcam" autoplay playsinline muted></video>
+            <div id="countdown-overlay" style="position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(7,11,22,0.88); display: none; align-items: center; justify-content: center; font-size: 84px; font-weight: 800; font-family: 'Manrope'; color: var(--orange-500);">3</div>
+          </div>
+
+          <div class="teleprompter">
+            <div style="font-size: 11px; color: var(--orange-500); font-weight: 800; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">📄 Naskah Teks (Teleprompter):</div>
+            <div id="teleprompter-text" style="white-space: pre-wrap;"></div>
+          </div>
+        </div>
+
+        <div class="timer-display" id="speech-timer">01:00</div>
+
+        <button id="btn-start-speech" class="btn btn-orange" onclick="startSpeechProcess()" style="padding: 14px 36px; font-size: 15px;">
+          <span>Mulai Pidato Sekarang! 🚀</span>
+        </button>
+      </div>
+
+      <!-- STEP 3: LAPORAN PENILAIAN -->
+      <div id="step-3" class="step-box">
+        <span class="badge-pill emerald" style="margin-bottom: 12px;">EVALUASI PIDATO</span>
+        <h2>🎉 Laporan Evaluasi Pidato Selesai!</h2>
+        <p class="game-subtitle">Berikut analisis komprehensif mengenai kualitas naskah dan penyampaian pidatomu:</p>
+
+        <!-- Overall Score -->
+        <div style="background: rgba(255,255,255,0.04); padding: 28px; border-radius: var(--radius-lg); margin-bottom: 24px; border: 1px solid rgba(255, 255, 255, 0.12);">
+          <div style="font-size: 13px; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.05em;">SKOR PERFORMA TOTAL</div>
+          <div style="font-size: clamp(52px, 8vw, 68px); font-weight: 800; font-family: 'Manrope', sans-serif; color: #38BDF8; margin: 6px 0;" id="total-score">88/100</div>
+          <div style="font-size: 14px; color: #10B981; font-weight: 700;" id="overall-status">Sangat Baik & Bertenaga</div>
+        </div>
+
+        <!-- Detail Kriteria Penulisan -->
+        <h3 style="text-align: left; color: #FFFFFF; font-size: 17px; margin-bottom: 12px;">✍️ A. Analisis Kualitas Naskah & Logika</h3>
+        <div class="criteria-grid">
+          <div class="crit-card">
+            <div class="crit-title"><span>Hook & Daya Pikat Awal</span> <span class="crit-score" id="score-hook">85/100</span></div>
+            <p class="crit-desc" id="desc-hook">Kalimat pembuka cukup efektif menarik perhatian dan langsung ke inti topik.</p>
+          </div>
+          <div class="crit-card">
+            <div class="crit-title"><span>Struktur & Alur Gagasan</span> <span class="crit-score" id="score-structure">90/100</span></div>
+            <p class="crit-desc" id="desc-structure">Pembagian salam pembuka, poin argumentasi, dan penutup tersusun runtut.</p>
+          </div>
+          <div class="crit-card">
+            <div class="crit-title"><span>Kekayaan Diksi & Retorika</span> <span class="crit-score" id="score-diction">82/100</span></div>
+            <p class="crit-desc" id="desc-diction">Pemilihan kata bervariasi dan mudah dipahami oleh audiens lintas generasi.</p>
+          </div>
+          <div class="crit-card">
+            <div class="crit-title"><span>Kepadatan Pesan & CTA</span> <span class="crit-score" id="score-cta">88/100</span></div>
+            <p class="crit-desc" id="desc-cta">Pesan penutup (Call-to-Action) jelas dan memberikan kesan yang membekas.</p>
+          </div>
+        </div>
+
+        <!-- Detail Kriteria Penyampaian -->
+        <h3 style="text-align: left; color: #FFFFFF; font-size: 17px; margin: 28px 0 12px 0;">🎙️ B. Analisis Penyampaian Vokal & Visual</h3>
+        <div class="criteria-grid">
+          <div class="crit-card">
+            <div class="crit-title"><span>Kejelasan Artikulasi Vokal</span> <span class="crit-score" id="score-articulation">88/100</span></div>
+            <p class="crit-desc" id="desc-articulation">Pengucapan suku kata tegas dan pengucapan konsonan terdengar jernih.</p>
+          </div>
+          <div class="crit-card">
+            <div class="crit-title"><span>Kontrol Kata Jeda (Filler)</span> <span class="crit-score" id="score-filler">85/100</span></div>
+            <p class="crit-desc" id="desc-filler">Sangat minim jeda 'eee' atau 'aaa'. Transisi antarkalimat terasa mulus.</p>
+          </div>
+          <div class="crit-card">
+            <div class="crit-title"><span>Modulasi & Intonasi Nada</span> <span class="crit-score" id="score-intonation">80/100</span></div>
+            <p class="crit-desc" id="desc-intonation">Nada suara bertenaga dengan penekanan pada kata-kata kunci utama.</p>
+          </div>
+          <div class="crit-card">
+            <div class="crit-title"><span>Ekspresi & Visual Confidence</span> <span class="crit-score" id="score-visual">90/100</span></div>
+            <p class="crit-desc" id="desc-visual">Kontak mata ke arah kamera terjaga stabil, memancarkan rasa percaya diri tinggi.</p>
+          </div>
+        </div>
+
+        <div style="margin-top: 32px; display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
+          <button class="btn btn-orange" onclick="resetGame()">
+            <span>Latihan Pidato Lagi 🔄</span>
+          </button>
+          <a href="game-public-speaking.html" class="btn btn-outline-white">
+            <span>Public Speaking Arena ➔</span>
+          </a>
+        </div>
+      </div>
+
     </div>
+  </main>
 
-    <!-- STEP 3: HASIL PENILAIAN BAHASA & PENYAMPAIAN -->
-    <div id="step-3" class="step-box" style="text-align: center;">
-      <h2>🎉 Laporan Evaluasi Pidato</h2>
-      <p style="color: #94a3b8; font-size: 14px;">Berikut analisis komprehensif penulisan & penyampaian pidatomu:</p>
-
-      <!-- Overall Score -->
-      <div style="background: rgba(255,255,255,0.05); padding: 20px; border-radius: 16px; margin-bottom: 20px; border: 1px solid #334155;">
-        <div style="font-size: 13px; color: #94a3b8;">SKOR PERFORMA TOTAL</div>
-        <div style="font-size: 52px; font-weight: 800; color: #38bdf8;" id="total-score">88/100</div>
-        <div style="font-size: 13px; color: #10b981; font-weight: 600;" id="overall-status">Sangat Baik & Bertenaga</div>
-      </div>
-
-      <!-- Detail Kriteria Penulisan -->
-      <h3 style="text-align: left; color: var(--orange); font-size: 16px; margin-bottom: 10px;">✍️ A. Analisis Kualitas Penulisan (Naskah)</h3>
-      <div class="criteria-grid">
-        <div class="crit-card">
-          <div class="crit-title"><span>Hook & Daya Pikat Awal</span> <span class="crit-score" id="score-hook">85/100</span></div>
-          <p class="crit-desc" id="desc-hook">Kalimat pembuka cukup efektif menarik perhatian dan langsung ke inti topik.</p>
-        </div>
-        <div class="crit-card">
-          <div class="crit-title"><span>Struktur & Alur Gagasan</span> <span class="crit-score" id="score-structure">90/100</span></div>
-          <p class="crit-desc" id="desc-structure">Pembagian antara salam pembuka, poin argumentasi, dan penutup tersusun rurut.</p>
-        </div>
-        <div class="crit-card">
-          <div class="crit-title"><span>Kekayaan Diksi & Retorika</span> <span class="crit-score" id="score-diction">82/100</span></div>
-          <p class="crit-desc" id="desc-diction">Pemilihan kata bervariasi. Tambahkan 1 kalimat persuasif/metafora agar lebih menggugah.</p>
-        </div>
-        <div class="crit-card">
-          <div class="crit-title"><span>Kepadatan Pesan & CTA</span> <span class="crit-score" id="score-cta">88/100</span></div>
-          <p class="crit-desc" id="desc-cta">Pesan penutup (Call-to-Action) jelas dan memberikan kesan yang membekas.</p>
-        </div>
-      </div>
-
-      <!-- Detail Kriteria Penyampaian -->
-      <h3 style="text-align: left; color: var(--orange); font-size: 16px; margin: 25px 0 10px 0;">🎙️ B. Analisis Penyampaian Vokal & Visual</h3>
-      <div class="criteria-grid">
-        <div class="crit-card">
-          <div class="crit-title"><span>Kejelasan Artikulasi Vokal</span> <span class="crit-score" id="score-articulation">88/100</span></div>
-          <p class="crit-desc" id="desc-articulation">Pengucapan suku kata tegas dan pengucapan konsonan terdengar jernih.</p>
-        </div>
-        <div class="crit-card">
-          <div class="crit-title"><span>Kontrol Kata Jeda (Filler Words)</span> <span class="crit-score" id="score-filler">85/100</span></div>
-          <p class="crit-desc" id="desc-filler">Sangat minim jeda 'eee' atau 'aaa'. Transisi antarkalimat terasa mulus.</p>
-        </div>
-        <div class="crit-card">
-          <div class="crit-title"><span>Modulasi & Intonasi Nada</span> <span class="crit-score" id="score-intonation">80/100</span></div>
-          <p class="crit-desc" id="desc-intonation">Nada suara sudah bertenaga, tingkatkan sedikit penekanan di kata-kata kunci.</p>
-        </div>
-        <div class="crit-card">
-          <div class="crit-title"><span>Ekspresi & Visual Confidence</span> <span class="crit-score" id="score-visual">90/100</span></div>
-          <p class="crit-desc" id="desc-visual">Kontak mata ke arah kamera terjaga stabil, memancarkan rasa percaya diri yang tinggi.</p>
-        </div>
-      </div>
-
-      <div style="margin-top: 30px;">
-        <button class="btn-primary" onclick="resetGame()">Latihan Pidato Lagi 🔄</button>
-      </div>
+  <footer style="background: rgba(7, 11, 22, 0.95); border-top: 1px solid rgba(255, 255, 255, 0.08); padding: 20px 0; text-align: center; font-size: 13px; color: #64748B;">
+    <div class="wrap">
+      <span>Hak Cipta &copy; 2026 Show Up Indonesia. Pidato Impromptu Arena drill module.</span>
     </div>
-
-  </div>
+  </footer>
 
   <script>
     const topicsList = [
@@ -308,7 +375,8 @@
       "Mengapa Mental Health Sama Pentingnya dengan Prestasi Akademik?",
       "Peran Gen-Z dalam Memanfaatkan Teknologi AI Secara Bijak",
       "Kegagalan Bukan Akhir, Tapi Bahan Bakar Menuju Sukses",
-      "Seni Membangun Karakter Percaya Diri di Depan Umum"
+      "Seni Membangun Karakter Percaya Diri di Depan Umum",
+      "Kekuatan Empati dalam Komunikasi Sehari-hari"
     ];
 
     let currentTopic = "";
@@ -317,7 +385,7 @@
     function generateTopic() {
       const randomTopic = topicsList[Math.floor(Math.random() * topicsList.length)];
       currentTopic = randomTopic;
-      document.getElementById('topic-display').innerText = ` Topic: "${randomTopic}"`;
+      document.getElementById('topic-display').innerText = `Topik: "${randomTopic}"`;
     }
 
     function proceedToSpeech() {
@@ -350,7 +418,7 @@
 
       const cd = setInterval(() => {
         count--;
-        if(count > 0) {
+        if (count > 0) {
           overlay.innerText = count;
         } else {
           clearInterval(cd);
@@ -370,7 +438,7 @@
         let secs = String(timeLeft % 60).padStart(2, '0');
         display.innerText = `${mins}:${secs}`;
 
-        if(timeLeft <= 0) {
+        if (timeLeft <= 0) {
           clearInterval(speechTimer);
           finishSpeech();
         }
@@ -378,13 +446,11 @@
     }
 
     function finishSpeech() {
-      // Matikan webcam
       const video = document.getElementById('webcam');
       if (video.srcObject) {
         video.srcObject.getTracks().forEach(track => track.stop());
       }
 
-      // Generate skor dinamis berdasarkan panjang tulisan + kepatuhan
       const draftText = document.getElementById('speech-draft').value;
       const wordCount = draftText.split(/\s+/).length;
 
@@ -430,7 +496,6 @@
       document.getElementById(`step-${stepNum}`).classList.add('active');
     }
 
-    // Inisialisasi awal
     generateTopic();
   </script>
 </body>

@@ -1,111 +1,512 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Solusi Saat Tiba-tiba Nge-blank Pas Ditanya Dosen - Show Up</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0B132B" />
+  <title>Solusi Saat Tiba-tiba Nge-blank Pas Ditanya Dosen — Show Up</title>
+  <meta name="description" content="Trik ampuh mengendalikan rasa panik dan otak freeze saat mendadak ditanya dosen di kelas perkuliahan. Tetap tenang, elegan, dan artikulatif." />
+
+  <!-- Global Stylesheet & Design System -->
+  <link rel="stylesheet" href="css/showup-global.css" />
+
   <style>
-    :root {
-      --navy: #0f172a;
-      --orange: #ff6b35;
-      --bg-light: #f8fafc;
+    /* Top Reading Progress Bar */
+    #reading-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3.5px;
+      background: linear-gradient(90deg, var(--orange-500), #FF4500);
+      width: 0%;
+      z-index: 9999;
+      transition: width 0.1s ease;
     }
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: var(--bg-light);
+
+    .article-page-header {
+      background: radial-gradient(circle at 50% 20%, #152244 0%, #0B132B 75%, #070B16 100%);
+      padding: 50px 0 90px;
+      color: #FFFFFF;
+      text-align: center;
+    }
+
+    .article-wrap {
+      margin-top: -60px;
+      position: relative;
+      z-index: 10;
+      max-width: 820px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 20px 80px;
+    }
+
+    .article-card {
+      background: #FFFFFF;
+      border-radius: var(--radius-xl);
+      padding: 48px;
+      box-shadow: var(--shadow-xl);
+      border: 1px solid var(--border-light);
+    }
+
+    .article-header {
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 24px;
+      margin-bottom: 32px;
+    }
+
+    .article-tags {
+      display: inline-flex;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .article-title {
+      font-size: clamp(26px, 3.8vw, 36px);
+      line-height: 1.25;
+      color: var(--navy-900);
+      margin-bottom: 18px;
+    }
+
+    .article-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      font-size: 13.5px;
+      color: var(--text-muted);
+    }
+
+    .meta-author {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .meta-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--orange-soft);
+      color: var(--orange-500);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .meta-share-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .share-btn {
+      background: var(--bg-slate);
+      border: 1px solid var(--border-light);
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--navy-700);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    .share-btn:hover {
+      background: #FFFFFF;
+      border-color: var(--orange-500);
+      color: var(--orange-500);
+    }
+
+    /* Article Content */
+    .article-content {
+      font-size: 16.5px;
+      line-height: 1.85;
       color: #334155;
     }
-    .container {
-      max-width: 760px;
-      margin: 40px auto;
-      padding: 0 20px;
+
+    .article-content p {
+      margin-bottom: 22px;
     }
-    .btn-back {
-      display: inline-block;
-      text-decoration: none;
-      color: var(--navy);
-      font-weight: bold;
-      font-size: 14px;
-      margin-bottom: 24px;
-    }
-    .article-card {
-      background: #ffffff;
-      border-radius: 24px;
-      padding: 40px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.04);
-      border: 1px solid #e2e8f0;
-    }
-    .tags {
-      color: var(--orange);
-      font-weight: bold;
-      font-size: 13px;
-      margin-bottom: 12px;
-      display: block;
-    }
-    h1 {
-      color: var(--navy);
-      font-size: 28px;
-      line-height: 1.3;
-      margin: 0 0 16px 0;
-    }
-    .meta-info {
-      font-size: 13px;
-      color: #94a3b8;
-      border-bottom: 1px solid #f1f5f9;
-      padding-bottom: 20px;
-      margin-bottom: 24px;
-    }
-    .content {
-      font-size: 16px;
-      line-height: 1.8;
-      color: #475569;
-    }
-    .content h3 {
-      color: var(--navy);
-      margin-top: 24px;
-    }
-    .tip-box {
-      background: rgba(255,107,53,0.08);
-      border-left: 4px solid var(--orange);
-      padding: 16px 20px;
-      border-radius: 8px;
-      margin: 20px 0;
+
+    .article-content .lead {
+      font-size: 18.5px;
+      line-height: 1.7;
+      color: var(--navy-800);
       font-weight: 500;
+    }
+
+    .article-content h3 {
+      font-size: 22px;
+      color: var(--navy-900);
+      margin: 36px 0 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .tip-box {
+      background: rgba(255, 96, 38, 0.08);
+      border-left: 4px solid var(--orange-500);
+      padding: 20px 24px;
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      margin: 28px 0;
+      font-size: 15.5px;
+      color: var(--navy-900);
+    }
+
+    .tactics-card {
+      background: var(--bg-slate);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin: 18px 0;
+    }
+
+    .tactics-card h4 {
+      font-size: 16px;
+      color: var(--navy-900);
+      margin-bottom: 8px;
+    }
+
+    .tactics-card p {
+      margin: 0;
+      font-size: 14.5px;
+      color: var(--text-muted);
+    }
+
+    .article-cta-box {
+      background: linear-gradient(135deg, #18264e, #0B132B);
+      color: #FFFFFF;
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      margin-top: 48px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .article-cta-box h4 {
+      color: #FFFFFF;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+
+    .article-cta-box p {
+      color: #CBD5E1;
+      font-size: 14.5px;
+      max-width: 560px;
+      margin: 0 auto 20px;
+    }
+
+    .next-article-nav {
+      margin-top: 40px;
+      display: block;
+      background: #FFFFFF;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      text-decoration: none;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .next-article-nav:hover {
+      border-color: var(--orange-500);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    @media (max-width: 768px) {
+      .article-card {
+        padding: 28px 20px;
+      }
+      .article-meta {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <a href="index.html" class="btn-back">← Kembali ke Dashboard</a>
+  <!-- Top Reading Progress Bar -->
+  <div id="reading-progress"></div>
 
-    <div class="article-card">
-      <span class="tags">#PublicSpeaking #Kuliah</span>
-      <h1>Solusi Saat Tiba-tiba Nge-blank Pas Ditanya Dosen</h1>
-      <div class="meta-info">Ditulis oleh Tim Show Up • 3 Menit Baca</div>
+  <!-- GLOBAL NAVBAR -->
+  <div class="nav-wrapper">
+    <header class="wrap nav">
+      <a class="brand" href="index.html" aria-label="Show Up Homepage">
+        Show<span class="accent">Up</span>
+        <span class="brand-dot"></span>
+      </a>
 
-      <div class="content">
-        <p>Pernah gak sih lagi tenang-tenang menyimak presentasi atau perkuliahan, tiba-tiba nama kamu dipanggil dosen dan dilempar pertanyaan spontan? Seketika otak berasa langsung <i>freeze</i> alias nge-blank total.</p>
-        
-        <p>Tenang, kejadian ini sangat wajar terjadi karena efek lonjakan hormon adrenalin saat kaget. Nah, biar kamu gak panik dan tetap kelihatan elegan, berikut 3 jurus ampuhnya:</p>
+      <nav class="navlinks" aria-label="Main Navigation">
+        <a href="index.html">Beranda</a>
+        <a href="index.html#about">Tentang Kami</a>
+        <a href="index.html#our-mentors">Mentor</a>
+        <a href="rasyad.html">Cek Kelas</a>
+        <a href="index.html#show-it">Show It Session</a>
+        <a href="index.html#artikel" class="active">Artikel & Edukasi</a>
+        <a href="index.html#komunitas">Komunitas</a>
+      </nav>
 
-        <h3>1. Gunakan 'Teknik Mengulangi Pertanyaan'</h3>
-        <p>Daripada langsung terdiam 10 detik, ulangi pertanyaan dosen dengan tenang. Contoh: <i>"Baik Pak/Bu, terkait strategi komunikasi di era digital yang disebutkan tadi..."</i>. Ini memberi jeda 3-5 detik buat otakmu memproses jawaban.</p>
+      <div class="nav-right">
+        <a href="https://www.instagram.com/showup.co.id" target="_blank" rel="noopener noreferrer" class="icon-btn" title="Instagram @showup.co.id" aria-label="Instagram">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+        </a>
 
-        <div class="tip-box">
-          💡 <b>Pro-Tip:</b> Jangan pernah bilang "Waduh saya gak tahu pak". Ganti dengan: "Sejauh yang saya pelajari..." atau "Menurut pandangan saya..."
-        </div>
+        <a href="https://wa.me/6285881976076?text=Halo%20Tim%20Show%20Up!%20Saya%20baru%20baca%20artikel%20mengatasi%20ngeblank%20dan%20tertarik%20konsultasi%20bimbingan." target="_blank" rel="noopener noreferrer" class="icon-btn wa-btn" title="Konsultasi WhatsApp" aria-label="WhatsApp">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+          </svg>
+        </a>
 
-        <h3>2. Ambil Napas Dalam & Atur Jeda Bicara</h3>
-        <p>Saat kaget, kita cenderung bicara terburu-buru. Tarik napas 1 detik, lalu bicaralah dengan tempo lebih pelan. Orang yang bicara agak lambat justru terkesan lebih percaya diri dan menguasai materi.</p>
+        <button class="game-btn" onclick="toggleGameMenu()" aria-label="Buka Game Arena">
+          <span class="pulse-dot"></span>
+          <span>Play Game</span>
+        </button>
 
-        <h3>3. Jujur dengan Elegan</h3>
-        <p>Kalau memang benar-benar lupa, sampaikan poin dasar yang kamu ingat lalu tawarkan sudut pandangmu. Kejujuran yang dikemas dengan santun jauh lebih dihargai dosen daripada asal menjawab.</p>
+        <button class="mobile-toggle" onclick="toggleMobileMenu()" aria-label="Toggle Navigation Menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
       </div>
+    </header>
+  </div>
+
+  <div id="mobile-menu">
+    <a href="index.html" onclick="toggleMobileMenu()">Beranda</a>
+    <a href="index.html#about" onclick="toggleMobileMenu()">Tentang Kami</a>
+    <a href="index.html#our-mentors" onclick="toggleMobileMenu()">Mentor</a>
+    <a href="rasyad.html" onclick="toggleMobileMenu()">Cek Kelas</a>
+    <a href="index.html#show-it" onclick="toggleMobileMenu()">Show It Session</a>
+    <a href="index.html#artikel" class="active" onclick="toggleMobileMenu()">Artikel & Edukasi</a>
+    <a href="index.html#komunitas" onclick="toggleMobileMenu()">Komunitas</a>
+  </div>
+
+  <!-- Breadcrumb Bar -->
+  <div class="breadcrumb-bar">
+    <div class="wrap">
+      <ul class="breadcrumb-list">
+        <li><a href="index.html">🏠 Beranda</a></li>
+        <li class="breadcrumb-sep">/</li>
+        <li><a href="index.html#artikel">📚 Artikel & Edukasi</a></li>
+        <li class="breadcrumb-sep">/</li>
+        <li class="breadcrumb-current">Solusi Tiba-tiba Nge-blank Pas Ditanya Dosen</li>
+      </ul>
     </div>
   </div>
 
+  <!-- Hero Header Background -->
+  <div class="article-page-header">
+    <div class="wrap">
+      <span class="section-tag" style="background: rgba(255, 96, 38, 0.2); color: #FF7D4D; border-color: rgba(255, 96, 38, 0.4);">
+        PUBLIC SPEAKING HACKS
+      </span>
+      <h2 style="color: #FFFFFF; font-size: 26px; margin-top: 8px;">Pusat Wawasan & Edukasi Show Up</h2>
+    </div>
+  </div>
+
+  <!-- Main Article Body Wrap -->
+  <div class="article-wrap">
+    <article class="article-card">
+      <header class="article-header">
+        <div class="article-tags">
+          <span class="badge-pill" style="font-size: 11px;">#PublicSpeaking</span>
+          <span class="badge-pill blue" style="font-size: 11px;">#TipsKuliah</span>
+        </div>
+
+        <h1 class="article-title">Solusi Saat Tiba-tiba Nge-blank Pas Ditanya Dosen di Kelas</h1>
+
+        <div class="article-meta">
+          <div class="meta-author">
+            <div class="meta-avatar">SU</div>
+            <div>
+              <div style="font-weight: 700; color: var(--navy-900);">Tim Editorial Show Up</div>
+              <div style="font-size: 12px; color: var(--text-muted);">Direview Mentor Kahfi Rasyad • 3 Menit Baca</div>
+            </div>
+          </div>
+
+          <div class="meta-share-actions">
+            <a href="https://api.whatsapp.com/send?text=Tips%20mengatasi%20ngeblank%20pas%20ditanya%20dosen%20dari%20Show%20Up!%20" target="_blank" rel="noopener noreferrer" class="share-btn">
+              <span>💬 Share WhatsApp</span>
+            </a>
+            <button class="share-btn" onclick="copyCurrentUrl()">
+              <span>🔗 Salin Tautan</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <div class="article-content">
+        <p class="lead">Pernah gak sih lagi tenang-tenang menyimak presentasi atau perkuliahan, tiba-tiba nama kamu dipanggil dosen dan dilempar pertanyaan spontan? Seketika otak berasa langsung <i>freeze</i> alias nge-blank total.</p>
+        
+        <p>Tenang, kejadian ini sangat wajar terjadi karena efek lonjakan hormon adrenalin saat kaget. Tubuh secara otomatis mengaktifkan mode <i>fight or flight</i> yang menyempitkan fokus berpikir. Nah, biar kamu gak panik dan tetap kelihatan elegan di mata dosen dan teman sekelas, berikut 3 jurus ampuhnya:</p>
+
+        <h3><span>1.</span> Gunakan 'Teknik Mengulangi Pertanyaan'</h3>
+        <p>Daripada langsung terdiam kaku selama 10 detik, ulangi pertanyaan dosen dengan tenang dan ritme teratur. Contohnya:</p>
+
+        <div class="tactics-card">
+          <h4>🗣️ Contoh Kalimat Pembuka:</h4>
+          <p><i>"Baik Pak/Bu, terkait strategi komunikasi krisis di era digital yang barusan Bapak/Ibu sampaikan, menurut saya..."</i></p>
+        </div>
+
+        <p>Teknik ini memberi jeda 3 sampai 5 detik bagi otakmu untuk memproses memori materi tanpa membuat suasana terasa canggung.</p>
+
+        <div class="tip-box">
+          💡 <strong>Pro-Tip Bicara Profesional:</strong><br />
+          Jangan pernah langsung berucap <i>"Waduh saya gak tahu pak"</i>. Ganti dengan frasa yang lebih cerdas: <i>"Sejauh pemahaman yang saya pelajari..."</i> atau <i>"Dari perspektif yang saya amati..."</i>.
+        </div>
+
+        <h3><span>2.</span> Ambil Napas Dalam & Atur Jeda Bicara</h3>
+        <p>Saat kaget, kita cenderung berbicara terburu-buru dan tersendat. Tarik napas 1 detik melalui hidung, hembuskan perlahan, lalu bicaralah dengan tempo yang lebih stabil.</p>
+
+        <p>Orang yang mampu berbicara dengan jeda (pause) terencana justru terkesan jauh lebih matang, tenang, dan berwibawa di depan audiens.</p>
+
+        <h3><span>3.</span> Jujur dengan Elegan</h3>
+        <p>Kalau memang benar-benar belum membaca materi terkait, akui dengan santun dan segera tawarkan sudut pandang atau keingintahuanmu:</p>
+
+        <div class="tactics-card">
+          <h4>💬 Formula Pengakuan Elegan:</h4>
+          <p><i>"Untuk data spesifiknya saya belum sempat mendalaminya lebih lanjut Pak, namun menurut pemahaman awal saya mengenai topik ini adalah..."</i></p>
+        </div>
+
+        <p>Kejujuran yang dikemas secara etis dan santun jauh lebih dihargai dosen daripada menebak asal-asalan tanpa dasar.</p>
+
+        <!-- CTA Inside Article -->
+        <div class="article-cta-box">
+          <h4>Mau Latih Kecepatan Bicara Spontanmu?</h4>
+          <p>Uji refleks berpikir dan improvisasi bicaramu di Public Speaking Arena Show Up. Putar roulette topik acak dan latih keberanianmu secara seru!</p>
+          <a href="game-public-speaking.html" class="btn btn-orange">Coba Public Speaking Arena ➔</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- Next Article Recommendation -->
+    <a href="artikel-cv.html" class="next-article-nav">
+      <div style="font-size: 12px; font-weight: 700; color: var(--orange-500); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px;">
+        ARTIKEL SELANJUTNYA ➔
+      </div>
+      <h4 style="margin: 0 0 6px; font-size: 18px; color: var(--navy-900);">
+        Cara Nulis Pengalaman Organisasi di CV Biar Gak Kelihatan "Kosong"
+      </h4>
+      <p style="margin: 0; font-size: 13.5px; color: var(--text-muted);">
+        Pelajari formula action verbs dan angka konkret untuk menyulap CV fresh graduate jadi bernilai tinggi di mata HRD.
+      </p>
+    </a>
+  </div>
+
+  <!-- GLOBAL FOOTER -->
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer-top">
+        <div class="footer-brand-col">
+          <a class="brand" href="index.html" style="color: #FFFFFF; font-size: 26px;">
+            Show<span class="accent">Up</span>
+            <span class="brand-dot"></span>
+          </a>
+          <p class="footer-desc">
+            Say It & Show It.<br>
+            Wadah bertumbuh, berlatih, dan berjejaring bagi anak muda Indonesia untuk membangun skill komunikasi serta membentuk identitas profesional yang kredibel.
+          </p>
+          <div class="social-links">
+            <a href="https://www.instagram.com/showup.co.id" target="_blank" rel="noopener noreferrer" class="social-circle" aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            </a>
+            <a href="https://wa.me/6285881976076" target="_blank" rel="noopener noreferrer" class="social-circle" aria-label="WhatsApp">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-circle" aria-label="LinkedIn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-nav-col">
+          <h4>Navigasi Utama</h4>
+          <div class="footer-links-list">
+            <a href="index.html">Beranda Utama</a>
+            <a href="index.html#about">Filosofi Show Up</a>
+            <a href="index.html#our-mentors">Profil Para Mentor</a>
+            <a href="rasyad.html">Peta Roadmap Kelas</a>
+            <a href="index.html#assessment">Diagnostik Masalahmu</a>
+          </div>
+        </div>
+
+        <div class="footer-nav-col">
+          <h4>Fasilitas Belajar</h4>
+          <div class="footer-links-list">
+            <a href="index.html#show-it">Show It Session (Review CV)</a>
+            <a href="game-public-speaking.html">Public Speaking Arena</a>
+            <a href="game-dubbing.html">Voice Dubbing Challenge</a>
+            <a href="game-pidato.html">Pidato Impromptu Game</a>
+            <a href="index.html#artikel">Pusat Edukasi & Artikel</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>Hak Cipta &copy; 2026 Show Up Indonesia. All rights reserved.</span>
+        <span>Say It & Show It: Building Skills, Shaping Your Identity.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Game Drawer -->
+  <div id="game-drawer">
+    <div class="game-drawer-header">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 26px;">🎮</span>
+        <div>
+          <h3 style="margin: 0; font-size: 19px; color: #FFFFFF;">Game Arena</h3>
+          <span style="font-size: 12px; color: #94A3B8;">Latihan Spontan & Refleks Bicara</span>
+        </div>
+      </div>
+      <button onclick="toggleGameMenu()" style="background: transparent; border: 0; color: #94A3B8; font-size: 24px; cursor: pointer;">&times;</button>
+    </div>
+
+    <a href="game-public-speaking.html" class="game-card-link">
+      <div class="game-card-item" style="border-left: 3px solid #FF6026;">
+        <div style="font-weight: 700; color: #FFFFFF; font-size: 15px; margin-bottom: 4px;">🎙️ Public Speaking Arena</div>
+        <p style="color: #94A3B8; font-size: 12.5px; margin: 0; line-height: 1.4;">Putar roulette topik dan bicara live di depan webcam selama 60 detik.</p>
+      </div>
+    </a>
+    <a href="game-dubbing.html" class="game-card-link">
+      <div class="game-card-item" style="border-left: 3px solid #3B82F6;">
+        <div style="font-weight: 700; color: #FFFFFF; font-size: 15px; margin-bottom: 4px;">🎬 Voice Dubbing Challenge</div>
+        <p style="color: #94A3B8; font-size: 12.5px; margin: 0; line-height: 1.4;">Ikuti teks teleprompter karaoke animasi atau iklan dan rekam suaramu.</p>
+      </div>
+    </a>
+    <a href="game-pidato.html" class="game-card-link">
+      <div class="game-card-item" style="border-left: 3px solid #10B981;">
+        <div style="font-weight: 700; color: #FFFFFF; font-size: 15px; margin-bottom: 4px;">⚡ Pidato Impromptu Game</div>
+        <p style="color: #94A3B8; font-size: 12.5px; margin: 0; line-height: 1.4;">Tantangan 30 detik menyusun argumen PREP spontan dengan timer ketat.</p>
+      </div>
+    </a>
+  </div>
+  <div id="game-backdrop" onclick="toggleGameMenu()"></div>
+
+  <script src="js/showup-global.js"></script>
+
+  <script>
+    window.addEventListener('scroll', () => {
+      const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      const progressBar = document.getElementById('reading-progress');
+      if (progressBar) progressBar.style.width = scrolled + '%';
+    });
+  </script>
 </body>
 </html>
