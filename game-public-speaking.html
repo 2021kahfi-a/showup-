@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Public Speaking Arena - Show Up</title>
+  <style>
+    :root {
+      --navy: #0f172a;
+      --orange: #ff6b35;
+      --bg-dark: #090d16;
+      --card-bg: #1e293b;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-dark);
+      color: #f8fafc;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .header {
+      width: 100%;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-sizing: border-box;
+      max-width: 900px;
+    }
+    .btn-back {
+      color: #94a3b8;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .game-container {
+      width: 90%;
+      max-width: 800px;
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 30px;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .step-box { display: none; }
+    .step-box.active { display: block; }
+
+    /* Wheel / Topic Style */
+    .roulette-display {
+      height: 120px;
+      background: #0f172a;
+      border: 2px dashed var(--orange);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      font-weight: bold;
+      color: var(--orange);
+      margin: 20px 0;
+      padding: 0 20px;
+      transition: all 0.1s;
+    }
+
+    /* Buttons */
+    .btn-primary {
+      background: var(--orange);
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .btn-primary:hover { transform: scale(1.05); }
+
+    /* Timer Display */
+    .timer {
+      font-size: 48px;
+      font-weight: 800;
+      color: #38bdf8;
+      margin: 15px 0;
+    }
+
+    /* Camera View */
+    .webcam-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      height: 340px;
+      margin: 0 auto 20px auto;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #000;
+      border: 3px solid var(--orange);
+    }
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scaleX(-1);
+    }
+    .overlay-countdown {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(15,23,42,0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 90px;
+      font-weight: 900;
+      color: var(--orange);
+    }
+    .filler-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(239, 68, 68, 0.9);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    /* Score Card */
+    .score-card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 16px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <a href="index.html" class="btn-back">← Keluar Game</a>
+    <span style="font-weight: bold; color: var(--orange);">🎤 Public Speaking Arena</span>
+  </div>
+
+  <div class="game-container">
+
+    <!-- STEP 1: SPINNER TOPIK -->
+    <div id="step-1" class="step-box active">
+      <h2>100 Topics Roulette</h2>
+      <p style="color: #94a3b8;">Acak topikmu hari ini dan uji kesiapan bicaramu secara spontan!</p>
+      
+      <div id="topic-box" class="roulette-display">Klik Acak Topik!</div>
+      <button class="btn-primary" onclick="spinTopic()">🎲 Acak Topik</button>
+    </div>
+
+    <!-- STEP 2: PREPARATION 1 MINUTE -->
+    <div id="step-2" class="step-box">
+      <h2>Persiapkan Dirimu!</h2>
+      <p style="color: #94a3b8;">Susun poin-poin utama dalam pikiranmu sebelum kamera dibuka.</p>
+      <div class="timer" id="prep-timer">01:00</div>
+      <button class="btn-primary" onclick="skipPrep()">Buka Kamera Sekarang ➔</button>
+    </div>
+
+    <!-- STEP 3: CAM & LIVE ACTION -->
+    <div id="step-3" class="step-box">
+      <div class="webcam-wrapper">
+        <video id="webcam" autoplay playsinline muted></video>
+        <div id="filler-counter" class="filler-badge">Filler Words: 0</div>
+        <div id="countdown-overlay" class="overlay-countdown" style="display: none;">3</div>
+      </div>
+
+      <div class="timer" id="speak-timer">01:00</div>
+      
+      <button id="btn-ready" class="btn-primary" onclick="startSpeechFlow()">Siap Bicara! 🚀</button>
+    </div>
+
+    <!-- STEP 4: RESULT -->
+    <div id="step-4" class="step-box">
+      <h2>🎉 Performa Selesai!</h2>
+      <p style="color: #94a3b8;">Berikut evaluasi otomatis dari sesi bicaramu selama 1 menit:</p>
+
+      <div class="score-card">
+        <div style="font-size: 48px; color: #f59e0b; font-weight: bold; margin-bottom: 10px;" id="final-score">85/100</div>
+        <div style="display: flex; justify-content: space-around; margin: 20px 0;">
+          <div>
+            <div style="color: #94a3b8; font-size: 12px;">Filler Words</div>
+            <div style="font-size: 20px; font-weight: bold; color: #ef4444;" id="result-fillers">0 Kali</div>
+          </div>
+          <div>
+            <div style="color: #94a3b8; font-size: 12px;">Kepercayaan Diri</div>
+            <div style="font-size: 20px; font-weight: bold; color: #10b981;" id="result-confidence">Tinggi</div>
+          </div>
+        </div>
+        <p id="result-feedback" style="font-style: italic; color: #cbd5e1; font-size: 14px;">"Artikulasi sangat lancar dan transisi ide tersampaikan dengan terstruktur!"</p>
+      </div>
+
+      <br>
+      <button class="btn-primary" onclick="resetGame()">Main Lagi 🔄</button>
+    </div>
+
+  </div>
+
+  <script>
+    // 100 Topik Acak
+    const topics = [
+      "Pentingnya Kegagalan dalam Karier", "Apakah AI Mengancam Pekerjaan Manusia?", "Kunci Percaya Diri di Depan Umum",
+      "Kuliah vs Langsung Kerja", "Cara Mengatasi Overthinking", "Personal Branding di Era Digital",
+      "Pentingnya Mindset Pengusaha", "Budaya Kerja WFH vs WFO", "Seni Mengatakan 'Tidak'", "Pentingnya Menjaga Kesehatan Mental"
+      // ...sistem otomatis memilih topik dari daftar ini
+    ];
+
+    let prepInterval, speakInterval, speechRec;
+    let fillerCount = 0;
+    let selectedTopic = "";
+
+    function spinTopic() {
+      const topicBox = document.getElementById('topic-box');
+      let counter = 0;
+      const spinEffect = setInterval(() => {
+        topicBox.innerText = topics[Math.floor(Math.random() * topics.length)];
+        counter++;
+        if(counter > 20) {
+          clearInterval(spinEffect);
+          selectedTopic = topicBox.innerText;
+          setTimeout(goToStep2, 1000);
+        }
+      }, 80);
+    }
+
+    function goToStep2() {
+      showStep(2);
+      startPrepTimer();
+    }
+
+    function startPrepTimer() {
+      let timeLeft = 60;
+      const display = document.getElementById('prep-timer');
+      prepInterval = setInterval(() => {
+        timeLeft--;
+        let mins = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+        let secs = String(timeLeft % 60).padStart(2, '0');
+        display.innerText = `${mins}:${secs}`;
+        if(timeLeft <= 0) {
+          clearInterval(prepInterval);
+          skipPrep();
+        }
+      }, 1000);
+    }
+
+    function skipPrep() {
+      clearInterval(prepInterval);
+      showStep(3);
+      initWebcam();
+    }
+
+    async function initWebcam() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+        document.getElementById('webcam').srcObject = stream;
+      } catch (err) {
+        alert("Mohon izinkan akses kamera & mikrofon untuk memainkan game ini.");
+      }
+    }
+
+    function startSpeechFlow() {
+      document.getElementById('btn-ready').style.display = 'none';
+      const overlay = document.getElementById('countdown-overlay');
+      overlay.style.display = 'flex';
+      let count = 3;
+      overlay.innerText = count;
+
+      const cd = setInterval(() => {
+        count--;
+        if(count > 0) {
+          overlay.innerText = count;
+        } else {
+          clearInterval(cd);
+          overlay.style.display = 'none';
+          startSpeakingSession();
+        }
+      }, 1000);
+    }
+
+    function startSpeakingSession() {
+      let timeLeft = 60;
+      fillerCount = 0;
+      const display = document.getElementById('speak-timer');
+      
+      // Deteksi Web Speech API jika didukung browser
+      initSpeechRecognition();
+
+      speakInterval = setInterval(() => {
+        timeLeft--;
+        let mins = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+        let secs = String(timeLeft % 60).padStart(2, '0');
+        display.innerText = `${mins}:${secs}`;
+
+        if(timeLeft <= 0) {
+          clearInterval(speakInterval);
+          if(speechRec) speechRec.stop();
+          finishGame();
+        }
+      }, 1000);
+    }
+
+    function initSpeechRecognition() {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (SpeechRecognition) {
+        speechRec = new SpeechRecognition();
+        speechRec.continuous = true;
+        speechRec.interimResults = true;
+        speechRec.lang = 'id-ID';
+
+        speechRec.onresult = (event) => {
+          for (let i = event.resultIndex; i < event.results.length; ++i) {
+            let text = event.results[i][0].transcript.toLowerCase();
+            if (text.includes("ee") || text.includes("aa") || text.includes("anu") || text.includes("uhm")) {
+              fillerCount++;
+              document.getElementById('filler-counter').innerText = `Filler Words: ${fillerCount}`;
+            }
+          }
+        };
+        speechRec.start();
+      }
+    }
+
+    function finishGame() {
+      // Matikan kamera
+      const video = document.getElementById('webcam');
+      if (video.srcObject) {
+        video.srcObject.getTracks().forEach(track => track.stop());
+      }
+
+      // Kalkulasi Nilai
+      const baseScore = 95 - (fillerCount * 4);
+      const finalScore = Math.max(60, Math.min(98, baseScore + Math.floor(Math.random() * 5)));
+      
+      document.getElementById('final-score').innerText = `${finalScore}/100`;
+      document.getElementById('result-fillers').innerText = `${fillerCount} Kali`;
+      
+      const feedbacks = [
+        "Kontrol artikulasi dan intonasimu sangat tenang!",
+        "Struktur gagasan sudah cukup runtut, pertahankan tempo bicaramu.",
+        "Cobalah kurangi jeda 'eee' agar penyampaian terasa makin meyakinkan."
+      ];
+      document.getElementById('result-feedback').innerText = `"${feedbacks[Math.floor(Math.random() * feedbacks.length)]}"`;
+
+      showStep(4);
+    }
+
+    function resetGame() {
+      document.getElementById('prep-timer').innerText = "01:00";
+      document.getElementById('speak-timer').innerText = "01:00";
+      document.getElementById('btn-ready').style.display = 'inline-block';
+      document.getElementById('filler-counter').innerText = "Filler Words: 0";
+      showStep(1);
+    }
+
+    function showStep(stepNum) {
+      document.querySelectorAll('.step-box').forEach(box => box.classList.remove('active'));
+      document.getElementById(`step-${stepNum}`).classList.add('active');
+    }
+  </script>
+</body>
+</html>

@@ -213,9 +213,22 @@ button { font: inherit; cursor: pointer; }
       <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
     </svg>
   </a>
+<!-- Tombol Play Game (Membuat Hamburger Drawer Buka) -->
+ 
+ <a href="game-public-speaking.html" style="text-decoration: none;">
+  <!-- Kartu Public Speaking Game -->
+</a>
+ <button
+  onclick="toggleGameMenu()"
+  style="height: 38px; padding: 0 14px; border: 0; border-radius: 20px; background: var(--orange); color: white; font: inherit; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; gap: 7px; cursor: pointer;"
+>
+  <span aria-hidden="true">▶</span>
+  <span>Play Game</span>
+</button>
 
+</div>
   <!-- Tombol Utama -->
-  <a class="btn btn-orange" href="#cek-kelas">Mulai "Show Up"</a>
+
 </div>
     </div>
   </header>
@@ -592,6 +605,81 @@ button { font: inherit; cursor: pointer; }
   // Script Google Analytics Placeholder (dari kodemu sebelumnya)
   console.log("Analytics Ready: Tracking user flow to Show It Sessions and Education sections.");
 </script>
+<!-- OVERLAY HAMBURGER MENU / GAME ARENA DRAWER -->
+<div id="game-drawer" style="position: fixed; top: 0; right: -420px; width: 360px; height: 100vh; background: #0f172a; color: white; z-index: 9999; transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: -10px 0 30px rgba(0,0,0,0.5); padding: 30px 24px; overflow-y: auto; box-sizing: border-box;">
+  
+  <!-- Header Drawer -->
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 16px;">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <span style="font-size: 24px;">🎮</span>
+      <h2 style="margin: 0; font-size: 20px; color: #ffffff; font-weight: 700;">Game Arena</h2>
+    </div>
+    <button onclick="toggleGameMenu()" style="background: rgba(255,255,255,0.1); border: none; color: white; border-radius: 50%; width: 34px; height: 34px; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center;">✕</button>
+  </div>
 
+  <p style="color: #94a3b8; font-size: 13px; line-height: 1.5; margin-bottom: 24px;">
+    Uji keberanian & refleks bicaramu! Pilih mode game di bawah untuk memulai tes interaktif.
+  </p>
+
+<!-- DAFTAR KARTU GAME -->
+<div style="display: flex; flex-direction: column; gap: 16px;">
+  
+  <!-- Game 1: Public Speaking Arena (Bisa Diklik) -->
+  <a href="game-public-speaking.html" style="text-decoration: none; color: inherit; display: block;">
+    <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 18px; transition: all 0.2s; cursor: pointer;" onmouseover="this.style.background='rgba(255,107,53,0.15)'; this.style.borderColor='#ff6b35';" onmouseout="this.style.background='rgba(255,255,255,0.05)'; this.style.borderColor='rgba(255,255,255,0.1)';">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <span style="background: #ff6b35; color: white; font-size: 10px; font-weight: bold; padding: 3px 8px; border-radius: 10px;">SIMULASI</span>
+        <span style="color: #cbd5e1; font-size: 12px;">⭐ Mode 1</span>
+      </div>
+      <h3 style="margin: 0 0 6px 0; font-size: 16px; color: #ffffff;">🎤 Public Speaking Arena</h3>
+      <p style="margin: 0; color: #94a3b8; font-size: 12px; line-height: 1.4;">Latihan presentasi spontan dengan timer & topik acak.</p>
+    </div>
+  </a>
+
+  <!-- Game 2: Voice Dubbing Challenge -->
+  <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 18px; opacity: 0.6; cursor: not-allowed;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+      <span style="background: #3b82f6; color: white; font-size: 10px; font-weight: bold; padding: 3px 8px; border-radius: 10px;">EKSPRESI</span>
+      <span style="color: #cbd5e1; font-size: 12px;">⭐ Mode 2</span>
+    </div>
+    <h3 style="margin: 0 0 6px 0; font-size: 16px; color: #ffffff;">🎙️ Voice Dubbing Challenge</h3>
+    <p style="margin: 0; color: #94a3b8; font-size: 12px; line-height: 1.4;">Olah intonasi vokalmu dengan mengisi suara klip video pendek.</p>
+  </div>
+
+<!-- Game 3: Pidato Impromptu (Bisa Diklik) -->
+<a href="game-pidato.html" style="text-decoration: none; color: inherit; display: block;">
+  <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 18px; transition: all 0.2s; cursor: pointer;" onmouseover="this.style.background='rgba(255,107,53,0.15)'; this.style.borderColor='#ff6b35';" onmouseout="this.style.background='rgba(255,255,255,0.05)'; this.style.borderColor='rgba(255,255,255,0.1)';">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+      <span style="background: #10b981; color: white; font-size: 10px; font-weight: bold; padding: 3px 8px; border-radius: 10px;">PERSUASIF</span>
+      <span style="color: #cbd5e1; font-size: 12px;">⭐ Mode 3</span>
+    </div>
+    <h3 style="margin: 0 0 6px 0; font-size: 16px; color: #ffffff;">📜 Pidato Impromptu</h3>
+    <p style="margin: 0; color: #94a3b8; font-size: 12px; line-height: 1.4;">Uji penulisan naskah & penyampaian pidato dalam durasi 60 detik.</p>
+  </div>
+</a>
+ 
+
+</div>
+
+  </div>
+</div>
+
+<!-- Latar Belakang Gelap Saat Menu Terbuka -->
+<div id="game-backdrop" onclick="toggleGameMenu()" style="position: fixed; top:0; left:0; width:100vw; height:100vh; background: rgba(15,23,42,0.6); backdrop-filter: blur(4px); z-index: 9998; display: none;"></div>
+
+<!-- Script Pembuka & Penutup Drawer -->
+<script>
+  function toggleGameMenu() {
+    const drawer = document.getElementById('game-drawer');
+    const backdrop = document.getElementById('game-backdrop');
+    if (drawer.style.right === '0px') {
+      drawer.style.right = '-420px';
+      backdrop.style.display = 'none';
+    } else {
+      drawer.style.right = '0px';
+      backdrop.style.display = 'block';
+    }
+  }
+</script>
 </body>
 </html>
