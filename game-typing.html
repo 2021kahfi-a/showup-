@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typing Space Defender - Epic Boss Fight</title>
+  <style>
+    :root {
+      --bg-dark: #020617;
+      --card-bg: #0f172a;
+      --yellow: #facc15;
+      --cyan: #22d3ee;
+      --red: #f87171;
+      --green: #4ade80;
+      --neon-cyan: 0 0 10px #22d3ee, 0 0 20px #22d3ee;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      margin: 0;
+      background-color: var(--bg-dark);
+      color: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .header {
+      width: 100%; padding: 20px; display: flex; justify-content: space-between; align-items: center; max-width: 900px; box-sizing: border-box;
+    }
+    .btn-back { color: var(--cyan); text-decoration: none; font-weight: bold; font-size: 14px; text-shadow: var(--neon-cyan); }
+    
+    .game-container {
+      width: 95%; max-width: 900px; background: rgba(15, 23, 42, 0.8); border-radius: 20px; padding: 20px;
+      box-shadow: 0 0 30px rgba(34, 211, 238, 0.1); border: 1px solid #1e293b; position: relative;
+    }
+    
+    .hud { display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: bold; font-size: 18px; letter-spacing: 1px; }
+    .score { color: var(--yellow); text-shadow: 0 0 10px var(--yellow); }
+    .level { color: var(--cyan); text-shadow: var(--neon-cyan); }
+    
+    .canvas-wrapper { position: relative; display: flex; justify-content: center; border-radius: 12px; overflow: hidden; border: 2px solid #334155; }
+    canvas { background: #020617; display: block; width: 100%; max-width: 900px; height: auto; }
+    
+    /* OVERLAY GAME OVER / WIN */
+    #overlay {
+      display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      background: rgba(15, 23, 42, 0.95); padding: 40px; border-radius: 16px; border: 2px solid var(--red);
+      text-align: center; z-index: 20; backdrop-filter: blur(5px);
+    }
+    .btn-primary {
+      background: linear-gradient(45deg, #22d3ee, #3b82f6); color: #fff; border: none; padding: 12px 30px;
+      font-weight: bold; font-size: 16px; border-radius: 50px; cursor: pointer; margin-top: 15px;
+      box-shadow: var(--neon-cyan); transition: transform 0.2s;
+    }
+    .btn-primary:hover { transform: scale(1.05); }
+
+    /* TAKTIS QUIZ MODUL PANEL */
+    #quiz-panel {
+      display: none; position: absolute; right: 20px; top: 50px; width: 320px;
+      background: rgba(15, 23, 42, 0.85); border: 2px solid var(--cyan); border-radius: 12px;
+      padding: 20px; box-shadow: 0 0 20px rgba(34,211,238,0.3); z-index: 10; backdrop-filter: blur(10px);
+    }
+    .quiz-title { font-size: 14px; color: var(--cyan); font-weight: bold; border-bottom: 1px solid #334155; padding-bottom: 10px; margin-bottom: 15px; letter-spacing: 1px; }
+    .quiz-question { font-size: 15px; line-height: 1.5; margin-bottom: 20px; color: #f8fafc; }
+    .quiz-btn {
+      display: block; width: 100%; background: transparent; border: 1px solid var(--cyan); color: var(--cyan);
+      padding: 10px; margin-bottom: 10px; border-radius: 8px; font-size: 13px; cursor: pointer;
+      text-align: left; transition: all 0.2s; font-weight: bold;
+    }
+    .quiz-btn:hover { background: rgba(34,211,238,0.2); box-shadow: inset 0 0 10px rgba(34,211,238,0.5); }
+    .quiz-timer { font-size: 18px; color: var(--red); font-weight: bold; text-align: center; margin-bottom: 15px; }
+
+  </style>
+</head>
+<body>
+
+
+<!-- Audio BGM -->
+  <audio id="bgm" loop preload="auto">
+    <source src="backsound.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="header">
+    <a href="index.html" class="btn-back">← KELUAR ARENA</a>
+    <div style="display: flex; align-items: center; gap: 15px;">
+      <!-- Tombol Manual Musik -->
+      <button onclick="toggleMusic()" id="btn-music" style="background: #1e293b; color: #22d3ee; border: 1px solid #22d3ee; padding: 6px 14px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 12px;">
+        🎵 Putar Musik
+      </button>
+      <span style="font-weight: bold; color: var(--cyan); font-size: 20px; text-shadow: var(--neon-cyan);">🚀 TYPING DEFENDER</span>
+    </div>
+  </div>
+  <div class="game-container">
+    <div class="hud">
+      <div class="score">SKOR: <span id="scoreVal">0</span></div>
+      <div class="level">TAHAP: <span id="levelVal">1</span> - <span id="phaseVal">TAHAN SERANGAN BOLA!</span></div>
+    </div>
+    
+    <div class="canvas-wrapper">
+      <canvas id="gameCanvas" width="900" height="550"></canvas>
+      
+      <!-- QUIZ PANEL -->
+      <div id="quiz-panel">
+        <div class="quiz-title">📡 TAKTIS QUIZ MODUL</div>
+        <div class="quiz-timer" id="quiz-timer">Waktu: 10s</div>
+        <div class="quiz-question" id="quiz-q">Pertanyaan muncul di sini...</div>
+        <div id="quiz-options">
+          <!-- Tombol jawaban di-generate via JS -->
+        </div>
+      </div>
+
+      <!-- GAME OVER / WIN OVERLAY -->
+      <div id="overlay">
+        <h2 id="overlay-title" style="color: var(--red); margin: 0 0 10px 0; font-size: 32px; text-shadow: 0 0 15px var(--red);">KAPAL HANCUR!</h2>
+        <div style="font-size: 20px; color: #cbd5e1; margin-bottom: 20px;" id="overlay-desc">Kamu gagal menembus perisai musuh.</div>
+        <div style="font-size: 24px; color: var(--yellow); font-weight: bold; margin-bottom: 20px;">Skor Akhir: <span id="final-score">0</span></div>
+        <button class="btn-primary" onclick="resetGame()">MISI ULANG 🔄</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById("gameCanvas");
+    const ctx = canvas.getContext("2d");
+
+    // DATA LEVEL & KUIS EDUKASI
+    const levels = [
+      { 
+        boss: "MOTHERBOARD: OVERTHINKING", 
+        minions: ["GUGUP", "TAKUT", "PANIK", "BLANK", "MALU"], 
+        quiz: {
+          q: "Apa metode mind-map cepat terbaik untuk pidato impromptu (mendadak)?",
+          options: ["Menghafal Naskah", "Metode PREP (Point, Reason, Example, Point)", "Banyak Minum Air", "Membaca Slide Terus"],
+          ans: 1
+        }
+      },
+      { 
+        boss: "MOTHERBOARD: STAGE FRIGHT", 
+        minions: ["JEDA", "GEMETAR", "GAGAP", "KERINGAT", "BINGUNG"], 
+        quiz: {
+          q: "Bagaimana cara terbaik mengontrol intonasi agar tidak terdengar monoton?",
+          options: ["Berteriak dari awal hingga akhir", "Berbicara sangat cepat agar cepat selesai", "Memberikan penekanan pada kata kunci (Power Words)", "Menggunakan nada datar seperti robot"],
+          ans: 2
+        }
+      },
+      { 
+        boss: "MOTHERBOARD: BAD POSTURE", 
+        minions: ["KAKU", "DINGIN", "PASIF", "TEGANG", "MINDER"], 
+        quiz: {
+          q: "Apa gestur tangan yang disarankan saat menjelaskan poin penting?",
+          options: ["Memasukkan tangan ke saku celana", "Melipat tangan di dada", "Tangan terbuka (Open Palm) mengarah ke audiens", "Menunjuk-nunjuk audiens dengan kasar"],
+          ans: 2
+        }
+      }
+    ];
+
+    let currentLevel = 0;
+    let score = 0;
+    let state = "DEFEND"; // DEFEND, QUIZ, GAMEOVER, WIN
+    let minionsDefeated = 0;
+    let gameLoop, spawnLoop, quizTimerInterval;
+    let quizTimeLeft = 15;
+    
+    let enemies = [];
+    let lasers = [];
+    let megaLasers = [];
+    let particles = [];
+    let stars = [];
+    let targetEnemy = null;
+    let bgmStarted = false;
+    
+    // Posisi Pesawat & Boss
+    const ship = { x: 450, y: 480 };
+    const boss = { x: 450, y: 120, shield: true, hp: 100 };
+
+    // --- AUDIO SYNTHESIZER ---
+    let audioCtx;
+    function initAudio() {
+      if(!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if(audioCtx.state === 'suspended') audioCtx.resume();
+      return (type, freq1, freq2, duration, vol) => {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq1, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(freq2, audioCtx.currentTime + duration);
+        gain.gain.setValueAtTime(vol, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+        osc.connect(gain); gain.connect(audioCtx.destination);
+        osc.start(); osc.stop(audioCtx.currentTime + duration);
+      };
+    }
+    let playSound = null;
+
+    // --- INITIALIZATION ---
+    function initGame() {
+      currentLevel = 0; score = 0;
+      document.getElementById('overlay').style.display = 'none';
+      document.getElementById('quiz-panel').style.display = 'none';
+      
+      // Buat Bintang Parallax & Nebula
+      stars = [];
+      for (let i = 0; i < 100; i++) {
+        stars.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, speed: Math.random() * 2 + 0.5, size: Math.random() * 2, color: Math.random() > 0.5 ? "#ffffff" : "#22d3ee" });
+      }
+      
+      startLevel();
+      if(gameLoop) cancelAnimationFrame(gameLoop);
+      gameLoop = requestAnimationFrame(update);
+    }
+
+    function startLevel() {
+      state = "DEFEND";
+      minionsDefeated = 0;
+      boss.shield = true; boss.hp = 100;
+      enemies = []; lasers = []; megaLasers = []; particles = []; targetEnemy = null;
+      document.getElementById('levelVal').innerText = (currentLevel + 1);
+      document.getElementById('phaseVal').innerText = "TAHAN SERANGAN BOLA KATA!";
+      document.getElementById('phaseVal').style.color = "var(--cyan)";
+      document.getElementById('quiz-panel').style.display = 'none';
+      
+      if(spawnLoop) clearInterval(spawnLoop);
+      spawnLoop = setInterval(spawnMinion, 1800 - (currentLevel * 200)); // Makin tinggi level, bola makin cepat muncul
+    }
+
+    function spawnMinion() {
+      if(state !== "DEFEND") return;
+      const levelData = levels[currentLevel];
+      const word = levelData.minions[Math.floor(Math.random() * levelData.minions.length)];
+      enemies.push({ word: word, typed: "", x: Math.random() * 500 + 100, y: boss.y + 40, speed: 0.8 + (currentLevel * 0.3) });
+    }
+
+    // --- DRAWING FUNCTIONS (GRAFIS MODERN) ---
+    function drawBackground() {
+      ctx.fillStyle = "#020617"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+      // Nebula Effect
+      let grd = ctx.createRadialGradient(200, 150, 50, 200, 150, 300);
+      grd.addColorStop(0, "rgba(34, 211, 238, 0.1)"); grd.addColorStop(1, "transparent");
+      ctx.fillStyle = grd; ctx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      let grd2 = ctx.createRadialGradient(700, 400, 50, 700, 400, 400);
+      grd2.addColorStop(0, "rgba(248, 113, 113, 0.08)"); grd2.addColorStop(1, "transparent");
+      ctx.fillStyle = grd2; ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Stars
+      stars.forEach(s => {
+        ctx.fillStyle = s.color; ctx.beginPath(); ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2); ctx.fill();
+        s.y += s.speed; if (s.y > canvas.height) { s.y = 0; s.x = Math.random() * canvas.width; }
+      });
+    }
+
+    function drawShip() {
+      ctx.save();
+      ctx.translate(ship.x, ship.y);
+      // Api Jet
+      ctx.fillStyle = "#22d3ee"; ctx.shadowBlur = 15; ctx.shadowColor = "#22d3ee";
+      ctx.beginPath(); ctx.moveTo(-15, 20); ctx.lineTo(-15, 40 + Math.random()*15); ctx.lineTo(-5, 20); ctx.fill();
+      ctx.beginPath(); ctx.moveTo(15, 20); ctx.lineTo(15, 40 + Math.random()*15); ctx.lineTo(5, 20); ctx.fill();
+      
+      // Sayap
+      ctx.shadowBlur = 0; ctx.fillStyle = "#475569";
+      ctx.beginPath(); ctx.moveTo(0, -10); ctx.lineTo(-40, 20); ctx.lineTo(-40, 30); ctx.lineTo(0, 15); ctx.fill();
+      ctx.beginPath(); ctx.moveTo(0, -10); ctx.lineTo(40, 20); ctx.lineTo(40, 30); ctx.lineTo(0, 15); ctx.fill();
+      
+      // Badan Pesawat
+      ctx.fillStyle = "#cbd5e1";
+      ctx.beginPath(); ctx.moveTo(0, -35); ctx.lineTo(-15, 10); ctx.lineTo(-15, 25); ctx.lineTo(15, 25); ctx.lineTo(15, 10); ctx.closePath(); ctx.fill();
+      
+      // Kokpit Kaca
+      ctx.fillStyle = "#0284c7";
+      ctx.beginPath(); ctx.moveTo(0, -15); ctx.lineTo(-6, 5); ctx.lineTo(6, 5); ctx.closePath(); ctx.fill();
+      ctx.restore();
+    }
+
+    function drawBoss() {
+      const bText = levels[currentLevel].boss;
+      ctx.save(); ctx.translate(boss.x, boss.y);
+
+      // Perisai Energi (Shield)
+      if (boss.shield) {
+        ctx.strokeStyle = "rgba(248, 113, 113, 0.6)"; ctx.lineWidth = 6; ctx.shadowBlur = 20; ctx.shadowColor = "#f87171";
+        ctx.beginPath(); ctx.arc(0, 0, 120 + Math.sin(Date.now()*0.005)*5, 0, Math.PI * 2); ctx.stroke();
+      } else {
+        // Shield Mati -> Vulnerable (Biru)
+        ctx.strokeStyle = "rgba(34, 211, 238, 0.4)"; ctx.lineWidth = 3; ctx.shadowBlur = 10; ctx.shadowColor = "#22d3ee";
+        ctx.beginPath(); ctx.arc(0, 0, 120, 0, Math.PI * 2); ctx.stroke();
+      }
+      ctx.shadowBlur = 0;
+
+      // Bentuk Motherboard
+      ctx.fillStyle = "#064e3b"; ctx.strokeStyle = "#10b981"; ctx.lineWidth = 3;
+      ctx.fillRect(-140, -50, 280, 100); ctx.strokeRect(-140, -50, 280, 100);
+      
+      // Sirkuit Detail
+      ctx.beginPath(); ctx.moveTo(-100, -50); ctx.lineTo(-100, -20); ctx.lineTo(-120, -20); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(100, 50); ctx.lineTo(100, 20); ctx.lineTo(120, 20); ctx.stroke();
+      ctx.fillStyle = "#047857"; ctx.fillRect(-120, -30, 20, 20); ctx.fillRect(90, 10, 30, 20);
+
+      // Layar LED Tengah
+      ctx.fillStyle = boss.shield ? "#1e293b" : "#7f1d1d"; ctx.fillRect(-110, -25, 220, 50);
+      ctx.strokeStyle = boss.shield ? "#334155" : "#ef4444"; ctx.strokeRect(-110, -25, 220, 50);
+      
+      ctx.fillStyle = boss.shield ? "#38bdf8" : "#fca5a5"; ctx.font = "bold 16px Courier New"; ctx.textAlign = "center";
+      ctx.fillText(bText, 0, 5);
+      ctx.restore();
+    }
+
+    function drawMinion(e) {
+      ctx.fillStyle = "#0f172a"; ctx.strokeStyle = (e === targetEnemy) ? "#22d3ee" : "#ef4444";
+      ctx.lineWidth = e === targetEnemy ? 4 : 2;
+      ctx.shadowBlur = e === targetEnemy ? 15 : 0; ctx.shadowColor = "#22d3ee";
+      ctx.beginPath(); ctx.arc(e.x, e.y, 38, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+      ctx.shadowBlur = 0;
+      
+      ctx.font = "bold 14px Courier New"; const typedW = ctx.measureText(e.typed).width;
+      ctx.fillStyle = "#facc15"; ctx.fillText(e.typed, e.x - (ctx.measureText(e.word).width/2) + (typedW/2), e.y + 5);
+      ctx.fillStyle = "#ffffff"; ctx.fillText(e.word.substring(e.typed.length), e.x + (typedW/2), e.y + 5);
+    }
+
+    // --- GAME LOOP ---
+    function update() {
+      if (state === "GAMEOVER" || state === "WIN") return;
+      drawBackground();
+      drawBoss();
+      drawShip();
+
+      // Gambar Musuh
+      for (let i = enemies.length - 1; i >= 0; i--) {
+        let e = enemies[i];
+        if(state === "DEFEND") e.y += e.speed;
+        drawMinion(e);
+        if (e.y > canvas.height - 40) { endGame(false, "Bola kosa kata menghancurkan pesawatmu!"); return; }
+      }
+
+      // Gambar Laser Biasa
+      for (let i = lasers.length - 1; i >= 0; i--) {
+        let l = lasers[i];
+        ctx.strokeStyle = "#facc15"; ctx.lineWidth = 4; ctx.shadowBlur = 10; ctx.shadowColor = "#facc15";
+        ctx.beginPath(); ctx.moveTo(l.sx, l.sy); ctx.lineTo(l.ex, l.ey); ctx.stroke(); ctx.shadowBlur = 0;
+        l.life--; if(l.life <= 0) lasers.splice(i, 1);
+      }
+
+      // Gambar MEGA LASER (Saat Kuis Benar)
+      for (let i = megaLasers.length - 1; i >= 0; i--) {
+        let ml = megaLasers[i];
+        ctx.fillStyle = "rgba(34, 211, 238, 0.8)"; ctx.shadowBlur = 30; ctx.shadowColor = "#22d3ee";
+        ctx.fillRect(ship.x - ml.width/2, boss.y, ml.width, ship.y - boss.y); ctx.shadowBlur = 0;
+        ml.width -= 1; // Laser menipis lalu hilang
+        if(ml.width <= 0) {
+          megaLasers.splice(i, 1);
+          explode(boss.x, boss.y, 100, "#ef4444"); // Ledakan Bos
+          currentLevel++;
+          if(currentLevel >= levels.length) endGame(true, "SELAMAT! Semua Motherboard berhasil diretas.");
+          else setTimeout(startLevel, 2000);
+        }
+      }
+
+      // Gambar Partikel
+      for (let i = particles.length - 1; i >= 0; i--) {
+        let p = particles[i];
+        ctx.fillStyle = p.color; ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI*2); ctx.fill();
+        p.x += p.vx; p.y += p.vy; p.life--;
+        if(p.life <= 0) particles.splice(i, 1);
+      }
+
+      gameLoop = requestAnimationFrame(update);
+    }
+
+    // --- TYPING MECHANIC ---
+    window.addEventListener('keydown', (e) => {
+      if(!playSound) playSound = initAudio();
+      if(!bgmStarted) { document.getElementById('bgm').volume = 0.3; document.getElementById('bgm').play().catch(()=>{}); bgmStarted = true; }
+      
+      if (state !== "DEFEND" || e.key.length !== 1 || !e.key.match(/[a-z]/i)) return;
+      const char = e.key.toUpperCase();
+
+      if (targetEnemy) {
+        if (char === targetEnemy.word[targetEnemy.typed.length]) {
+          shootLaser(targetEnemy); targetEnemy.typed += char;
+          if (targetEnemy.typed === targetEnemy.word) destroyEnemy(targetEnemy);
+        } else { if(playSound) playSound('triangle', 150, 100, 0.1, 0.1); }
+      } else {
+        for (let i = 0; i < enemies.length; i++) {
+          if (enemies[i].word[0] === char) {
+            targetEnemy = enemies[i]; shootLaser(targetEnemy); targetEnemy.typed += char;
+            if (targetEnemy.typed === targetEnemy.word) destroyEnemy(targetEnemy);
+            break;
+          }
+        }
+      }
+    });
+
+    function shootLaser(target) {
+      if(playSound) playSound('sawtooth', 800, 200, 0.1, 0.05);
+      lasers.push({ sx: ship.x, sy: ship.y - 40, ex: target.x, ey: target.y + 20, life: 4 });
+    }
+
+    function destroyEnemy(enemy) {
+      if(playSound) playSound('square', 150, 50, 0.2, 0.1);
+      score += 20; document.getElementById('scoreVal').innerText = score;
+      explode(enemy.x, enemy.y, 20, "#22d3ee");
+      enemies.splice(enemies.indexOf(enemy), 1);
+      targetEnemy = null;
+      minionsDefeated++;
+      
+      // Jika berhasil hancurkan 5 bola, masuk mode kuis!
+      if(minionsDefeated >= 5) {
+        state = "QUIZ";
+        clearInterval(spawnLoop);
+        boss.shield = false; // Perisai mati
+        document.getElementById('phaseVal').innerText = "PERISAI DOWN! JAWAB KUIS UNTUK MENEMBAK!";
+        document.getElementById('phaseVal').style.color = "var(--red)";
+        showQuiz();
+      }
+    }
+
+    function explode(x, y, count, color) {
+      for(let i=0; i<count; i++) {
+        particles.push({ x: x, y: y, vx: (Math.random()-0.5)*12, vy: (Math.random()-0.5)*12, size: Math.random()*3+1, color: Math.random()>0.5?color:"#facc15", life: Math.random()*20+10 });
+      }
+    }
+
+    // --- QUIZ MECHANIC ---
+    function showQuiz() {
+      const qData = levels[currentLevel].quiz;
+      document.getElementById('quiz-q').innerText = qData.q;
+      
+      const optContainer = document.getElementById('quiz-options');
+      optContainer.innerHTML = '';
+      
+      qData.options.forEach((opt, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'quiz-btn';
+        btn.innerText = String.fromCharCode(65 + index) + ". " + opt;
+        btn.onclick = () => answerQuiz(index, qData.ans);
+        optContainer.appendChild(btn);
+      });
+
+      document.getElementById('quiz-panel').style.display = 'block';
+      
+      // Timer Kuis
+      quizTimeLeft = 15;
+      document.getElementById('quiz-timer').innerText = `Waktu: ${quizTimeLeft}s`;
+      if(quizTimerInterval) clearInterval(quizTimerInterval);
+      quizTimerInterval = setInterval(() => {
+        quizTimeLeft--;
+        document.getElementById('quiz-timer').innerText = `Waktu: ${quizTimeLeft}s`;
+        if(quizTimeLeft <= 0) {
+          clearInterval(quizTimerInterval);
+          endGame(false, "Waktu habis! Motherboard mereset perisainya dan menghancurkanmu.");
+        }
+      }, 1000);
+    }
+
+    function answerQuiz(selectedIndex, correctIndex) {
+      clearInterval(quizTimerInterval);
+      document.getElementById('quiz-panel').style.display = 'none';
+
+      if (selectedIndex === correctIndex) {
+        // BENAR! Tembak Mega Laser
+        score += 200; document.getElementById('scoreVal').innerText = score;
+        if(playSound) playSound('square', 200, 20, 1.0, 0.3); // Suara besar
+        megaLasers.push({ width: 60 }); // Picu animasi MEGA LASER
+      } else {
+        // SALAH! Kapal Hancur
+        if(playSound) playSound('sawtooth', 100, 30, 0.5, 0.2);
+        endGame(false, "Jawaban Salah! Sistem keamanan Motherboard menyerang balik.");
+      }
+    }
+
+    // --- END GAME ---
+    function endGame(isWin, message) {
+      state = isWin ? "WIN" : "GAMEOVER";
+      clearInterval(spawnLoop); clearInterval(quizTimerInterval);
+      document.getElementById('quiz-panel').style.display = 'none';
+      document.getElementById('overlay-title').innerText = isWin ? "MISI SELESAI!" : "KAPAL HANCUR!";
+      document.getElementById('overlay-title').style.color = isWin ? "var(--cyan)" : "var(--red)";
+      document.getElementById('overlay-desc').innerText = message;
+      document.getElementById('final-score').innerText = score;
+      document.getElementById('overlay').style.display = 'block';
+    }
+
+    function resetGame() { initGame(); }
+    initGame();
+    // Fungsi Toggle Musik Manual & Klik Pertama
+    function toggleMusic() {
+      const bgm = document.getElementById('bgm');
+      const btn = document.getElementById('btn-music');
+      
+      if (bgm.paused) {
+        bgm.volume = 0.3;
+        bgm.play().then(() => {
+          btn.innerText = "🔊 Musik: ON";
+          btn.style.borderColor = "#4ade80";
+          btn.style.color = "#4ade80";
+          bgmStarted = true;
+        }).catch(err => {
+          alert("File MP3 tidak ditemukan. Pastikan nama file di folder benar-benar 'backsound.mp3'");
+        });
+      } else {
+        bgm.pause();
+        btn.innerText = "🔇 Musik: OFF";
+        btn.style.borderColor = "#f87171";
+        btn.style.color = "#f87171";
+      }
+    }
+
+    // Pemicu Klik Bebas di Halaman
+    document.body.addEventListener('click', () => {
+      if (!bgmStarted) {
+        toggleMusic();
+      }
+    }, { once: true });
+  </script>
+</body>
+</html>

@@ -245,7 +245,7 @@ img {
    HEADER & NAVIGATION
    ========================================================================== */
 .nav-wrapper {
-  background: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.94);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   position: sticky;
@@ -256,27 +256,29 @@ img {
 }
 
 .nav {
-  height: 82px;
+  height: 78px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
+  gap: 20px;
 }
 
 .brand {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 10px;
-  font-family: 'Manrope', sans-serif;
+  gap: 9px;
+  font-family: 'Manrope', 'Plus Jakarta Sans', sans-serif;
   font-weight: 800;
-  font-size: 24px;
+  font-size: 23px;
   color: var(--navy-900);
   letter-spacing: -0.04em;
+  text-decoration: none;
+  flex-shrink: 0;
 }
 
 .brand-dot {
-  width: 9px;
-  height: 9px;
+  width: 8px;
+  height: 8px;
   background: var(--orange-500);
   border-radius: 50%;
   display: inline-block;
@@ -289,16 +291,20 @@ img {
 
 .navlinks {
   display: flex;
-  gap: 32px;
+  gap: 24px;
   align-items: center;
 }
 
 .navlinks a {
-  font-size: 14.5px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
   font-weight: 600;
   color: var(--navy-600);
   position: relative;
-  padding: 6px 0;
+  padding: 8px 0;
+  text-decoration: none;
+  transition: var(--transition);
+  white-space: nowrap;
 }
 
 .navlinks a::after {
@@ -307,7 +313,7 @@ img {
   bottom: 0;
   left: 0;
   width: 0;
-  height: 2px;
+  height: 2.5px;
   background: var(--orange-500);
   border-radius: 2px;
   transition: width 0.25s ease;
@@ -317,19 +323,26 @@ img {
   color: var(--navy-900);
 }
 
-.navlinks a:hover::after {
+.navlinks a:hover::after,
+.navlinks a.active::after {
   width: 100%;
+}
+
+.navlinks a.active {
+  color: var(--orange-500);
+  font-weight: 700;
 }
 
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
+  flex-shrink: 0;
 }
 
 .icon-btn {
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   display: grid;
   place-items: center;
@@ -337,6 +350,7 @@ img {
   background: var(--bg-slate);
   border: 1px solid var(--border-light);
   transition: var(--transition);
+  text-decoration: none;
 }
 
 .icon-btn:hover {
@@ -358,35 +372,38 @@ img {
 
 .game-btn {
   background: linear-gradient(135deg, var(--orange-500), #FF4500);
-  color: #FFFFFF;
-  padding: 9px 18px;
+  color: #FFFFFF !important;
+  padding: 8px 16px;
   border-radius: var(--radius-full);
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 700;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
   border: 0;
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(255, 96, 38, 0.3);
+  box-shadow: 0 4px 14px rgba(255, 96, 38, 0.3);
   transition: var(--transition);
+  text-decoration: none;
+  white-space: nowrap;
 }
 
 .game-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(255, 96, 38, 0.45);
+  box-shadow: 0 8px 20px rgba(255, 96, 38, 0.45);
 }
 
 .pulse-dot {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   background: #FFFFFF;
   border-radius: 50%;
   display: inline-block;
-  animation: pulse 1.6s infinite;
+  animation: pulse-glow 1.6s infinite;
 }
 
-@keyframes pulse {
+@keyframes pulse-glow {
   0% { transform: scale(0.95); opacity: 1; }
   50% { transform: scale(1.4); opacity: 0.6; }
   100% { transform: scale(0.95); opacity: 1; }
@@ -1607,19 +1624,20 @@ img {
    ========================================================================== */
 #mobile-menu {
   position: fixed;
-  top: 82px;
+  top: 78px;
   left: 0;
   width: 100%;
   background: #FFFFFF;
-  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-xl);
   border-bottom: 1px solid var(--border-light);
-  padding: 24px;
+  padding: 20px 24px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 8px;
   z-index: 999;
   transform: translateY(-120%);
   transition: transform 0.3s ease;
+  box-sizing: border-box;
 }
 
 #mobile-menu.open {
@@ -1627,11 +1645,20 @@ img {
 }
 
 #mobile-menu a {
-  font-size: 16px;
-  font-weight: 700;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
   color: var(--navy-900);
   padding: 10px 0;
   border-bottom: 1px solid var(--border-subtle);
+  transition: var(--transition);
+}
+
+#mobile-menu a:hover,
+#mobile-menu a.active {
+  color: var(--orange-500);
+  font-weight: 700;
+  padding-left: 6px;
 }
 
 /* ==========================================================================
@@ -1650,7 +1677,7 @@ img {
   }
 }
 
-@media (max-width: 860px) {
+@media (max-width: 980px) {
   .navlinks {
     display: none;
   }
@@ -1733,20 +1760,20 @@ img {
 
     <!-- Desktop Navigation Links -->
     <nav class="navlinks" aria-label="Main Navigation">
-      <a href="#home">Beranda</a>
-    <a href="#our-mentors">Mentor</a>
+      <a href="#home" class="active">Beranda</a>
+      <a href="#about">Tentang Kami</a>
+      <a href="#our-mentors">Mentor</a>
       <a href="rasyad.html">Cek Kelas</a>
       <a href="#show-it">Show It Session</a>
       <a href="#artikel">Artikel & Edukasi</a>
       <a href="#komunitas">Komunitas</a>
     </nav>
-  
 
     <!-- Nav Action Buttons -->
     <div class="nav-right">
       <!-- Instagram Link -->
       <a href="https://www.instagram.com/showup.co.id" target="_blank" rel="noopener noreferrer" class="icon-btn" title="Instagram @showup.co.id" aria-label="Instagram">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
           <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
           <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
@@ -1755,7 +1782,7 @@ img {
 
       <!-- WhatsApp Direct Chat Link -->
       <a href="https://wa.me/6285881976076?text=Ready%20To%20Show%20Up!%20Saya%20siap%20unlock%20potensi%20diri%20dan%20%23ShowUp%20bersama.%20Mohon%20bantuannya%20untuk%20mulai%20bimbingan%20kelas%20ya!%20🚀" target="_blank" rel="noopener noreferrer" class="icon-btn wa-btn" title="Konsultasi WhatsApp" aria-label="WhatsApp">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
         </svg>
       </a>
@@ -1780,9 +1807,9 @@ img {
 
 <!-- Mobile Navigation Menu -->
 <div id="mobile-menu">
-  <a href="#home" onclick="toggleMobileMenu()">Beranda</a>
+  <a href="#home" class="active" onclick="toggleMobileMenu()">Beranda</a>
   <a href="#about" onclick="toggleMobileMenu()">Tentang Kami</a>
-  <a href="#our-mentors" onclick="toggleMobileMenu()">Our Mentors</a>
+  <a href="#our-mentors" onclick="toggleMobileMenu()">Mentor</a>
   <a href="rasyad.html" onclick="toggleMobileMenu()">Cek Kelas</a>
   <a href="#show-it" onclick="toggleMobileMenu()">Show It Session</a>
   <a href="#artikel" onclick="toggleMobileMenu()">Artikel & Edukasi</a>
@@ -2542,19 +2569,45 @@ img {
       </div>
     </a>
 
-    <!-- Game 3 -->
+  <!-- Game 3: Pidato Impromptu -->
     <a href="game-pidato.html" class="game-card-link">
       <div class="game-card-item" style="border-left: 3px solid #10B981;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-          <span style="background: #10B981; color: white; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 6px;">PERSUASIF</span>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <span style="background: #10B981; color: white; font-size: 10px;">PERSUASIF</span>
           <span style="color: #CBD5E1; font-size: 12px;">⭐ Mode 3</span>
         </div>
         <h4 style="margin: 0 0 6px 0; font-size: 16px; color: #FFFFFF;">📜 Pidato Impromptu</h4>
-        <p style="margin: 0; color: #94A3B8; font-size: 12.5px; line-height: 1.5;">Uji kecepatan menyusun naskah dan membawakannya secara lugas dalam 60 detik.</p>
+        <p style="margin: 0; color: #94A3B8; font-size: 12.5px; line-height: 1.4;">Uji kecepatan menyusun naskah dan membawakannya secara lugas dalam 60 detik.</p>
       </div>
     </a>
-  </div>
-</div>
+
+    <!-- Game 4: Classic Snake (DIPINDAHKAN KE SINI / SEBELUM CLOSING DIV) -->
+    <a href="game-snake.html" style="text-decoration: none !important; color: inherit !important; display: block; margin-top: 14px;">
+      <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 18px; transition: all 0.2s; cursor: pointer;" onmouseover="this.style.background='rgba(168,85,247,0.15)'; this.style.borderColor='#a855f7';" onmouseout="this.style.background='rgba(255,255,255,0.05)'; this.style.borderColor='rgba(255,255,255,0.1)';">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <span style="background: #a855f7; color: white; font-size: 10px; font-weight: bold; padding: 3px 8px; border-radius: 10px;">CASUAL</span>
+          <span style="color: #cbd5e1; font-size: 12px;">⭐ Mode 4</span>
+        </div>
+        <h3 style="margin: 0 0 6px 0; font-size: 16px; color: #ffffff;">🐍 Classic Snake</h3>
+        <p style="margin: 0; color: #94a3b8; font-size: 12px; line-height: 1.4;">Uji refleks dan fokusmu dengan game ular klasik mengumpulkan apel.</p>
+      </div>
+    </a>
+
+    <!-- Game 5: Typing Space Shooter -->
+    <a href="game-typing.html" style="text-decoration: none !important; color: inherit !important; display: block; margin-top: 14px;">
+      <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 18px; transition: all 0.2s; cursor: pointer;" onmouseover="this.style.background='rgba(234,179,8,0.15)'; this.style.borderColor='#eab308';" onmouseout="this.style.background='rgba(255,255,255,0.05)'; this.style.borderColor='rgba(255,255,255,0.1)';">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <span style="background: #eab308; color: #0f172a; font-size: 10px; font-weight: bold; padding: 3px 8px; border-radius: 10px;">FOKUS & KETIK</span>
+          <span style="color: #cbd5e1; font-size: 12px;">⭐ Mode 5</span>
+        </div>
+        <h3 style="margin: 0 0 6px 0; font-size: 16px; color: #ffffff;">🚀 Typing Defender</h3>
+        <p style="margin: 0; color: #94a3b8; font-size: 12px; line-height: 1.4;">Hancurkan rintangan bicaramu dengan mengetik kunci-kunci public speaking!</p>
+      </div>
+    </a>
+  </div> <!-- Tag penutup ini baru ditaruh DI BAWAH Game 4 -->
+</div>   <!-- Tag penutup ini juga di bawah -->
+
+
 
 <!-- Backdrop Gelap -->
 <div id="game-backdrop" onclick="toggleGameMenu()"></div>
